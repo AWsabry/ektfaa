@@ -1,5 +1,6 @@
 import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
+import 'package:ektfaa/Presentations/SignUp/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,13 +13,14 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   init(context) {
-    Future.delayed(const Duration(milliseconds: 1500)).then((value) {
-      pushAndRemoved(context, widget);
+    Future.delayed(const Duration(seconds: 3)).then((value) {
+      pushAndRemoved(context, SignUp());
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    init(context);
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
