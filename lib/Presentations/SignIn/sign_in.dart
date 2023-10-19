@@ -25,7 +25,7 @@ class SignIn extends StatelessWidget {
                 Stack(
                   children: [
                     Container(
-                      color: Colors.deepOrange[900],
+                      color: Colors.white,
                       height: size.height / 2.52,
                       width: size.width,
                       child: Image(
@@ -81,32 +81,20 @@ class SignIn extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(right: 25.0),
                             child: SizedBox(
-                              height: 43,
                               child: TextFormField(
                                 controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (value) => value!.isEmpty
                                     ? "Your Email Cannot Be Empty"
                                     : null,
-                                decoration: InputDecoration(
-                                    border: const OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(4))),
-                                    enabledBorder: const OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.grey),
+                                decoration: const InputDecoration(
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10.0),
+                                  border: OutlineInputBorder(
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(4)),
-                                    ),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(4))),
-                                    labelStyle: GoogleFonts.inter(
-                                        color: Colors.grey,
-                                        fontSize: 0,
-                                        fontWeight: FontWeight.w400)),
+                                          BorderRadius.all(Radius.circular(4))),
+                                ),
                               ),
                             ),
                           ),
@@ -122,7 +110,6 @@ class SignIn extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(right: 25.0),
                             child: SizedBox(
-                              height: 43,
                               child: TextFormField(
                                 controller: passwordController,
                                 obscureText: true,
@@ -130,42 +117,36 @@ class SignIn extends StatelessWidget {
                                 validator: (value) => value!.isEmpty
                                     ? "Your Password Cannot Be Empty"
                                     : null,
-                                decoration: InputDecoration(
-                                    border: const OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(4))),
-                                    enabledBorder: const OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.grey),
+                                decoration: const InputDecoration(
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10.0),
+                                  border: OutlineInputBorder(
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(4)),
-                                    ),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(4))),
-                                    labelStyle: GoogleFonts.inter(
-                                        color: Colors.grey,
-                                        fontSize: 0,
-                                        fontWeight: FontWeight.w400)),
+                                          BorderRadius.all(Radius.circular(4))),
+                                ),
                               ),
                             ),
                           ),
                           const SizedBox(height: 15),
                           Padding(
                             padding: const EdgeInsets.only(right: 25.0),
-                            child: Container(
-                              height: 55,
-                              decoration: const BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12))),
-                              child: Center(
-                                child: Text(
-                                  EktfaaConstants.signIn,
-                                  style:
-                                      GoogleFonts.openSans(color: Colors.white),
+                            child: InkWell(
+                              onTap: () {
+                                if (formkey.currentState!.validate()) {}
+                              },
+                              child: Container(
+                                height: 55,
+                                decoration: const BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12))),
+                                child: Center(
+                                  child: Text(
+                                    EktfaaConstants.signIn,
+                                    style: GoogleFonts.openSans(
+                                        color: Colors.white),
+                                  ),
                                 ),
                               ),
                             ),
