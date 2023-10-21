@@ -6,24 +6,20 @@ class SearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.only(top: 10),
       child: TextFormField(
-        cursorColor: Colors.black,
+        cursorColor: Colors.redAccent,
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
             borderSide: BorderSide(
-              color: Colors.black, // Change the active border color
+              color: Colors.grey, // Change the active border color
             ),
           ),
-          labelText: 'Search',
-          labelStyle: TextStyle(
-            color: Colors.red, // Change the label text color
-          ),
-          hintText: 'Enter your search query',
+          hintText: 'Search for products',
           prefixIcon: Icon(
             Icons.search,
-            color: Colors.green,
+            color: Colors.grey,
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(13.0)),

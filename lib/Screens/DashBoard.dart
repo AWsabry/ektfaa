@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ektfaa/Screens/JobsScreen.dart';
+import 'package:ektfaa/Screens/ProfileScreen.dart';
 import 'package:ektfaa/Screens/HomeScreen.dart';
-import 'package:ektfaa/Screens/JobsScreen.dart';
+import 'package:ektfaa/Screens/ProfileScreen.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../components/HomeDrawerComponent.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({Key? key}) : super(key: key);
@@ -21,9 +20,8 @@ class _DashBoardState extends State<DashBoard> {
     if (selectedIndex == 0) {
       return HomeScreen();
     } else if (selectedIndex == 1) {
-      return JobsScreen();
+      return ProfileScreen();
     }
-
     return HomeScreen();
   }
 
@@ -37,23 +35,6 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Text(
-              "Products Checker",
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
-          backgroundColor: Colors.transparent,
-          centerTitle: true,
-          iconTheme: IconThemeData(color: Colors.black),
-          elevation: 0,
-          actions: [],
-        ),
-        drawer: Drawer(
-          child: HomeDrawerComponent(),
-        ),
         body: getFragment(),
         bottomNavigationBar: Container(
           padding: EdgeInsets.all(15),
@@ -86,22 +67,22 @@ class _DashBoardState extends State<DashBoard> {
                         height: 24.66,
                         width: 24.66,
                         fit: BoxFit.cover,
-                        color: AppColors.blackColor)
+                        color: AppColors.redAccent)
                     .paddingTop(12),
               ),
               BottomNavigationBarItem(
-                icon: Image.asset('assets/Icons/Ic_Search.png',
+                icon: Image.asset('assets/Icons/ic_profile.png',
                         height: 24.66,
                         width: 24.66,
                         fit: BoxFit.cover,
                         color: AppColors.grey)
                     .paddingTop(12),
                 label: '',
-                activeIcon: Image.asset('assets/Icons/Ic_Search.png',
+                activeIcon: Image.asset('assets/Icons/ic_profile.png',
                         height: 24.66,
                         width: 24.66,
                         fit: BoxFit.cover,
-                        color: AppColors.blackColor)
+                        color: AppColors.redAccent)
                     .paddingTop(12),
               ),
             ],
