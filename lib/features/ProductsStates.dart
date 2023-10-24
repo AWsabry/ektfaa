@@ -2,6 +2,8 @@ abstract class ProductsStates {}
 
 class SuperProductsStates extends ProductsStates {}
 
+class newProductsStateLoading extends SuperProductsStates {}
+
 class ProductSearchSuccess extends SuperProductsStates {}
 
 class ProductSearchFail extends SuperProductsStates {

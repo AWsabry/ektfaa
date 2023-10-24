@@ -1,6 +1,4 @@
-import 'package:ektfaa/Components/searchField.dart';
 import 'package:flutter/material.dart';
-import 'package:ektfaa/Theme.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -24,13 +22,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
-        actions: [],
+        actions: const [],
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 08.0, left: 25, right: 25),
+          padding: EdgeInsets.only(top: 08.0, left: 25, right: 25),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

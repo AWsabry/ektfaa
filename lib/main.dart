@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:ektfaa/Auth/OnBoardingScreen.dart';
 import 'package:ektfaa/Auth/SplashScreen.dart';
-import 'package:ektfaa/Screens/DashBoard.dart';
 import 'package:ektfaa/Theme.dart';
+import 'package:ektfaa/features/searchCubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'Auth/SignUp.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,13 +19,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
-      theme: MyTheme.lightTheme,
-      darkTheme: MyTheme.darkTheme,
-      home: SplashScreen(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ProductsCubit(),
+        )
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.light,
+        theme: MyTheme.lightTheme,
+        darkTheme: MyTheme.darkTheme,
+        home: const SplashScreen(),
+      ),
     );
   }
 }
+
+
+//I went to bathroom 

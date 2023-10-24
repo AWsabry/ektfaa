@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:ektfaa/Screens/ProfileScreen.dart';
 import 'package:ektfaa/Screens/HomeScreen.dart';
 import 'package:ektfaa/Screens/ProfileScreen.dart';
 import 'package:ektfaa/Theme.dart';
+import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({Key? key}) : super(key: key);
@@ -20,7 +18,7 @@ class _DashBoardState extends State<DashBoard> {
     if (selectedIndex == 0) {
       return HomeScreen();
     } else if (selectedIndex == 1) {
-      return ProfileScreen();
+      return const ProfileScreen();
     }
     return HomeScreen();
   }
@@ -37,7 +35,7 @@ class _DashBoardState extends State<DashBoard> {
       child: Scaffold(
         body: getFragment(),
         bottomNavigationBar: Container(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -45,7 +43,7 @@ class _DashBoardState extends State<DashBoard> {
                 blurRadius: 25.0,
               )
             ],
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(25), topRight: Radius.circular(25)),
             color: AppColors.white,
           ),

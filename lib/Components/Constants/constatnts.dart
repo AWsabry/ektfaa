@@ -25,5 +25,5 @@ abstract class EktfaaConstants {
   static String sentCode = "Sent Code";
 
   static String phone = "Phone";
-  static String BaseUrl = 'http://66.29.131.228:8000/';
+  static String BaseUrl = 'http://66.29.131.228:8000';
 }

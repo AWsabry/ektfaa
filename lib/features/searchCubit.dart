@@ -4,7 +4,7 @@ import 'package:ektfaa/features/ProductsStates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-enum Privacy { Private, Public }
+// enum Privacy { Private, Public }
 
 class ProductsCubit extends Cubit<ProductsStates> {
   ProductsCubit() : super(SuperProductsStates());
@@ -12,27 +12,27 @@ class ProductsCubit extends Cubit<ProductsStates> {
   TextEditingController searchController = TextEditingController();
 
   List<dynamic> searchedProducts = [];
-  bool? noProducts;
-  Future GetSearchedProductsInRestaurant(
-    context,
-  ) async {
+  var message;
+
+  void getSearchedProductsInRestaurant(valueRequest) {
+    searchedProducts.clear();
     var data = "No Data";
-    // emit(newProductsStateLoading());
-    await Dio()
-        .get("${EktfaaConstants.BaseUrl}/get_products/${searchController.text}")
+    emit(newProductsStateLoading());
+    Dio()
+        .get("${EktfaaConstants.BaseUrl}/get_products/$valueRequest")
         .then((value) {
-      searchedProducts = value.data['Names'];
-      // AppLogger.i(searchedProducts.toString());
-      print(searchedProducts);
-      if (searchedProducts.isEmpty) {
-        noProducts = true;
-      } else {
-        noProducts = false;
+      if (value.statusCode == 200) {
+        searchedProducts = value.data['Names'];
+      } else if (value.statusCode == 302) {
+        message = value.data["message"];
       }
       emit(ProductSearchSuccess());
     }).catchError((error) {
-      emit(ProductSearchFail(error));
+      searchedProducts.clear();
+      print("okkkkkkkkkk");
+      print("${EktfaaConstants.BaseUrl}/get_products/$valueRequest");
+      emit(ProductSearchFail(error.toString()));
     });
-    return data;
+    // return data;
   }
 }
