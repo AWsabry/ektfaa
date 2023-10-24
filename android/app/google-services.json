@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1009075957621",
+    "project_id": "ektfaa-organization",
+    "storage_bucket": "ektfaa-organization.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009075957621:android:381658302da09aafb8ad3c",
+        "android_client_info": {
+          "package_name": "com.ektfaa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHvWIOrhuafmOsl8A55ofK2KKWICqF7Kg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
