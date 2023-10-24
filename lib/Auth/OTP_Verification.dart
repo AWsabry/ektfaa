@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:ektfaa/Screens/DashBoard.dart';
 import 'package:ektfaa/Theme.dart';
+import 'package:flutter/material.dart';
 
 class OTP_Verification extends StatefulWidget {
   const OTP_Verification({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class _OTP_VerificationState extends State<OTP_Verification> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
         backgroundColor: Colors.transparent,
@@ -26,163 +26,164 @@ class _OTP_VerificationState extends State<OTP_Verification> {
           child: Center(
             child: Column(
               children: [
-                Text(
+                const Text(
                   "Enter Code",
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   "*  *  *  *  *",
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
                       color: AppColors.blackColor),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   "We have send you a email with ",
                   style: TextStyle(color: Colors.grey),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                Text(
+                const Text(
                   " 6 digit verification code ",
                   style: TextStyle(color: Colors.grey),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 60,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      height: 60,
-                      width: 50,
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        maxLength: 1,
-                        cursorColor: Theme.of(context).primaryColor,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            counterText: '',
-                            hintStyle:
-                                TextStyle(color: Colors.black, fontSize: 20.0)),
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 60,
-                      width: 50,
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        maxLength: 1,
-                        cursorColor: Theme.of(context).primaryColor,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            counterText: '',
-                            hintStyle:
-                                TextStyle(color: Colors.black, fontSize: 20.0)),
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 60,
-                      width: 50,
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        maxLength: 1,
-                        cursorColor: Theme.of(context).primaryColor,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            counterText: '',
-                            hintStyle:
-                                TextStyle(color: Colors.black, fontSize: 20.0)),
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 60,
-                      width: 50,
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        maxLength: 1,
-                        cursorColor: Theme.of(context).primaryColor,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            counterText: '',
-                            hintStyle:
-                                TextStyle(color: Colors.black, fontSize: 20.0)),
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 60,
-                      width: 50,
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        maxLength: 1,
-                        cursorColor: Theme.of(context).primaryColor,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            counterText: '',
-                            hintStyle:
-                                TextStyle(color: Colors.black, fontSize: 20.0)),
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 60,
-                      width: 50,
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        maxLength: 1,
-                        cursorColor: Theme.of(context).primaryColor,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            counterText: '',
-                            hintStyle:
-                                TextStyle(color: Colors.black, fontSize: 20.0)),
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //   children: [
+                //     SizedBox(
+                //       height: 60,
+                //       width: 50,
+                //       child: TextField(
+                //         textAlign: TextAlign.center,
+                //         keyboardType: TextInputType.number,
+                //         maxLength: 1,
+                //         cursorColor: Theme.of(context).primaryColor,
+                //         decoration: const InputDecoration(
+                //             border: OutlineInputBorder(),
+                //             counterText: '',
+                //             hintStyle:
+                //                 TextStyle(color: Colors.black, fontSize: 20.0)),
+                //         onChanged: (value) {
+                //           if (value.length == 1) {
+                //             FocusScope.of(context).nextFocus();
+                //           }
+                //         },
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       height: 60,
+                //       width: 50,
+                //       child: TextField(
+                //         textAlign: TextAlign.center,
+                //         keyboardType: TextInputType.number,
+                //         maxLength: 1,
+                //         cursorColor: Theme.of(context).primaryColor,
+                //         decoration: const InputDecoration(
+                //             border: OutlineInputBorder(),
+                //             counterText: '',
+                //             hintStyle:
+                //                 TextStyle(color: Colors.black, fontSize: 20.0)),
+                //         onChanged: (value) {
+                //           if (value.length == 1) {
+                //             FocusScope.of(context).nextFocus();
+                //           }
+                //         },
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       height: 60,
+                //       width: 50,
+                //       child: TextField(
+                //         textAlign: TextAlign.center,
+                //         keyboardType: TextInputType.number,
+                //         maxLength: 1,
+                //         cursorColor: Theme.of(context).primaryColor,
+                //         decoration: const InputDecoration(
+                //             border: OutlineInputBorder(),
+                //             counterText: '',
+                //             hintStyle:
+                //                 TextStyle(color: Colors.black, fontSize: 20.0)),
+                //         onChanged: (value) {
+                //           if (value.length == 1) {
+                //             FocusScope.of(context).nextFocus();
+                //           }
+                //         },
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       height: 60,
+                //       width: 50,
+                //       child: TextField(
+                //         textAlign: TextAlign.center,
+                //         keyboardType: TextInputType.number,
+                //         maxLength: 1,
+                //         cursorColor: Theme.of(context).primaryColor,
+                //         decoration: const InputDecoration(
+                //             border: OutlineInputBorder(),
+                //             counterText: '',
+                //             hintStyle:
+                //                 TextStyle(color: Colors.black, fontSize: 20.0)),
+                //         onChanged: (value) {
+                //           if (value.length == 1) {
+                //             FocusScope.of(context).nextFocus();
+                //           }
+                //         },
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       height: 60,
+                //       width: 50,
+                //       child: TextField(
+                //         textAlign: TextAlign.center,
+                //         keyboardType: TextInputType.number,
+                //         maxLength: 1,
+                //         cursorColor: Theme.of(context).primaryColor,
+                //         decoration: const InputDecoration(
+                //             border: OutlineInputBorder(),
+                //             counterText: '',
+                //             hintStyle:
+                //                 TextStyle(color: Colors.black, fontSize: 20.0)),
+                //         onChanged: (value) {
+                //           if (value.length == 1) {
+                //             FocusScope.of(context).nextFocus();
+                //           }
+                //         },
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       height: 60,
+                //       width: 50,
+                //       child: TextField(
+                //         textAlign: TextAlign.center,
+                //         keyboardType: TextInputType.number,
+                //         maxLength: 1,
+                //         cursorColor: Theme.of(context).primaryColor,
+                //         decoration: const InputDecoration(
+                //             border: OutlineInputBorder(),
+                //             counterText: '',
+                //             hintStyle:
+                //                 TextStyle(color: Colors.black, fontSize: 20.0)),
+                //         onChanged: (value) {
+                //           if (value.length == 1) {
+                //             FocusScope.of(context).nextFocus();
+                //           }
+                //         },
+                //       ),
+                //     ),
+                //   ],
+                // ),
+
+                const SizedBox(
                   height: 20,
                 ),
                 SizedBox(
@@ -190,33 +191,35 @@ class _OTP_VerificationState extends State<OTP_Verification> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => DashBoard()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const DashBoard()));
                     },
-                    child: Text("Submit"),
                     style: ElevatedButton.styleFrom(
-                      primary: AppColors.redAccent,
+                      backgroundColor: AppColors.redAccent,
                     ),
+                    child: const Text("Submit"),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   "00:59",
                   style: TextStyle(color: Colors.black),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   "Did not receive the code?",
                   style: TextStyle(color: Colors.black),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   "Re-Send",
                   style: TextStyle(
                       color: AppColors.redAccent, fontWeight: FontWeight.w500),

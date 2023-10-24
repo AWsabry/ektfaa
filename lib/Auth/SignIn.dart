@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:ektfaa/Auth/SignUp.dart';
 import 'package:ektfaa/Screens/DashBoard.dart';
+import 'package:flutter/material.dart';
 
 import '../Theme.dart';
 
@@ -23,7 +23,7 @@ class _SignInState extends State<SignIn> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
+                const Center(
                   child: Image(
                     image: AssetImage("assets/Images/1.png"),
                     height: 400,
@@ -32,19 +32,20 @@ class _SignInState extends State<SignIn> {
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: "Email",
-                    labelStyle: TextStyle(color: AppColors.grey),
+                    labelStyle: const TextStyle(color: AppColors.grey),
                     hintText: "Enter your Email",
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.email_outlined,
                       color: Colors.black,
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Colors.black),
+                      borderSide:
+                          const BorderSide(width: 1, color: Colors.black),
                       borderRadius: BorderRadius.circular(18),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 1, color: AppColors.redAccent),
+                      borderSide: const BorderSide(
+                          width: 1, color: AppColors.redAccent),
                       borderRadius: BorderRadius.circular(18),
                     ),
                     errorBorder: OutlineInputBorder(
@@ -71,25 +72,26 @@ class _SignInState extends State<SignIn> {
                     return null;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: "Password",
-                    labelStyle: TextStyle(color: AppColors.grey),
+                    labelStyle: const TextStyle(color: AppColors.grey),
                     hintText: "Enter your Password",
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.lock_open_outlined,
                       color: Colors.black,
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Colors.black),
+                      borderSide:
+                          const BorderSide(width: 1, color: Colors.black),
                       borderRadius: BorderRadius.circular(18),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 1, color: AppColors.redAccent),
+                      borderSide: const BorderSide(
+                          width: 1, color: AppColors.redAccent),
                       borderRadius: BorderRadius.circular(18),
                     ),
                     errorBorder: OutlineInputBorder(
@@ -116,10 +118,10 @@ class _SignInState extends State<SignIn> {
                     return null;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     // Text(
@@ -128,7 +130,7 @@ class _SignInState extends State<SignIn> {
                     // ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 SizedBox(
@@ -136,16 +138,18 @@ class _SignInState extends State<SignIn> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => DashBoard()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const DashBoard()));
                     },
-                    child: Text("Sign In"),
                     style: ElevatedButton.styleFrom(
-                      primary: AppColors.redAccent,
+                      backgroundColor: AppColors.redAccent,
                     ),
+                    child: const Text("Sign In"),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Center(
@@ -153,7 +157,7 @@ class _SignInState extends State<SignIn> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Already have an account? ",
                         style: TextStyle(color: Colors.grey),
                       ),
@@ -162,9 +166,9 @@ class _SignInState extends State<SignIn> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SignUp()));
+                                  builder: (context) => const SignUp()));
                         },
-                        child: Text(
+                        child: const Text(
                           " Sign Up",
                           style: TextStyle(color: AppColors.redAccent),
                         ),

@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:introduction_screen/introduction_screen.dart';
 import 'package:ektfaa/Auth/SignIn.dart';
 import 'package:ektfaa/Theme.dart';
+import 'package:flutter/material.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
@@ -33,16 +33,16 @@ class OnBoardingScreen extends StatelessWidget {
             decoration: getPageDecoration(),
           ),
         ],
-        done: Text(
+        done: const Text(
           'Done',
           style: TextStyle(
               fontWeight: FontWeight.w500, color: AppColors.redAccent),
         ),
         onDone: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SignIn()));
+              context, MaterialPageRoute(builder: (context) => const SignIn()));
         },
-        next: Icon(Icons.arrow_forward_ios, color: AppColors.redAccent),
+        next: const Icon(Icons.arrow_forward_ios, color: AppColors.redAccent),
         dotsDecorator: getdotdecorator(),
       ),
     );
@@ -60,7 +60,7 @@ class OnBoardingScreen extends StatelessWidget {
     return Image.asset('assets/Images/ob_3.png', width: width);
   }
 
-  DotsDecorator getdotdecorator() => DotsDecorator(
+  DotsDecorator getdotdecorator() => const DotsDecorator(
         size: Size(10.0, 10.0),
         activeColor: AppColors.blackColor,
         color: Color(0xFFBDBDBD),
@@ -70,7 +70,7 @@ class OnBoardingScreen extends StatelessWidget {
         ),
       );
 
-  PageDecoration getPageDecoration() => PageDecoration(
+  PageDecoration getPageDecoration() => const PageDecoration(
         titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
         bodyTextStyle: TextStyle(fontSize: 15, color: Colors.grey),
         bodyPadding: EdgeInsets.all(16),

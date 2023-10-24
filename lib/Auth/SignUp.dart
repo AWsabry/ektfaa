@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:ektfaa/Auth/OTP_Verification.dart';
 import 'package:ektfaa/Auth/SignIn.dart';
 import 'package:ektfaa/Theme.dart';
+import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -15,15 +15,15 @@ class _SignUpState extends State<SignUp> {
 
   // This function is triggered when the button is clicked
   void _doSomething() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => OTP_Verification()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const OTP_Verification()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Registration",
           style: TextStyle(color: Colors.black),
         ),
@@ -39,36 +39,37 @@ class _SignUpState extends State<SignUp> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "Let's Get Started",
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                       color: AppColors.redAccent),
                 ),
-                Text(
+                const Text(
                   "Create an account to get all features",
                   style: TextStyle(color: AppColors.grey),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: "Full Name",
-                    labelStyle: TextStyle(color: AppColors.grey),
+                    labelStyle: const TextStyle(color: AppColors.grey),
                     hintText: "Enter your Full Name",
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.person_outline,
                       color: Colors.black,
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Colors.black),
+                      borderSide:
+                          const BorderSide(width: 1, color: Colors.black),
                       borderRadius: BorderRadius.circular(18),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 1, color: AppColors.redAccent),
+                      borderSide: const BorderSide(
+                          width: 1, color: AppColors.redAccent),
                       borderRadius: BorderRadius.circular(18),
                     ),
                     errorBorder: OutlineInputBorder(
@@ -95,25 +96,26 @@ class _SignUpState extends State<SignUp> {
                     return null;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: "Email",
-                    labelStyle: TextStyle(color: AppColors.grey),
+                    labelStyle: const TextStyle(color: AppColors.grey),
                     hintText: "Enter your Email",
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.email_outlined,
                       color: Colors.black,
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Colors.black),
+                      borderSide:
+                          const BorderSide(width: 1, color: Colors.black),
                       borderRadius: BorderRadius.circular(18),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 1, color: AppColors.redAccent),
+                      borderSide: const BorderSide(
+                          width: 1, color: AppColors.redAccent),
                       borderRadius: BorderRadius.circular(18),
                     ),
                     errorBorder: OutlineInputBorder(
@@ -140,25 +142,26 @@ class _SignUpState extends State<SignUp> {
                     return null;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: "Password",
-                    labelStyle: TextStyle(color: AppColors.grey),
+                    labelStyle: const TextStyle(color: AppColors.grey),
                     hintText: "Enter your Password",
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.lock_open_outlined,
                       color: Colors.black,
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Colors.black),
+                      borderSide:
+                          const BorderSide(width: 1, color: Colors.black),
                       borderRadius: BorderRadius.circular(18),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 1, color: AppColors.redAccent),
+                      borderSide: const BorderSide(
+                          width: 1, color: AppColors.redAccent),
                       borderRadius: BorderRadius.circular(18),
                     ),
                     errorBorder: OutlineInputBorder(
@@ -185,25 +188,26 @@ class _SignUpState extends State<SignUp> {
                     return null;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: "Confirm Password",
-                    labelStyle: TextStyle(color: AppColors.grey),
+                    labelStyle: const TextStyle(color: AppColors.grey),
                     hintText: "Re-enter Your password",
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.lock_open_outlined,
                       color: Colors.black,
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Colors.black),
+                      borderSide:
+                          const BorderSide(width: 1, color: Colors.black),
                       borderRadius: BorderRadius.circular(18),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 1, color: AppColors.redAccent),
+                      borderSide: const BorderSide(
+                          width: 1, color: AppColors.redAccent),
                       borderRadius: BorderRadius.circular(18),
                     ),
                     errorBorder: OutlineInputBorder(
@@ -246,7 +250,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 SizedBox(
@@ -254,13 +258,13 @@ class _SignUpState extends State<SignUp> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: agree ? _doSomething : null,
-                    child: Text("Sign Up"),
                     style: ElevatedButton.styleFrom(
-                      primary: AppColors.redAccent,
+                      backgroundColor: AppColors.redAccent,
                     ),
+                    child: const Text("Sign Up"),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Center(
@@ -268,7 +272,7 @@ class _SignUpState extends State<SignUp> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Already have an account? ",
                         style: TextStyle(color: Colors.grey),
                       ),
@@ -277,9 +281,9 @@ class _SignUpState extends State<SignUp> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SignIn()));
+                                  builder: (context) => const SignIn()));
                         },
-                        child: Text(
+                        child: const Text(
                           " Sign In",
                           style: TextStyle(color: AppColors.redAccent),
                         ),
