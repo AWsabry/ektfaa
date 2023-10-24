@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:ektfaa/Auth/OTP_Verification.dart';
-import 'package:ektfaa/Auth/SignUp.dart';
+import 'package:ektfaa/Auth/completeProfile.dart';
 import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
 import 'package:ektfaa/Screens/HomeScreen.dart';
 import 'package:ektfaa/features/Verification/verification_states.dart';
@@ -28,13 +28,13 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
           verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {},
           verificationFailed: (FirebaseAuthException error) {},
           codeSent: (String verificationId, int? resendCode) {
-            SignUp.verify = verificationId;
-            SignUp.resendCode = resendCode;
+            CompleteProfile.verify = verificationId;
+            CompleteProfile.resendCode = resendCode;
           },
-          forceResendingToken: SignUp.resendCode,
+          forceResendingToken: CompleteProfile.resendCode,
           timeout: const Duration(seconds: 25),
           codeAutoRetrievalTimeout: (String verificationId) {
-            verificationId = SignUp.verify;
+            verificationId = CompleteProfile.verify;
           });
     } on FirebaseAuthException catch (error) {
       emit(VerificationFailed(errpr: error.toString()));
@@ -54,13 +54,13 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
                   (PhoneAuthCredential phoneAuthCredential) {},
               verificationFailed: (FirebaseAuthException error) {},
               codeSent: (String verificationId, int? resendCode) {
-                SignUp.verify = verificationId;
-                SignUp.resendCode = resendCode;
+                CompleteProfile.verify = verificationId;
+                CompleteProfile.resendCode = resendCode;
               },
-              forceResendingToken: SignUp.resendCode,
+              forceResendingToken: CompleteProfile.resendCode,
               timeout: const Duration(seconds: 25),
               codeAutoRetrievalTimeout: (String verificationId) {
-                verificationId = SignUp.verify;
+                verificationId = CompleteProfile.verify;
               })
           .then((value) {
         pushAndRemoved(context, const OTP_Verification());
@@ -77,7 +77,7 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
   ) async {
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
-          verificationId: SignUp.verify, smsCode: smsCode);
+          verificationId: CompleteProfile.verify, smsCode: smsCode);
       await auth.signInWithCredential(credential);
       pushAndRemoved(context, HomeScreen());
       emit(CheckOtpSuccessfull());
