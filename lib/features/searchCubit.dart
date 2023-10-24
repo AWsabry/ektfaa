@@ -22,6 +22,7 @@ class ProductsCubit extends Cubit<ProductsStates> {
         .get("${EktfaaConstants.BaseUrl}/get_products/$valueRequest")
         .then((value) {
       if (value.statusCode == 200) {
+        searchedProducts.clear();
         searchedProducts = value.data['Names'];
       } else if (value.statusCode == 302) {
         message = value.data["message"];
@@ -29,6 +30,7 @@ class ProductsCubit extends Cubit<ProductsStates> {
       emit(ProductSearchSuccess());
     }).catchError((error) {
       searchedProducts.clear();
+      print(error.toString());
       print("okkkkkkkkkk");
       print("${EktfaaConstants.BaseUrl}/get_products/$valueRequest");
       emit(ProductSearchFail(error.toString()));
