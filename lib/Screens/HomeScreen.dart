@@ -106,7 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: CircleAvatar(
                                       radius: 38,
                                       backgroundImage: list[index]['image'] ==
-                                              null
+                                                  null ||
+                                              list[index]['image'] == ""
                                           ? const AssetImage(
                                               'assets/Images/Product.png')
                                           : AssetImage(list[index]['image'])),
