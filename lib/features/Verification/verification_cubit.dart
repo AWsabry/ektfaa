@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:ektfaa/Auth/OTP_Verification.dart';
 import 'package:ektfaa/Auth/completeProfile.dart';
 import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
-import 'package:ektfaa/Screens/HomeScreen.dart';
+import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/features/Verification/verification_states.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -42,10 +42,18 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
   }
 
   Future<void> verification(
-    String countryCode,
-    String phoneNumber,
-    context,
-  ) async {
+    context, {
+    required String? firstName,
+    required String? lastName,
+    required String? email,
+    required String? password,
+    required String? countryName,
+    required String? city,
+    required String? age,
+    required String? gender,
+    required String countryCode,
+    required String phoneNumber,
+  }) async {
     try {
       await FirebaseAuth.instance
           .verifyPhoneNumber(
@@ -63,7 +71,19 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
                 verificationId = CompleteProfile.verify;
               })
           .then((value) {
-        pushAndRemoved(context, const OTP_Verification());
+        pushAndRemoved(
+          context,
+          OTP_Verification(
+              firstName: firstName,
+              lastName: lastName,
+              email: email,
+              password: password,
+              age: age,
+              countryName: countryName,
+              gender: gender,
+              city: city,
+              phoneNumber: phoneNumber),
+        );
         emit(VerificationSuccessfull());
       });
     } on FirebaseAuthException catch (error) {
@@ -79,7 +99,19 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: CompleteProfile.verify, smsCode: smsCode);
       await auth.signInWithCredential(credential);
-      pushAndRemoved(context, HomeScreen());
+
+      SignUpCubit.get(context).createUser(
+        context,
+        firstName: SignUpCubit.get(context).firstName.text,
+        lastName: SignUpCubit.get(context).lastName.text,
+        email: SignUpCubit.get(context).emailController.text,
+        password: SignUpCubit.get(context).passwordController.text,
+        countryName: SignUpCubit.get(context).countryName.text,
+        city: SignUpCubit.get(context).city.text,
+        age: SignUpCubit.get(context).age.text,
+        gender: SignUpCubit.get(context).gender.text,
+        PhoneNumber: SignUpCubit.get(context).phoneController.text,
+      );
       emit(CheckOtpSuccessfull());
     } on FirebaseAuthException {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

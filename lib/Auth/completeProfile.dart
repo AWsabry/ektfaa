@@ -2,6 +2,7 @@ import 'package:ektfaa/Auth/SignIn.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/features/SignUp/sign_up_states.dart';
+import 'package:ektfaa/features/Verification/verification_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -420,33 +421,29 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
-                            SignUpCubit.get(context).createUser(
-                              context,
-                              firstName:
-                                  SignUpCubit.get(context).firstName.text,
-                              lastName: SignUpCubit.get(context).lastName.text,
-                              email:
-                                  SignUpCubit.get(context).emailController.text,
-                              password: SignUpCubit.get(context)
-                                  .passwordController
-                                  .text,
-                              countryName:
-                                  SignUpCubit.get(context).countryName.text,
-                              city: SignUpCubit.get(context).city.text,
-                              age: SignUpCubit.get(context).age.text,
-                              gender: SignUpCubit.get(context).gender.text,
-                              PhoneNumber:
-                                  SignUpCubit.get(context).phoneController.text,
-                            );
-                            // if (agree == true) {
-                            //   VerificationCubit.get(context).verification(
-                            //     SignUpCubit.get(context).countryCode,
-                            //     SignUpCubit.get(context).phoneController.text,
-                            //     context,
-                            //   );
-                            // } else {
-                            //   return;
-                            // }
+                            if (agree == true) {
+                              VerificationCubit.get(context).verification(
+                                context,
+                                firstName:
+                                    SignUpCubit.get(context).firstName.text,
+                                lastName:
+                                    SignUpCubit.get(context).lastName.text,
+                                email: widget.email,
+                                password: widget.password,
+                                countryName:
+                                    SignUpCubit.get(context).countryName.text,
+                                city: SignUpCubit.get(context).city.text,
+                                age: SignUpCubit.get(context).age.text,
+                                gender: SignUpCubit.get(context).gender.text,
+                                countryCode:
+                                    SignUpCubit.get(context).countryCode,
+                                phoneNumber: SignUpCubit.get(context)
+                                    .phoneController
+                                    .text,
+                              );
+                            } else {
+                              return;
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.redAccent,

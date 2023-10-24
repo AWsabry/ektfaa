@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ektfaa/Components/Constants/constatnts.dart';
+import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
+import 'package:ektfaa/Screens/HomeScreen.dart';
 import 'package:ektfaa/features/SignUp/sign_up_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,17 +51,21 @@ class SignUpCubit extends Cubit<InitialSignUpState> {
     print(PhoneNumber);
 
     try {
-      await Dio().post("${EktfaaConstants.BaseUrl}/create_users_API/", data: {
-        "first_name": firstName,
-        "last_name": lastName,
-        "email": email,
-        "password": password,
-        "Country": countryName,
-        "city": city,
-        "age": age,
-        "gender": gender,
-        "PhoneNumber": PhoneNumber,
-      });
+      await Dio().post(
+        "${EktfaaConstants.BaseUrl}/create_users_API/",
+        data: {
+          "first_name": firstName,
+          "last_name": lastName,
+          "email": email,
+          "password": password,
+          "Country": countryName,
+          "city": city,
+          "age": age,
+          "gender": gender,
+          "PhoneNumber": PhoneNumber,
+        },
+      );
+      pushAndRemoved(context, HomeScreen());
     } catch (error) {
       print('%ara');
       print(error);

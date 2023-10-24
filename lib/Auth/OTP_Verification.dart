@@ -9,7 +9,28 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 
 class OTP_Verification extends StatefulWidget {
-  const OTP_Verification({Key? key}) : super(key: key);
+  const OTP_Verification({
+    Key? key,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.password,
+    required this.age,
+    required this.countryName,
+    required this.gender,
+    required this.city,
+    required this.phoneNumber,
+  }) : super(key: key);
+
+  final String? firstName;
+  final String? lastName;
+  final String? email;
+  final String? password;
+  final String? countryName;
+  final String? age;
+  final String? gender;
+  final String? city;
+  final String? phoneNumber;
 
   @override
   State<OTP_Verification> createState() => _OTP_VerificationState();
