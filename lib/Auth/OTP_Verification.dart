@@ -1,6 +1,12 @@
 import 'package:ektfaa/Screens/DashBoard.dart';
 import 'package:ektfaa/Theme.dart';
+import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
+import 'package:ektfaa/features/Verification/verification_cubit.dart';
+import 'package:ektfaa/features/Verification/verification_states.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:pinput/pinput.dart';
 
 class OTP_Verification extends StatefulWidget {
   const OTP_Verification({Key? key}) : super(key: key);
@@ -12,223 +18,272 @@ class OTP_Verification extends StatefulWidget {
 class _OTP_VerificationState extends State<OTP_Verification> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.black, //change your color here
+    return BlocBuilder<VerificationCubit, InitialVerificationState>(
+        builder: (context, state) {
+      return Scaffold(
+        appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: Colors.black, //change your color here
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
-            child: Column(
-              children: [
-                const Text(
-                  "Enter Code",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  "*  *  *  *  *",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.blackColor),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  "We have send you a email with ",
-                  style: TextStyle(color: Colors.grey),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Text(
-                  " 6 digit verification code ",
-                  style: TextStyle(color: Colors.grey),
-                ),
-                const SizedBox(
-                  height: 60,
-                ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //   children: [
-                //     SizedBox(
-                //       height: 60,
-                //       width: 50,
-                //       child: TextField(
-                //         textAlign: TextAlign.center,
-                //         keyboardType: TextInputType.number,
-                //         maxLength: 1,
-                //         cursorColor: Theme.of(context).primaryColor,
-                //         decoration: const InputDecoration(
-                //             border: OutlineInputBorder(),
-                //             counterText: '',
-                //             hintStyle:
-                //                 TextStyle(color: Colors.black, fontSize: 20.0)),
-                //         onChanged: (value) {
-                //           if (value.length == 1) {
-                //             FocusScope.of(context).nextFocus();
-                //           }
-                //         },
-                //       ),
-                //     ),
-                //     SizedBox(
-                //       height: 60,
-                //       width: 50,
-                //       child: TextField(
-                //         textAlign: TextAlign.center,
-                //         keyboardType: TextInputType.number,
-                //         maxLength: 1,
-                //         cursorColor: Theme.of(context).primaryColor,
-                //         decoration: const InputDecoration(
-                //             border: OutlineInputBorder(),
-                //             counterText: '',
-                //             hintStyle:
-                //                 TextStyle(color: Colors.black, fontSize: 20.0)),
-                //         onChanged: (value) {
-                //           if (value.length == 1) {
-                //             FocusScope.of(context).nextFocus();
-                //           }
-                //         },
-                //       ),
-                //     ),
-                //     SizedBox(
-                //       height: 60,
-                //       width: 50,
-                //       child: TextField(
-                //         textAlign: TextAlign.center,
-                //         keyboardType: TextInputType.number,
-                //         maxLength: 1,
-                //         cursorColor: Theme.of(context).primaryColor,
-                //         decoration: const InputDecoration(
-                //             border: OutlineInputBorder(),
-                //             counterText: '',
-                //             hintStyle:
-                //                 TextStyle(color: Colors.black, fontSize: 20.0)),
-                //         onChanged: (value) {
-                //           if (value.length == 1) {
-                //             FocusScope.of(context).nextFocus();
-                //           }
-                //         },
-                //       ),
-                //     ),
-                //     SizedBox(
-                //       height: 60,
-                //       width: 50,
-                //       child: TextField(
-                //         textAlign: TextAlign.center,
-                //         keyboardType: TextInputType.number,
-                //         maxLength: 1,
-                //         cursorColor: Theme.of(context).primaryColor,
-                //         decoration: const InputDecoration(
-                //             border: OutlineInputBorder(),
-                //             counterText: '',
-                //             hintStyle:
-                //                 TextStyle(color: Colors.black, fontSize: 20.0)),
-                //         onChanged: (value) {
-                //           if (value.length == 1) {
-                //             FocusScope.of(context).nextFocus();
-                //           }
-                //         },
-                //       ),
-                //     ),
-                //     SizedBox(
-                //       height: 60,
-                //       width: 50,
-                //       child: TextField(
-                //         textAlign: TextAlign.center,
-                //         keyboardType: TextInputType.number,
-                //         maxLength: 1,
-                //         cursorColor: Theme.of(context).primaryColor,
-                //         decoration: const InputDecoration(
-                //             border: OutlineInputBorder(),
-                //             counterText: '',
-                //             hintStyle:
-                //                 TextStyle(color: Colors.black, fontSize: 20.0)),
-                //         onChanged: (value) {
-                //           if (value.length == 1) {
-                //             FocusScope.of(context).nextFocus();
-                //           }
-                //         },
-                //       ),
-                //     ),
-                //     SizedBox(
-                //       height: 60,
-                //       width: 50,
-                //       child: TextField(
-                //         textAlign: TextAlign.center,
-                //         keyboardType: TextInputType.number,
-                //         maxLength: 1,
-                //         cursorColor: Theme.of(context).primaryColor,
-                //         decoration: const InputDecoration(
-                //             border: OutlineInputBorder(),
-                //             counterText: '',
-                //             hintStyle:
-                //                 TextStyle(color: Colors.black, fontSize: 20.0)),
-                //         onChanged: (value) {
-                //           if (value.length == 1) {
-                //             FocusScope.of(context).nextFocus();
-                //           }
-                //         },
-                //       ),
-                //     ),
-                //   ],
-                // ),
-
-                const SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  width: 500,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const DashBoard()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.redAccent,
-                    ),
-                    child: const Text("Submit"),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: Center(
+              child: Column(
+                children: [
+                  const Text(
+                    "Enter Code",
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  "00:59",
-                  style: TextStyle(color: Colors.black),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  "Did not receive the code?",
-                  style: TextStyle(color: Colors.black),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  "Re-Send",
-                  style: TextStyle(
-                      color: AppColors.redAccent, fontWeight: FontWeight.w500),
-                ),
-              ],
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "*  *  *  *  *",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.blackColor),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    "We have send you a email with ",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const Text(
+                    " 6 digit verification code ",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  const SizedBox(
+                    height: 60,
+                  ),
+
+                  Pinput(
+                    controller: VerificationCubit.get(context).pinPutController,
+                    length: 6,
+                    onCompleted: (value) {
+                      VerificationCubit.get(context).checkOtp(
+                        context,
+                        VerificationCubit.get(context).pinPutController.text,
+                      );
+                    },
+                    animationCurve: Curves.easeOut,
+                    focusedPinTheme: PinTheme(
+                        height: 62,
+                        width: 62,
+                        textStyle: GoogleFonts.poppins(
+                            fontSize: 23,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            border: Border.all(color: Colors.white),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(9.6)))),
+                    defaultPinTheme: PinTheme(
+                        height: 62,
+                        width: 62,
+                        textStyle: GoogleFonts.poppins(
+                            fontSize: 23,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            border: Border.all(color: Colors.grey),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(9.6)))),
+                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //   children: [
+                  //     SizedBox(
+                  //       height: 60,
+                  //       width: 50,
+                  //       child: TextField(
+                  //         textAlign: TextAlign.center,
+                  //         keyboardType: TextInputType.number,
+                  //         maxLength: 1,
+                  //         cursorColor: Theme.of(context).primaryColor,
+                  //         decoration: const InputDecoration(
+                  //             border: OutlineInputBorder(),
+                  //             counterText: '',
+                  //             hintStyle:
+                  //                 TextStyle(color: Colors.black, fontSize: 20.0)),
+                  //         onChanged: (value) {
+                  //           if (value.length == 1) {
+                  //             FocusScope.of(context).nextFocus();
+                  //           }
+                  //         },
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       height: 60,
+                  //       width: 50,
+                  //       child: TextField(
+                  //         textAlign: TextAlign.center,
+                  //         keyboardType: TextInputType.number,
+                  //         maxLength: 1,
+                  //         cursorColor: Theme.of(context).primaryColor,
+                  //         decoration: const InputDecoration(
+                  //             border: OutlineInputBorder(),
+                  //             counterText: '',
+                  //             hintStyle:
+                  //                 TextStyle(color: Colors.black, fontSize: 20.0)),
+                  //         onChanged: (value) {
+                  //           if (value.length == 1) {
+                  //             FocusScope.of(context).nextFocus();
+                  //           }
+                  //         },
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       height: 60,
+                  //       width: 50,
+                  //       child: TextField(
+                  //         textAlign: TextAlign.center,
+                  //         keyboardType: TextInputType.number,
+                  //         maxLength: 1,
+                  //         cursorColor: Theme.of(context).primaryColor,
+                  //         decoration: const InputDecoration(
+                  //             border: OutlineInputBorder(),
+                  //             counterText: '',
+                  //             hintStyle:
+                  //                 TextStyle(color: Colors.black, fontSize: 20.0)),
+                  //         onChanged: (value) {
+                  //           if (value.length == 1) {
+                  //             FocusScope.of(context).nextFocus();
+                  //           }
+                  //         },
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       height: 60,
+                  //       width: 50,
+                  //       child: TextField(
+                  //         textAlign: TextAlign.center,
+                  //         keyboardType: TextInputType.number,
+                  //         maxLength: 1,
+                  //         cursorColor: Theme.of(context).primaryColor,
+                  //         decoration: const InputDecoration(
+                  //             border: OutlineInputBorder(),
+                  //             counterText: '',
+                  //             hintStyle:
+                  //                 TextStyle(color: Colors.black, fontSize: 20.0)),
+                  //         onChanged: (value) {
+                  //           if (value.length == 1) {
+                  //             FocusScope.of(context).nextFocus();
+                  //           }
+                  //         },
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       height: 60,
+                  //       width: 50,
+                  //       child: TextField(
+                  //         textAlign: TextAlign.center,
+                  //         keyboardType: TextInputType.number,
+                  //         maxLength: 1,
+                  //         cursorColor: Theme.of(context).primaryColor,
+                  //         decoration: const InputDecoration(
+                  //             border: OutlineInputBorder(),
+                  //             counterText: '',
+                  //             hintStyle:
+                  //                 TextStyle(color: Colors.black, fontSize: 20.0)),
+                  //         onChanged: (value) {
+                  //           if (value.length == 1) {
+                  //             FocusScope.of(context).nextFocus();
+                  //           }
+                  //         },
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       height: 60,
+                  //       width: 50,
+                  //       child: TextField(
+                  //         textAlign: TextAlign.center,
+                  //         keyboardType: TextInputType.number,
+                  //         maxLength: 1,
+                  //         cursorColor: Theme.of(context).primaryColor,
+                  //         decoration: const InputDecoration(
+                  //             border: OutlineInputBorder(),
+                  //             counterText: '',
+                  //             hintStyle:
+                  //                 TextStyle(color: Colors.black, fontSize: 20.0)),
+                  //         onChanged: (value) {
+                  //           if (value.length == 1) {
+                  //             FocusScope.of(context).nextFocus();
+                  //           }
+                  //         },
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: 500,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const DashBoard()));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.redAccent,
+                      ),
+                      child: const Text("Submit"),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    "00:59",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "Did not receive the code?",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      VerificationCubit.get(context).reSendOtp(
+                        SignUpCubit.get(context).countryCode,
+                        SignUpCubit.get(context).phoneController.text,
+                        context,
+                      );
+                    },
+                    child: const Text(
+                      "Re-Send",
+                      style: TextStyle(
+                          color: AppColors.redAccent,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

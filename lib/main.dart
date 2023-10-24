@@ -1,10 +1,13 @@
 import 'package:ektfaa/Auth/SplashScreen.dart';
 import 'package:ektfaa/Theme.dart';
-import 'package:ektfaa/features/searchCubit.dart';
+import 'package:ektfaa/features/Search/searchCubit.dart';
+import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
+import 'package:ektfaa/features/Verification/verification_cubit.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -28,7 +31,13 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => ProductsCubit(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => SignUpCubit(),
+        ),
+        BlocProvider(
+          create: (context) => VerificationCubit(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

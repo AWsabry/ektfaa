@@ -1,5 +1,5 @@
-import 'package:ektfaa/features/ProductsStates.dart';
-import 'package:ektfaa/features/searchCubit.dart';
+import 'package:ektfaa/features/Search/ProductsStates.dart';
+import 'package:ektfaa/features/Search/searchCubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
