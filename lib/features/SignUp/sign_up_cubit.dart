@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
-import 'package:ektfaa/Screens/HomeScreen.dart';
+import 'package:ektfaa/Screens/DashBoard.dart';
 import 'package:ektfaa/features/SignUp/sign_up_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +21,12 @@ class SignUpCubit extends Cubit<InitialSignUpState> {
   final phoneController = TextEditingController();
   final formkey = GlobalKey<FormState>();
   final completeFormKey = GlobalKey<FormState>();
+  bool agree = false;
+  agreePrivacyPolicy(context) {
+    agree = !agree;
+    emit(AgreePolicySuccessfully());
+  }
+
   String countryCode = "+20";
 
   void getCountryCode(String code) {
@@ -65,7 +71,7 @@ class SignUpCubit extends Cubit<InitialSignUpState> {
           "PhoneNumber": PhoneNumber,
         },
       );
-      pushAndRemoved(context, HomeScreen());
+      pushAndRemoved(context, const DashBoard());
     } catch (error) {
       print('%ara');
       print(error);

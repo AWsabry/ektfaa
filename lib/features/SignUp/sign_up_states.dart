@@ -13,3 +13,5 @@ class SignUpFailed extends SuperSignUpState {
 }
 
 class ChangeCountryCodeSuccessfully extends SuperSignUpState {}
+
+class AgreePolicySuccessfully extends SuperSignUpState {}

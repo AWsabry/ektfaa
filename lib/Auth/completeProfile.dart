@@ -22,8 +22,6 @@ class CompleteProfile extends StatefulWidget {
 }
 
 class _CompleteProfileState extends State<CompleteProfile> {
-  bool agree = false;
-
   // This function is triggered when the button is clicked
 
   @override
@@ -104,13 +102,10 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
                         validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Please enter your name';
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your first name';
                           }
-                          // Check if the entered email has the right format
-                          if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                            return 'Please enter a valid name';
-                          }
+
                           // Return null if the entered email is valid
                           return null;
                         },
@@ -151,13 +146,10 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
                         validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Please enter your name';
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your last name';
                           }
-                          // Check if the entered email has the right format
-                          if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                            return 'Please enter a valid name';
-                          }
+
                           // Return null if the entered email is valid
                           return null;
                         },
@@ -240,13 +232,10 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
                         validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Please enter your name';
+                          if (value == null || value.isEmpty) {
+                            return 'Please choose your contry';
                           }
-                          // Check if the entered email has the right format
-                          if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                            return 'Please enter a valid name';
-                          }
+
                           // Return null if the entered email is valid
                           return null;
                         },
@@ -287,13 +276,10 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
                         validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Please enter your name';
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your city';
                           }
-                          // Check if the entered email has the right format
-                          if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                            return 'Please enter a valid name';
-                          }
+
                           // Return null if the entered email is valid
                           return null;
                         },
@@ -395,7 +381,6 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your age';
                           }
-
                           return null;
                         },
                       ),
@@ -467,29 +452,43 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your gender';
                           }
-
-                          // Return null if the entered email is valid
                           return null;
                         },
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: agree,
-                            onChanged: (value) {
-                              setState(() {
-                                agree = value ?? false;
-                              });
+                      FormField(
+                        validator: (value) {
+                          if (SignUpCubit.get(context).agree == false) {
+                            return 'You need to accept terms';
+                          } else {
+                            return null;
+                          }
+                        },
+                        builder: (field) {
+                          return InkWell(
+                            onTap: () {
+                              SignUpCubit.get(context)
+                                  .agreePrivacyPolicy(context);
                             },
-                          ),
-                          const Text(
-                            'Agree to our privacy & policy',
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+                            child: Row(
+                              children: [
+                                Checkbox(
+                                  value: SignUpCubit.get(context).agree,
+                                  onChanged: (value) {
+                                    SignUpCubit.get(context)
+                                        .agreePrivacyPolicy(context);
+                                  },
+                                ),
+                                const Text(
+                                  'Agree to our privacy & policy',
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          );
+                        },
                       ),
                       const SizedBox(
                         height: 20,
@@ -499,28 +498,31 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
-                            if (agree == true) {
-                              VerificationCubit.get(context).verification(
-                                context,
-                                firstName:
-                                    SignUpCubit.get(context).firstName.text,
-                                lastName:
-                                    SignUpCubit.get(context).lastName.text,
-                                email: widget.email,
-                                password: widget.password,
-                                countryName:
-                                    SignUpCubit.get(context).countryName.text,
-                                city: SignUpCubit.get(context).city.text,
-                                age: SignUpCubit.get(context).age.text,
-                                gender: SignUpCubit.get(context).gender.text,
-                                countryCode:
-                                    SignUpCubit.get(context).countryCode,
-                                phoneNumber: SignUpCubit.get(context)
-                                    .phoneController
-                                    .text,
-                              );
-                            } else {
-                              return;
+                            if (SignUpCubit.get(context)
+                                .completeFormKey
+                                .currentState!
+                                .validate()) {
+                              if (SignUpCubit.get(context).agree == true) {
+                                VerificationCubit.get(context).verification(
+                                  context,
+                                  firstName:
+                                      SignUpCubit.get(context).firstName.text,
+                                  lastName:
+                                      SignUpCubit.get(context).lastName.text,
+                                  email: widget.email,
+                                  password: widget.password,
+                                  countryName:
+                                      SignUpCubit.get(context).countryName.text,
+                                  city: SignUpCubit.get(context).city.text,
+                                  age: SignUpCubit.get(context).age.text,
+                                  gender: SignUpCubit.get(context).gender.text,
+                                  countryCode:
+                                      SignUpCubit.get(context).countryCode,
+                                  phoneNumber: SignUpCubit.get(context)
+                                      .phoneController
+                                      .text,
+                                );
+                              }
                             }
                           },
                           style: ElevatedButton.styleFrom(

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:ektfaa/Auth/OTP_Verification.dart';
 import 'package:ektfaa/Auth/completeProfile.dart';
 import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
-import 'package:ektfaa/Screens/HomeScreen.dart';
+import 'package:ektfaa/Screens/DashBoard.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/features/Verification/verification_states.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -92,6 +92,18 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
     }
   }
 
+  bool isPassword = true;
+  showPassword(context) {
+    isPassword = !isPassword;
+    emit(ShowPassswordSuccessfully());
+  }
+
+  bool isConfirmPassword = true;
+  showConfirmPassword(context) {
+    isConfirmPassword = !isConfirmPassword;
+    emit(ShowConfirmPassswordSuccessfully());
+  }
+
   Future<void> checkOtp(
     context,
     String smsCode,
@@ -168,7 +180,7 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: CompleteProfile.verify, smsCode: smsCode);
       await auth.signInWithCredential(credential);
-      pushAndRemoved(context, HomeScreen());
+      pushAndRemoved(context, const DashBoard());
       emit(CheckOtpSuccessfull());
     } on FirebaseAuthException {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

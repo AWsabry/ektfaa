@@ -17,3 +17,7 @@ class CheckOtpFailed extends SuperVerificationState {
 
   CheckOtpFailed({required this.errpr});
 }
+
+class ShowPassswordSuccessfully extends SuperVerificationState {}
+
+class ShowConfirmPassswordSuccessfully extends SuperVerificationState {}

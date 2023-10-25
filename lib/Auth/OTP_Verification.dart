@@ -1,4 +1,3 @@
-import 'package:ektfaa/Screens/DashBoard.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/features/Verification/verification_cubit.dart';
@@ -106,6 +105,8 @@ class _OTP_VerificationState extends State<OTP_Verification> {
                       }
                     },
                     animationCurve: Curves.easeOut,
+                    androidSmsAutofillMethod:
+                        AndroidSmsAutofillMethod.smsRetrieverApi,
                     focusedPinTheme: PinTheme(
                         height: 62,
                         width: 62,
@@ -260,25 +261,7 @@ class _OTP_VerificationState extends State<OTP_Verification> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SizedBox(
-                    width: 500,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const DashBoard()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.redAccent,
-                      ),
-                      child: const Text("Submit"),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+
                   const Text(
                     "00:59",
                     style: TextStyle(color: Colors.black),

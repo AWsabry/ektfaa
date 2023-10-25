@@ -7,6 +7,7 @@ import 'package:ektfaa/features/Verification/verification_cubit.dart';
 import 'package:ektfaa/features/Verification/verification_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -26,15 +27,6 @@ class _SignUpState extends State<SignUp> {
         builder: (context, state) {
       return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              "Registration",
-              style: TextStyle(color: Colors.black),
-            ),
-            centerTitle: true,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-          ),
           body: Form(
             key: SignUpCubit.get(context).formkey,
             child: Center(
@@ -45,16 +37,22 @@ class _SignUpState extends State<SignUp> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Text(
+                        "Registration",
+                        style: GoogleFonts.poppins(
+                            color: Colors.black,
+                            fontSize: 26,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       const Text(
-                        "Let's Get Started",
+                        "Welcome to Ektfaa ",
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
                             color: AppColors.redAccent),
-                      ),
-                      const Text(
-                        "Create an account to get all features",
-                        style: TextStyle(color: AppColors.grey),
                       ),
                       const SizedBox(
                         height: 20,
@@ -108,7 +106,21 @@ class _SignUpState extends State<SignUp> {
                       ),
                       TextFormField(
                         controller: SignUpCubit.get(context).passwordController,
+                        obscureText: VerificationCubit.get(context).isPassword,
                         decoration: InputDecoration(
+                          suffixIcon: VerificationCubit.get(context).isPassword
+                              ? IconButton(
+                                  onPressed: () {
+                                    VerificationCubit.get(context)
+                                        .showPassword(context);
+                                  },
+                                  icon: const Icon(Icons.visibility))
+                              : IconButton(
+                                  onPressed: () {
+                                    VerificationCubit.get(context)
+                                        .showPassword(context);
+                                  },
+                                  icon: const Icon(Icons.visibility_off)),
                           labelText: "Password",
                           labelStyle: const TextStyle(color: AppColors.grey),
                           hintText: "Enter your Password",
@@ -152,10 +164,26 @@ class _SignUpState extends State<SignUp> {
                         height: 20,
                       ),
                       TextFormField(
+                        obscureText:
+                            VerificationCubit.get(context).isConfirmPassword,
                         decoration: InputDecoration(
                           labelText: "Confirm Password",
                           labelStyle: const TextStyle(color: AppColors.grey),
                           hintText: "Re-enter Your password",
+                          suffixIcon:
+                              VerificationCubit.get(context).isConfirmPassword
+                                  ? IconButton(
+                                      onPressed: () {
+                                        VerificationCubit.get(context)
+                                            .showConfirmPassword(context);
+                                      },
+                                      icon: const Icon(Icons.visibility))
+                                  : IconButton(
+                                      onPressed: () {
+                                        VerificationCubit.get(context)
+                                            .showConfirmPassword(context);
+                                      },
+                                      icon: const Icon(Icons.visibility_off)),
                           prefixIcon: const Icon(
                             Icons.lock_open_outlined,
                             color: Colors.black,
