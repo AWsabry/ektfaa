@@ -1,14 +1,16 @@
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:ektfaa/Auth/SignUp.dart';
+import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
+import 'package:ektfaa/Screens/Auth/SignUp.dart';
+import 'package:ektfaa/Screens/DashBoard.dart';
 import 'package:ektfaa/features/SignIn/sign_in_cubit.dart';
 import 'package:ektfaa/features/SignIn/sign_in_states.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
-import 'package:ektfaa/features/Verification/verification_cubit.dart';
+import 'package:ektfaa/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../Theme.dart';
+import '../../Theme.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -23,7 +25,6 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return BlocBuilder<SignInCubit, InitialSignInState>(
         builder: (context, state) {
-      // var userInformation=SignInCubit
       return Scaffold(
         body: Form(
           key: formkey,
@@ -43,6 +44,7 @@ class _SignInState extends State<SignIn> {
                     ),
                     TextFormField(
                       controller: SignUpCubit.get(context).phoneController,
+                      keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         labelText: "Phone Number",
                         labelStyle: const TextStyle(color: AppColors.grey),
@@ -112,24 +114,50 @@ class _SignInState extends State<SignIn> {
                       height: 20,
                     ),
                     SizedBox(
-                      width: 500,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (formkey.currentState!.validate()) {
-                            // SignUpCubit.get(context)
-                            VerificationCubit.get(context).sendSignInOtp(
-                                context,
-                                SignUpCubit.get(context).countryCode,
-                                SignUpCubit.get(context).phoneController.text);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.redAccent,
-                        ),
-                        child: const Text("Sign In"),
-                      ),
-                    ),
+                        width: 500,
+                        height: 50,
+                        child: SignInCubit.get(context).isClicked == false
+                            ? ElevatedButton(
+                                onPressed: () {
+                                  if (formkey.currentState!.validate()) {
+                                    SignInCubit.get(context).clicked();
+                                    SignInCubit.get(context)
+                                        .checkUserByPhone(
+                                            SignUpCubit.get(context)
+                                                    .countryCode +
+                                                SignUpCubit.get(context)
+                                                    .phoneController
+                                                    .text)
+                                        .then((value) {
+                                      if (SignInCubit.get(context)
+                                          .userInformation
+                                          .isNotEmpty) {
+                                        pushAndRemoved(
+                                            context, const DashBoard());
+                                      } else {
+                                        SignInCubit.get(context).clicked();
+
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              "This Phone Number Isn't registered yet",
+                                              style: GoogleFonts.poppins(),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    });
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.redAccent,
+                                ),
+                                child: const Text("Sign In"),
+                              )
+                            : const Center(
+                                child: Loading(),
+                              )),
                     const SizedBox(
                       height: 20,
                     ),

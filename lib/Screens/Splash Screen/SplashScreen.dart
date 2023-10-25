@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:ektfaa/Auth/OnBoardingScreen.dart';
 import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
+import 'package:ektfaa/Screens/Auth/OnBoardingScreen.dart';
 import 'package:ektfaa/Screens/DashBoard.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    SignUpCubit.get(context).getphoneFromSharedPrefreance();
+    // SignUpCubit.get(context).getphoneFromSharedPrefreance();
     Future.delayed(const Duration(seconds: 2), () {
       if (SignUpCubit.get(context).phoneFromSharedPreference.isNotEmpty) {
         pushAndRemoved(context, const DashBoard());

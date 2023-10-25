@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:ektfaa/Auth/OTP_Verification.dart';
-import 'package:ektfaa/Auth/completeProfile.dart';
 import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
+import 'package:ektfaa/Screens/Auth/OTP_Verification.dart';
+import 'package:ektfaa/Screens/Auth/completeProfile.dart';
 import 'package:ektfaa/Screens/DashBoard.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/features/Verification/verification_states.dart';
@@ -137,38 +137,6 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
         ),
         backgroundColor: Colors.red,
       ));
-    }
-  }
-
-  Future<void> sendSignInOtp(
-      context, String countryCode, String phoneNumber) async {
-    try {
-      await FirebaseAuth.instance
-          .verifyPhoneNumber(
-              phoneNumber: countryCode + phoneNumber,
-              verificationCompleted:
-                  (PhoneAuthCredential phoneAuthCredential) {},
-              verificationFailed: (FirebaseAuthException error) {},
-              codeSent: (String verificationId, int? resendCode) {
-                CompleteProfile.verify = verificationId;
-                CompleteProfile.resendCode = resendCode;
-              },
-              forceResendingToken: CompleteProfile.resendCode,
-              timeout: const Duration(seconds: 59),
-              codeAutoRetrievalTimeout: (String verificationId) {
-                verificationId = CompleteProfile.verify;
-              })
-          .then((value) {
-        pushAndRemoved(
-          context,
-          OTP_Verification(
-            isSignedIn: true,
-          ),
-        );
-        emit(VerificationSuccessfull());
-      });
-    } on FirebaseAuthException catch (error) {
-      emit(VerificationFailed(errpr: error.toString()));
     }
   }
 

@@ -1,6 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:country_picker/country_picker.dart';
-import 'package:ektfaa/Auth/SignIn.dart';
+import 'package:ektfaa/Screens/Auth/SignIn.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/features/SignUp/sign_up_states.dart';

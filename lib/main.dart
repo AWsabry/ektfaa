@@ -1,6 +1,7 @@
-import 'package:ektfaa/Auth/SplashScreen.dart';
+import 'package:ektfaa/Screens/Auth/SplashScreen.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:ektfaa/features/Search/searchCubit.dart';
+import 'package:ektfaa/features/SignIn/sign_in_cubit.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/features/Verification/verification_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,9 +39,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => VerificationCubit(),
         ),
+        BlocProvider(
+          create: (context) => SignInCubit(),
+        ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Ektfaa - اكتفاء',
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,
         theme: MyTheme.lightTheme,

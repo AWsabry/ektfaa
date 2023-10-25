@@ -1,4 +1,4 @@
-import 'package:ektfaa/Auth/SignIn.dart';
+import 'package:ektfaa/Screens/Auth/SignIn.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';

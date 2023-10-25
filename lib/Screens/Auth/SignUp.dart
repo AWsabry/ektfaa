@@ -1,6 +1,6 @@
-import 'package:ektfaa/Auth/SignIn.dart';
-import 'package:ektfaa/Auth/completeProfile.dart';
 import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
+import 'package:ektfaa/Screens/Auth/SignIn.dart';
+import 'package:ektfaa/Screens/Auth/completeProfile.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/features/Verification/verification_cubit.dart';
