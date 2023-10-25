@@ -11,3 +11,5 @@ class ProductSearchFail extends SuperProductsStates {
 
   ProductSearchFail(this.error);
 }
+
+class GetEmailFromSharedPreferenceDone extends ProductsStates {}

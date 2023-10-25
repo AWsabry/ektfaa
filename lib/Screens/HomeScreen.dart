@@ -1,5 +1,5 @@
+import 'package:ektfaa/features/Search/ProductsCubit.dart';
 import 'package:ektfaa/features/Search/ProductsStates.dart';
-import 'package:ektfaa/features/Search/searchCubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,15 +22,16 @@ class _HomeScreenState extends State<HomeScreen> {
           BlocBuilder<ProductsCubit, ProductsStates>(builder: (context, state) {
         var list = ProductsCubit.get(context).searchedProducts;
         var message = ProductsCubit.get(context).message;
-
+        String phone = ProductsCubit.get(context).phone;
+        print(phone);
         return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false, // Remove the back icon
-            title: const Padding(
-              padding: EdgeInsets.only(top: 10),
+            title: Padding(
+              padding: const EdgeInsets.only(top: 10),
               child: Text(
-                "Products Checker",
-                style: TextStyle(color: Colors.black),
+                phone.toString(),
+                style: const TextStyle(color: Colors.black),
               ),
             ),
             backgroundColor: Colors.transparent,
@@ -74,8 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       onChanged: (value) {
-                        ProductsCubit.get(context)
-                            .getSearchedProductsInRestaurant(value);
+                        ProductsCubit.get(context).getSearchedProducts(
+                          value,
+                          context,
+                        );
                       },
                     ),
                   ),

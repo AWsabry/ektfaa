@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class VerificationCubit extends Cubit<InitialVerificationState> {
   VerificationCubit() : super(SuperVerificationState());
@@ -112,7 +113,10 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: CompleteProfile.verify, smsCode: smsCode);
       await auth.signInWithCredential(credential);
-
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      sharedPreferences.setString(
+          "PhoneNumber", SignUpCubit.get(context).phoneController.text);
       SignUpCubit.get(context).createUser(
         context,
         firstName: SignUpCubit.get(context).firstName.text,
@@ -148,6 +152,11 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: CompleteProfile.verify, smsCode: smsCode);
       await auth.signInWithCredential(credential);
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      sharedPreferences.setString(
+          "PhoneNumber", SignUpCubit.get(context).phoneController.text);
+
       pushAndRemoved(context, const DashBoard());
       emit(CheckOtpSuccessfull());
     } on FirebaseAuthException {

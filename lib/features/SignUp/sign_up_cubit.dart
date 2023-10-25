@@ -56,7 +56,8 @@ class SignUpCubit extends Cubit<InitialSignUpState> {
     print(city);
     print(gender);
     print(PhoneNumber);
-
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("PhoneNumber", PhoneNumber!);
     try {
       await Dio().post(
         "${EktfaaConstants.BaseUrl}/create_users_API/",
@@ -69,12 +70,10 @@ class SignUpCubit extends Cubit<InitialSignUpState> {
           "city": city,
           "age": age,
           "gender": gender,
-          "PhoneNumber": countryCode + PhoneNumber!,
+          "PhoneNumber": countryCode + PhoneNumber,
         },
       );
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      sharedPreferences.setString("PhoneNumber", PhoneNumber);
+
       emit(UserSignedUpSuccessfully());
       pushAndRemoved(context, const DashBoard());
     } catch (error) {

@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/features/Search/ProductsStates.dart';
+import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 // enum Privacy { Private, Public }
 
@@ -14,12 +16,15 @@ class ProductsCubit extends Cubit<ProductsStates> {
   List<dynamic> searchedProducts = [];
   var message;
 
-  void getSearchedProductsInRestaurant(valueRequest) {
+  void getSearchedProducts(valueRequest, context) async {
     searchedProducts.clear();
     var data = "No Data";
     emit(newProductsStateLoading());
+    String phone = SignUpCubit.get(context).phoneFromSharedPreference;
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    phone = sharedPreferences.getString("PhoneNumber")!;
     Dio()
-        .get("${EktfaaConstants.BaseUrl}/get_products/$valueRequest")
+        .get("${EktfaaConstants.BaseUrl}/get_products/$phone/$valueRequest")
         .then((value) {
       if (value.statusCode == 200) {
         searchedProducts.clear();
@@ -30,11 +35,15 @@ class ProductsCubit extends Cubit<ProductsStates> {
       emit(ProductSearchSuccess());
     }).catchError((error) {
       searchedProducts.clear();
-      print(error.toString());
-      print("okkkkkkkkkk");
-      print("${EktfaaConstants.BaseUrl}/get_products/$valueRequest");
       emit(ProductSearchFail(error.toString()));
     });
     // return data;
+  }
+
+  String phone = "";
+  getphoneFromSharedPrefreance() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    phone = sharedPreferences.getString("PhoneNumber")!;
+    emit(GetEmailFromSharedPreferenceDone());
   }
 }

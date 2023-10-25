@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/features/SignIn/sign_in_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class SignInCubit extends Cubit<InitialSignInState> {
   SignInCubit() : super(SuperSignInState());
@@ -11,10 +12,17 @@ class SignInCubit extends Cubit<InitialSignInState> {
   Future<void> checkUserByPhone(String phoneNumber) async {
     await Dio()
         .get('${EktfaaConstants.BaseUrl}/get_user_by_phone/$phoneNumber')
-        .then((value) {
+        .then((value) async {
       userInformation = value.data["Names"];
-      print(userInformation);
-      emit(GetUserInformationSuccessfully());
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      sharedPreferences.setString("PhoneNumber", phoneNumber);
+      Future.delayed(const Duration(milliseconds: 800)).then(
+        (value) {
+          print("WALAAA$phoneNumber");
+          emit(GetUserInformationSuccessfully());
+        },
+      );
     });
   }
 
