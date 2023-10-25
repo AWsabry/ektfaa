@@ -15,3 +15,7 @@ class SignUpFailed extends SuperSignUpState {
 class ChangeCountryCodeSuccessfully extends SuperSignUpState {}
 
 class AgreePolicySuccessfully extends SuperSignUpState {}
+
+class UserSignedUpSuccessfully extends SuperSignUpState {}
+
+class GetEmailFromSharedPreferenceSuccessfully extends SuperSignUpState {}

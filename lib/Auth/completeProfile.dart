@@ -23,6 +23,7 @@ class CompleteProfile extends StatefulWidget {
 
 class _CompleteProfileState extends State<CompleteProfile> {
   // This function is triggered when the button is clicked
+  bool checker = false;
 
   @override
   Widget build(BuildContext context) {
@@ -460,36 +461,69 @@ class _CompleteProfileState extends State<CompleteProfile> {
                       ),
                       FormField(
                         validator: (value) {
-                          if (SignUpCubit.get(context).agree == false) {
+                          if (!checker) {
                             return 'You need to accept terms';
                           } else {
                             return null;
                           }
                         },
-                        builder: (field) {
-                          return InkWell(
-                            onTap: () {
-                              SignUpCubit.get(context)
-                                  .agreePrivacyPolicy(context);
-                            },
-                            child: Row(
-                              children: [
-                                Checkbox(
-                                  value: SignUpCubit.get(context).agree,
-                                  onChanged: (value) {
-                                    SignUpCubit.get(context)
-                                        .agreePrivacyPolicy(context);
-                                  },
+                        builder: (state) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    checker = !checker;
+                                  });
+                                },
+                                child: Row(
+                                  children: [
+                                    Checkbox(
+                                      value: checker,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          checker = !checker;
+
+                                          state.didChange(value);
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Agree to our privacy & policy',
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
                                 ),
-                                const Text(
-                                  'Agree to our privacy & policy',
-                                  overflow: TextOverflow.ellipsis,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  state.errorText ?? '',
+                                  style: const TextStyle(
+                                    color: Colors.red,
+                                  ),
                                 ),
-                              ],
-                            ),
+                              )
+                            ],
                           );
                         },
                       ),
+
+                      //  Checkbox(
+                      //                                 value: checker,
+                      //                                 onChanged: (value) {
+                      //                                   setState(() {
+                      //                                     checker = !checker;
+                      //                                     state.didChange(value);
+                      //                                   });
+                      //                                 },
+                      //                               ),
+                      //                               const Text(
+                      //                                 'Agree to our privacy & policy',
+                      //                                 overflow: TextOverflow.ellipsis,
+                      //                               ),
+
                       const SizedBox(
                         height: 20,
                       ),
@@ -502,27 +536,25 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                 .completeFormKey
                                 .currentState!
                                 .validate()) {
-                              if (SignUpCubit.get(context).agree == true) {
-                                VerificationCubit.get(context).verification(
-                                  context,
-                                  firstName:
-                                      SignUpCubit.get(context).firstName.text,
-                                  lastName:
-                                      SignUpCubit.get(context).lastName.text,
-                                  email: widget.email,
-                                  password: widget.password,
-                                  countryName:
-                                      SignUpCubit.get(context).countryName.text,
-                                  city: SignUpCubit.get(context).city.text,
-                                  age: SignUpCubit.get(context).age.text,
-                                  gender: SignUpCubit.get(context).gender.text,
-                                  countryCode:
-                                      SignUpCubit.get(context).countryCode,
-                                  phoneNumber: SignUpCubit.get(context)
-                                      .phoneController
-                                      .text,
-                                );
-                              }
+                              VerificationCubit.get(context).verification(
+                                context,
+                                firstName:
+                                    SignUpCubit.get(context).firstName.text,
+                                lastName:
+                                    SignUpCubit.get(context).lastName.text,
+                                email: widget.email,
+                                password: widget.password,
+                                countryName:
+                                    SignUpCubit.get(context).countryName.text,
+                                city: SignUpCubit.get(context).city.text,
+                                age: SignUpCubit.get(context).age.text,
+                                gender: SignUpCubit.get(context).gender.text,
+                                countryCode:
+                                    SignUpCubit.get(context).countryCode,
+                                phoneNumber: SignUpCubit.get(context)
+                                    .phoneController
+                                    .text,
+                              );
                             }
                           },
                           style: ElevatedButton.styleFrom(

@@ -154,6 +154,13 @@ class _SignUpState extends State<SignUp> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your password';
                           }
+                          if (SignUpCubit.get(context)
+                                  .passwordController
+                                  .text
+                                  .length <
+                              8) {
+                            return 'Please enter a password not less than 8';
+                          }
                           // Check if the entered email has the right format
 
                           // Return null if the entered email is valid
@@ -221,6 +228,7 @@ class _SignUpState extends State<SignUp> {
                                   .text) {
                             return 'Please put your right password';
                           }
+
                           // Return null if the entered email is valid
                           return null;
                         },
