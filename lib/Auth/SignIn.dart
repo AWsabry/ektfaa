@@ -1,6 +1,9 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:ektfaa/Auth/SignUp.dart';
-import 'package:ektfaa/Screens/DashBoard.dart';
+import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
+import 'package:ektfaa/features/Verification/verification_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../Theme.dart';
 
@@ -30,13 +33,28 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
                 TextFormField(
+                  controller: SignUpCubit.get(context).phoneController,
                   decoration: InputDecoration(
-                    labelText: "Email",
+                    labelText: "Phone Number",
                     labelStyle: const TextStyle(color: AppColors.grey),
-                    hintText: "Enter your Email",
-                    prefixIcon: const Icon(
-                      Icons.email_outlined,
-                      color: Colors.black,
+                    hintText: "Enter your Phone Number",
+                    prefixIcon: Align(
+                      widthFactor: 1.0,
+                      heightFactor: 1.0,
+                      child: CountryCodePicker(
+                        textStyle: GoogleFonts.inter(
+                            color: Colors.grey,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400),
+                        onChanged: (value) {
+                          SignUpCubit.get(context)
+                              .getCountryCode(value.toString());
+                        },
+                        initialSelection: 'EG',
+                        favorite: const ['+20', 'EG'],
+                        showCountryOnly: false,
+                        showOnlyCountryWhenClosed: false,
+                      ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -61,59 +79,10 @@ class _SignInState extends State<SignIn> {
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                   ),
                   validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Please enter your email address';
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your country';
                     }
-                    // Check if the entered email has the right format
-                    if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                      return 'Please enter a valid email address';
-                    }
-                    // Return null if the entered email is valid
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    labelStyle: const TextStyle(color: AppColors.grey),
-                    hintText: "Enter your Password",
-                    prefixIcon: const Icon(
-                      Icons.lock_open_outlined,
-                      color: Colors.black,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(width: 1, color: Colors.black),
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          width: 1, color: AppColors.redAccent),
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(width: 1, color: Colors.redAccent),
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(width: 1, color: Colors.redAccent),
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                  ),
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Please enter your email address';
-                    }
-                    // Check if the entered email has the right format
-                    if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                      return 'Please enter a valid email address';
-                    }
+
                     // Return null if the entered email is valid
                     return null;
                   },
@@ -138,10 +107,10 @@ class _SignInState extends State<SignIn> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
+                      VerificationCubit.get(context).sendSignInOtp(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const DashBoard()));
+                          SignUpCubit.get(context).countryCode,
+                          SignUpCubit.get(context).phoneController.text);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.redAccent,

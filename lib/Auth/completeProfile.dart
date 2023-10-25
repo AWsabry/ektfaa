@@ -1,3 +1,5 @@
+import 'package:country_code_picker/country_code_picker.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:ektfaa/Auth/SignIn.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
@@ -5,6 +7,7 @@ import 'package:ektfaa/features/SignUp/sign_up_states.dart';
 import 'package:ektfaa/features/Verification/verification_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CompleteProfile extends StatefulWidget {
   const CompleteProfile({Key? key, required this.email, required this.password})
@@ -163,14 +166,56 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         height: 20,
                       ),
                       TextFormField(
+                        readOnly: true,
                         controller: SignUpCubit.get(context).countryName,
                         decoration: InputDecoration(
                           labelText: "Country",
                           labelStyle: const TextStyle(color: AppColors.grey),
                           hintText: "Enter your Country",
-                          prefixIcon: const Icon(
-                            Icons.person_outline,
-                            color: Colors.black,
+                          prefixIcon: Align(
+                            widthFactor: 1.0,
+                            heightFactor: 1.0,
+                            child: InkWell(
+                              onTap: () {
+                                showCountryPicker(
+                                  context: context,
+                                  exclude: <String>['EG', 'EG'],
+                                  favorite: <String>['EG'],
+                                  showPhoneCode: false,
+                                  onSelect: (Country country) {
+                                    SignUpCubit.get(context).countryName.text =
+                                        country.name;
+                                  },
+                                  countryListTheme: CountryListThemeData(
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(40.0),
+                                      topRight: Radius.circular(40.0),
+                                    ),
+                                    // Optional. Styles the search field.
+                                    inputDecoration: InputDecoration(
+                                      labelText: 'Search',
+                                      hintText: 'Start typing to search',
+                                      prefixIcon: const Icon(Icons.search),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: const Color(0xFF8C98A8)
+                                              .withOpacity(0.2),
+                                        ),
+                                      ),
+                                    ),
+                                    // Optional. Styles the text in the search field
+                                    searchTextStyle: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: const Icon(
+                                Icons.arrow_drop_down,
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide:
@@ -216,7 +261,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           labelStyle: const TextStyle(color: AppColors.grey),
                           hintText: "Enter your City",
                           prefixIcon: const Icon(
-                            Icons.person_outline,
+                            Icons.location_city,
                             color: Colors.black,
                           ),
                           enabledBorder: OutlineInputBorder(
@@ -262,9 +307,23 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           labelText: "Phone Number",
                           labelStyle: const TextStyle(color: AppColors.grey),
                           hintText: "Enter your Phone Number",
-                          prefixIcon: const Icon(
-                            Icons.person_outline,
-                            color: Colors.black,
+                          prefixIcon: Align(
+                            widthFactor: 1.0,
+                            heightFactor: 1.0,
+                            child: CountryCodePicker(
+                              textStyle: GoogleFonts.inter(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                              onChanged: (value) {
+                                SignUpCubit.get(context)
+                                    .getCountryCode(value.toString());
+                              },
+                              initialSelection: 'EG',
+                              favorite: const ['+20', 'EG'],
+                              showCountryOnly: false,
+                              showOnlyCountryWhenClosed: false,
+                            ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide:
@@ -289,13 +348,10 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
                         validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Please enter your name';
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your country';
                           }
-                          // Check if the entered email has the right format
-                          if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                            return 'Please enter a valid name';
-                          }
+
                           // Return null if the entered email is valid
                           return null;
                         },
@@ -336,14 +392,10 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
                         validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Please enter your name';
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your age';
                           }
-                          // Check if the entered email has the right format
-                          if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                            return 'Please enter a valid name';
-                          }
-                          // Return null if the entered email is valid
+
                           return null;
                         },
                       ),
@@ -352,13 +404,42 @@ class _CompleteProfileState extends State<CompleteProfile> {
                       ),
                       TextFormField(
                         controller: SignUpCubit.get(context).gender,
+                        readOnly: true,
                         decoration: InputDecoration(
                           labelText: "Gender",
                           labelStyle: const TextStyle(color: AppColors.grey),
                           hintText: "Enter your Gender",
-                          prefixIcon: const Icon(
-                            Icons.person_outline,
-                            color: Colors.black,
+                          prefixIcon: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              underline: null,
+                              alignment: Alignment.bottomRight,
+                              items: <String>[
+                                'Male',
+                                'Female',
+                              ].map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: SizedBox(
+                                    width: 40,
+                                    child: Text(
+                                      value,
+                                      textScaleFactor: 1.0,
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w900),
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                SignUpCubit.get(context).gender.text =
+                                    value.toString();
+                              },
+                              icon: const Icon(
+                                Icons.arrow_drop_down,
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide:
@@ -383,13 +464,10 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
                         validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Please enter your name';
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your gender';
                           }
-                          // Check if the entered email has the right format
-                          if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                            return 'Please enter a valid name';
-                          }
+
                           // Return null if the entered email is valid
                           return null;
                         },

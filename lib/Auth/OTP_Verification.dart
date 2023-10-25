@@ -9,19 +9,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 
 class OTP_Verification extends StatefulWidget {
-  const OTP_Verification({
-    Key? key,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.password,
-    required this.age,
-    required this.countryName,
-    required this.gender,
-    required this.city,
-    required this.phoneNumber,
-  }) : super(key: key);
-
+  OTP_Verification(
+      {Key? key,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.password,
+      this.age,
+      this.countryName,
+      this.gender,
+      this.city,
+      this.phoneNumber,
+      this.isSignedIn = false})
+      : super(key: key);
+  bool? isSignedIn;
   final String? firstName;
   final String? lastName;
   final String? email;
@@ -91,10 +92,18 @@ class _OTP_VerificationState extends State<OTP_Verification> {
                     controller: VerificationCubit.get(context).pinPutController,
                     length: 6,
                     onCompleted: (value) {
-                      VerificationCubit.get(context).checkOtp(
-                        context,
-                        VerificationCubit.get(context).pinPutController.text,
-                      );
+                      if (widget.isSignedIn == true) {
+                        VerificationCubit.get(context).signInOtp(
+                            context,
+                            VerificationCubit.get(context)
+                                .pinPutController
+                                .text);
+                      } else {
+                        VerificationCubit.get(context).checkOtp(
+                          context,
+                          VerificationCubit.get(context).pinPutController.text,
+                        );
+                      }
                     },
                     animationCurve: Curves.easeOut,
                     focusedPinTheme: PinTheme(

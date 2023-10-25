@@ -39,6 +39,8 @@ dependencies:
   flutter_screenutil: ^5.9.0
   flutter_searchbox: ^3.2.0
   dio:
+  country_picker: ^2.0.21
+  csc_picker: ^0.2.7
 
   flutter:
     sdk: flutter

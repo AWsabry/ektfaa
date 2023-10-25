@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:ektfaa/Auth/OTP_Verification.dart';
 import 'package:ektfaa/Auth/completeProfile.dart';
 import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
+import 'package:ektfaa/Screens/HomeScreen.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/features/Verification/verification_states.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,7 +33,7 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
             CompleteProfile.resendCode = resendCode;
           },
           forceResendingToken: CompleteProfile.resendCode,
-          timeout: const Duration(seconds: 25),
+          timeout: const Duration(seconds: 59),
           codeAutoRetrievalTimeout: (String verificationId) {
             verificationId = CompleteProfile.verify;
           });
@@ -66,7 +67,7 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
                 CompleteProfile.resendCode = resendCode;
               },
               forceResendingToken: CompleteProfile.resendCode,
-              timeout: const Duration(seconds: 25),
+              timeout: const Duration(seconds: 59),
               codeAutoRetrievalTimeout: (String verificationId) {
                 verificationId = CompleteProfile.verify;
               })
@@ -112,6 +113,62 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
         gender: SignUpCubit.get(context).gender.text,
         PhoneNumber: SignUpCubit.get(context).phoneController.text,
       );
+      emit(CheckOtpSuccessfull());
+    } on FirebaseAuthException {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          wrongOtpMessage,
+          style: GoogleFonts.poppins(
+              fontSize: 14.sp,
+              color: Colors.white,
+              fontWeight: FontWeight.w500),
+        ),
+        backgroundColor: Colors.red,
+      ));
+    }
+  }
+
+  Future<void> sendSignInOtp(
+      context, String countryCode, String phoneNumber) async {
+    try {
+      await FirebaseAuth.instance
+          .verifyPhoneNumber(
+              phoneNumber: countryCode + phoneNumber,
+              verificationCompleted:
+                  (PhoneAuthCredential phoneAuthCredential) {},
+              verificationFailed: (FirebaseAuthException error) {},
+              codeSent: (String verificationId, int? resendCode) {
+                CompleteProfile.verify = verificationId;
+                CompleteProfile.resendCode = resendCode;
+              },
+              forceResendingToken: CompleteProfile.resendCode,
+              timeout: const Duration(seconds: 59),
+              codeAutoRetrievalTimeout: (String verificationId) {
+                verificationId = CompleteProfile.verify;
+              })
+          .then((value) {
+        pushAndRemoved(
+          context,
+          OTP_Verification(
+            isSignedIn: true,
+          ),
+        );
+        emit(VerificationSuccessfull());
+      });
+    } on FirebaseAuthException catch (error) {
+      emit(VerificationFailed(errpr: error.toString()));
+    }
+  }
+
+  Future<void> signInOtp(
+    context,
+    String smsCode,
+  ) async {
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: CompleteProfile.verify, smsCode: smsCode);
+      await auth.signInWithCredential(credential);
+      pushAndRemoved(context, HomeScreen());
       emit(CheckOtpSuccessfull());
     } on FirebaseAuthException {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

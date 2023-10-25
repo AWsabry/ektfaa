@@ -92,7 +92,7 @@ class _SignUpState extends State<SignUp> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
                         validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return 'Please enter your email address';
                           }
                           // Check if the entered email has the right format
@@ -139,13 +139,11 @@ class _SignUpState extends State<SignUp> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
                         validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Please enter your email address';
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your password';
                           }
                           // Check if the entered email has the right format
-                          if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                            return 'Please enter a valid email address';
-                          }
+
                           // Return null if the entered email is valid
                           return null;
                         },
@@ -185,13 +183,10 @@ class _SignUpState extends State<SignUp> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
                         validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Please enter your email address';
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your Password';
                           }
-                          // Check if the entered email has the right format
-                          if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                            return 'Please enter a valid email address';
-                          }
+
                           if (value !=
                               SignUpCubit.get(context)
                                   .passwordController
@@ -210,16 +205,21 @@ class _SignUpState extends State<SignUp> {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
-                            push(
-                                context,
-                                CompleteProfile(
-                                  email: SignUpCubit.get(context)
-                                      .emailController
-                                      .text,
-                                  password: SignUpCubit.get(context)
-                                      .passwordController
-                                      .text,
-                                ));
+                            if (SignUpCubit.get(context)
+                                .formkey
+                                .currentState!
+                                .validate()) {
+                              push(
+                                  context,
+                                  CompleteProfile(
+                                    email: SignUpCubit.get(context)
+                                        .emailController
+                                        .text,
+                                    password: SignUpCubit.get(context)
+                                        .passwordController
+                                        .text,
+                                  ));
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.redAccent,

@@ -14,7 +14,7 @@ class SignUpCubit extends Cubit<InitialSignUpState> {
   final lastName = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final countryName = TextEditingController();
+  late final countryName = TextEditingController();
   final city = TextEditingController();
   final age = TextEditingController();
   final gender = TextEditingController();
