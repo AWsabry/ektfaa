@@ -2,6 +2,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:ektfaa/Screens/Auth/SignIn.dart';
 import 'package:ektfaa/Theme.dart';
+import 'package:ektfaa/features/SignIn/sign_in_cubit.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/features/SignUp/sign_up_states.dart';
 import 'package:ektfaa/features/Verification/verification_cubit.dart';
@@ -523,25 +524,45 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                 .completeFormKey
                                 .currentState!
                                 .validate()) {
-                              VerificationCubit.get(context).verification(
-                                context,
-                                firstName:
-                                    SignUpCubit.get(context).firstName.text,
-                                lastName:
-                                    SignUpCubit.get(context).lastName.text,
-                                email: widget.email,
-                                password: widget.password,
-                                countryName:
-                                    SignUpCubit.get(context).countryName.text,
-                                city: SignUpCubit.get(context).city.text,
-                                age: SignUpCubit.get(context).age.text,
-                                gender: SignUpCubit.get(context).gender.text,
-                                countryCode:
-                                    SignUpCubit.get(context).countryCode,
-                                phoneNumber: SignUpCubit.get(context)
-                                    .phoneController
-                                    .text,
-                              );
+                              SignInCubit.get(context)
+                                  .checkUserByPhone(
+                                      SignUpCubit.get(context).countryCode +
+                                          SignUpCubit.get(context)
+                                              .phoneController
+                                              .text)
+                                  .then((value) {
+                                print(SignInCubit.get(context).userInformation);
+                                if (SignInCubit.get(context)
+                                    .userInformation
+                                    .isEmpty) {
+                                  VerificationCubit.get(context).verification(
+                                    context,
+                                    firstName:
+                                        SignUpCubit.get(context).firstName.text,
+                                    lastName:
+                                        SignUpCubit.get(context).lastName.text,
+                                    email: widget.email,
+                                    password: widget.password,
+                                    countryName: SignUpCubit.get(context)
+                                        .countryName
+                                        .text,
+                                    city: SignUpCubit.get(context).city.text,
+                                    age: SignUpCubit.get(context).age.text,
+                                    gender:
+                                        SignUpCubit.get(context).gender.text,
+                                    countryCode:
+                                        SignUpCubit.get(context).countryCode,
+                                    phoneNumber: SignUpCubit.get(context)
+                                        .phoneController
+                                        .text,
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              "This Phone Already Have an account")));
+                                }
+                              });
                             }
                           },
                           style: ElevatedButton.styleFrom(

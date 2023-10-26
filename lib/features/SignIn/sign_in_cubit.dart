@@ -18,14 +18,8 @@ class SignInCubit extends Cubit<InitialSignInState> {
       userInformation = value.data["Names"];
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
-      sharedPreferences.setString("PhoneNumber", phoneNumber.toString());
+      sharedPreferences.setString("PhoneNumber", phoneNumber);
       emit(GetUserInformationSuccessfully());
-
-      Future.delayed(const Duration(milliseconds: 800)).then(
-        (value) {
-          print("WALAAA$phoneNumber");
-        },
-      );
     });
   }
 

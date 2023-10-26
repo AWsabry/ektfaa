@@ -19,6 +19,7 @@ class OTP_Verification extends StatefulWidget {
       this.gender,
       this.city,
       this.phoneNumber,
+      this.countryCode,
       this.isSignedIn = false})
       : super(key: key);
   bool? isSignedIn;
@@ -31,6 +32,7 @@ class OTP_Verification extends StatefulWidget {
   final String? gender;
   final String? city;
   final String? phoneNumber;
+  final String? countryCode;
 
   @override
   State<OTP_Verification> createState() => _OTP_VerificationState();
@@ -92,20 +94,13 @@ class _OTP_VerificationState extends State<OTP_Verification> {
                           VerificationCubit.get(context).pinPutController,
                       length: 6,
                       onCompleted: (value) {
-                        if (widget.isSignedIn == true) {
-                          VerificationCubit.get(context).signInOtp(
-                              context,
-                              VerificationCubit.get(context)
-                                  .pinPutController
-                                  .text);
-                        } else {
-                          VerificationCubit.get(context).checkOtp(
+                        VerificationCubit.get(context).checkOtp(
                             context,
                             VerificationCubit.get(context)
                                 .pinPutController
                                 .text,
-                          );
-                        }
+                            phoneNumber: widget.phoneNumber!,
+                            countryCode: widget.countryCode!);
                       },
                       animationCurve: Curves.easeOut,
                       androidSmsAutofillMethod:

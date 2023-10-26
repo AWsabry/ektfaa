@@ -1,4 +1,4 @@
-import 'package:ektfaa/Screens/Splash Screen/SplashScreen.dart';
+import 'package:ektfaa/Screens/Splash%20Screen/SplashScreen.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:ektfaa/features/Search/ProductsCubit.dart';
 import 'package:ektfaa/features/SignIn/sign_in_cubit.dart';
@@ -54,3 +54,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+//I went to bathroom 

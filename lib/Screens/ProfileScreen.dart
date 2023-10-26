@@ -35,6 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             IconButton(
               icon: const Icon(Icons.exit_to_app), // Use the sign-out icon
               onPressed: () {
+                SignInCubit.get(context).clicked();
                 SignInCubit.get(context).signOut(context);
               },
             ),

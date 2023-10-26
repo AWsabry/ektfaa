@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
 import 'package:ektfaa/Screens/Auth/OTP_Verification.dart';
 import 'package:ektfaa/Screens/Auth/completeProfile.dart';
-import 'package:ektfaa/Screens/DashBoard.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/features/Verification/verification_states.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class VerificationCubit extends Cubit<InitialVerificationState> {
   VerificationCubit() : super(SuperVerificationState());
@@ -84,7 +82,8 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
               countryName: countryName,
               gender: gender,
               city: city,
-              phoneNumber: phoneNumber),
+              phoneNumber: phoneNumber,
+              countryCode: countryCode),
         );
         emit(VerificationSuccessfull());
       });
@@ -105,18 +104,12 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
     emit(ShowConfirmPassswordSuccessfully());
   }
 
-  Future<void> checkOtp(
-    context,
-    String smsCode,
-  ) async {
+  Future<void> checkOtp(context, String smsCode,
+      {required String phoneNumber, required String countryCode}) async {
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: CompleteProfile.verify, smsCode: smsCode);
       await auth.signInWithCredential(credential);
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      sharedPreferences.setString(
-          "PhoneNumber", SignUpCubit.get(context).phoneController.text);
       SignUpCubit.get(context).createUser(
         context,
         firstName: SignUpCubit.get(context).firstName.text,
@@ -127,37 +120,8 @@ class VerificationCubit extends Cubit<InitialVerificationState> {
         city: SignUpCubit.get(context).city.text,
         age: SignUpCubit.get(context).age.text,
         gender: SignUpCubit.get(context).gender.text,
-        PhoneNumber: SignUpCubit.get(context).phoneController.text,
+        phoneNumber: SignUpCubit.get(context).phoneController.text,
       );
-      emit(CheckOtpSuccessfull());
-    } on FirebaseAuthException {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(
-          wrongOtpMessage,
-          style: GoogleFonts.poppins(
-              fontSize: 14.sp,
-              color: Colors.white,
-              fontWeight: FontWeight.w500),
-        ),
-        backgroundColor: Colors.red,
-      ));
-    }
-  }
-
-  Future<void> signInOtp(
-    context,
-    String smsCode,
-  ) async {
-    try {
-      PhoneAuthCredential credential = PhoneAuthProvider.credential(
-          verificationId: CompleteProfile.verify, smsCode: smsCode);
-      await auth.signInWithCredential(credential);
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      sharedPreferences.setString(
-          "PhoneNumber", SignUpCubit.get(context).phoneController.text);
-
-      pushAndRemoved(context, const DashBoard());
       emit(CheckOtpSuccessfull());
     } on FirebaseAuthException {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
