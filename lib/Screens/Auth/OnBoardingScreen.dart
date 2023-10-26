@@ -26,7 +26,7 @@ class OnBoardingScreen extends StatelessWidget {
             decoration: getPageDecoration(),
           ),
           PageViewModel(
-            title: 'Lets have our Ektfaa !',
+            title: 'Let\'s have our Ektfaa !',
             body: 'If the results appear, it\'s arabic, otherwise it\'s not.',
             image: buildImage2('assets/Images/06.jpg'),
             decoration: getPageDecoration(),
