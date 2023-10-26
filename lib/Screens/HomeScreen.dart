@@ -1,5 +1,6 @@
 import 'package:ektfaa/features/Search/ProductsCubit.dart';
 import 'package:ektfaa/features/Search/ProductsStates.dart';
+import 'package:ektfaa/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,16 +23,14 @@ class _HomeScreenState extends State<HomeScreen> {
           BlocBuilder<ProductsCubit, ProductsStates>(builder: (context, state) {
         var list = ProductsCubit.get(context).searchedProducts;
         var message = ProductsCubit.get(context).message;
-        String phone = ProductsCubit.get(context).phone;
-        print(phone);
         return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false, // Remove the back icon
-            title: Padding(
-              padding: const EdgeInsets.only(top: 10),
+            title: const Padding(
+              padding: EdgeInsets.only(top: 10),
               child: Text(
-                phone.toString(),
-                style: const TextStyle(color: Colors.black),
+                "Products Checker",
+                style: TextStyle(color: Colors.black),
               ),
             ),
             backgroundColor: Colors.transparent,
@@ -105,35 +104,42 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: <Widget>[
                                 CircleAvatar(
                                   radius: 40,
-                                  backgroundColor: Colors.redAccent,
+                                  backgroundColor: Colors.transparent,
                                   child: CircleAvatar(
-                                      radius: 38,
+                                      backgroundColor: Colors.transparent,
+                                      radius: 40,
                                       backgroundImage: list[index]['image'] ==
                                                   null ||
                                               list[index]['image'] == ""
                                           ? const AssetImage(
-                                              'assets/Images/Product.png')
+                                              'assets/Images/3.png')
                                           : AssetImage(list[index]['image'])),
                                 ),
                                 const SizedBox(
                                     width:
                                         10), // Add some spacing between the image and the text
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment
-                                      .start, // Align text to the start
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
-                                    Text(
-                                      list[index][
-                                          'product_arabic_name'], // Your name in Arabic
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      list[index][
-                                          'product_english_name'], // Your description in Arabic
-                                      style: const TextStyle(
-                                          fontSize: 14, color: Colors.grey),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .start, // Align text to the start
+                                      children: [
+                                        Text(
+                                          list[index][
+                                              'product_arabic_name'], // Your name in Arabic
+                                          style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          list[index][
+                                              'product_english_name'], // Your description in Arabic
+                                          style: const TextStyle(
+                                              fontSize: 14, color: Colors.grey),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -147,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             )
                           : state is newProductsStateLoading
                               ? const Center(
-                                  child: CircularProgressIndicator(),
+                                  child: Loading(),
                                 )
                               : const Center(
                                   child: Text("Please Check Arab Products"),

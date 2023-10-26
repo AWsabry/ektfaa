@@ -56,6 +56,9 @@ class _OTP_VerificationState extends State<OTP_Verification> {
               child: Center(
                 child: Column(
                   children: [
+                    const Image(
+                      image: AssetImage("assets/Images/arab.png"),
+                    ),
                     const Text(
                       "Enter Code",
                       style:

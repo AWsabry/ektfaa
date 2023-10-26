@@ -54,6 +54,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-//I went to bathroom 

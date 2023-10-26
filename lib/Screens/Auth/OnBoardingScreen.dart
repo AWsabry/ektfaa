@@ -14,22 +14,21 @@ class OnBoardingScreen extends StatelessWidget {
           PageViewModel(
             title: 'Check Product Manufacturer',
             body:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do',
-            image: buildImage('assets/Images/01.jpg'),
+                'Ektfaa give you the ability to know more about the arabic products in your location.',
+            image: buildImage('assets/Images/arab.png'),
             decoration: getPageDecoration(),
           ),
           PageViewModel(
-            title: 'If it EXIST, it\'s OK',
+            title: 'If it EXISTS, it\'s ARABIC',
             body:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do',
-            image: buildImage1('assets/Images/ob_2.png'),
+                'Ektfaa supports you with a search engine to give you more information about the arabic products.',
+            image: buildImage1('assets/Images/09.jpg'),
             decoration: getPageDecoration(),
           ),
           PageViewModel(
-            title: 'Always there\'re similar products',
-            body:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do',
-            image: buildImage2('assets/Images/ob_3.png'),
+            title: 'Lets have our Ektfaa !',
+            body: 'If the results appear, it\'s arabic, otherwise it\'s not.',
+            image: buildImage2('assets/Images/06.jpg'),
             decoration: getPageDecoration(),
           ),
         ],
@@ -49,15 +48,15 @@ class OnBoardingScreen extends StatelessWidget {
   }
 
   Widget buildImage(String assetName, [double width = 350]) {
-    return Image.asset('assets/Images/01.jpg', width: width);
+    return Image.asset('assets/Images/arab.png', width: width);
   }
 
   Widget buildImage1(String assetName, [double width = 350]) {
-    return Image.asset('assets/Images/ob_2.png', width: width);
+    return Image.asset('assets/Images/09.jpg', width: width);
   }
 
   Widget buildImage2(String assetName, [double width = 350]) {
-    return Image.asset('assets/Images/ob_3.png', width: width);
+    return Image.asset('assets/Images/06.jpg', width: width);
   }
 
   DotsDecorator getdotdecorator() => const DotsDecorator(

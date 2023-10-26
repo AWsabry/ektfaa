@@ -33,7 +33,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
         child: Scaffold(
           appBar: AppBar(
             title: const Text(
-              "Registration",
+              "Complete Profile",
               style: TextStyle(color: Colors.black),
             ),
             centerTitle: true,
@@ -54,14 +54,14 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         height: 20,
                       ),
                       const Text(
-                        "Let's Get Started",
+                        "Let's seek for arab products",
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
                             color: AppColors.redAccent),
                       ),
                       const Text(
-                        "Create an account to get all features",
+                        "Create an account to know more !",
                         style: TextStyle(color: AppColors.grey),
                       ),
                       const SizedBox(
@@ -289,6 +289,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         height: 20,
                       ),
                       TextFormField(
+                        keyboardType: TextInputType.number,
                         controller: SignUpCubit.get(context).phoneController,
                         decoration: InputDecoration(
                           labelText: "Phone Number",
@@ -347,6 +348,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         height: 20,
                       ),
                       TextFormField(
+                        keyboardType: TextInputType.number,
                         controller: SignUpCubit.get(context).age,
                         decoration: InputDecoration(
                           labelText: "age",
@@ -394,7 +396,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         decoration: InputDecoration(
                           labelText: "Gender",
                           labelStyle: const TextStyle(color: AppColors.grey),
-                          hintText: "Enter your Gender",
+                          hintText: "Press on the arrow",
                           prefixIcon: DropdownButtonHideUnderline(
                             child: DropdownButton<String>(
                               underline: null,
@@ -451,7 +453,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your gender';
+                            return 'Please choose your gender';
                           }
                           return null;
                         },
@@ -509,21 +511,6 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           );
                         },
                       ),
-
-                      //  Checkbox(
-                      //                                 value: checker,
-                      //                                 onChanged: (value) {
-                      //                                   setState(() {
-                      //                                     checker = !checker;
-                      //                                     state.didChange(value);
-                      //                                   });
-                      //                                 },
-                      //                               ),
-                      //                               const Text(
-                      //                                 'Agree to our privacy & policy',
-                      //                                 overflow: TextOverflow.ellipsis,
-                      //                               ),
-
                       const SizedBox(
                         height: 20,
                       ),
@@ -560,7 +547,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.redAccent,
                           ),
-                          child: const Text("Sign Up"),
+                          child: const Text("Complete"),
                         ),
                       ),
                       const SizedBox(
@@ -590,6 +577,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           ],
                         ),
                       ),
+                      const SizedBox(
+                        height: 20,
+                      )
                     ],
                   ),
                 ),

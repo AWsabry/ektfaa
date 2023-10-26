@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ektfaa/Components/Constants/constatnts.dart';
+import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
+import 'package:ektfaa/Screens/Auth/SignIn.dart';
 import 'package:ektfaa/features/SignIn/sign_in_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -16,14 +18,21 @@ class SignInCubit extends Cubit<InitialSignInState> {
       userInformation = value.data["Names"];
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
-      sharedPreferences.setString("PhoneNumber", phoneNumber);
+      sharedPreferences.setString("PhoneNumber", phoneNumber.toString());
+      emit(GetUserInformationSuccessfully());
+
       Future.delayed(const Duration(milliseconds: 800)).then(
         (value) {
           print("WALAAA$phoneNumber");
-          emit(GetUserInformationSuccessfully());
         },
       );
     });
+  }
+
+  Future<void> signOut(context) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.clear();
+    pushAndRemoved(context, const SignIn());
   }
 
   bool isClicked = false;
