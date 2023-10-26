@@ -34,4 +34,9 @@ class SignInCubit extends Cubit<InitialSignInState> {
     isClicked = !isClicked;
     emit(IsClickedSuccessfully());
   }
+
+  closeClicked() {
+    isClicked = false;
+    emit(CloseIsClickedSuccessfully());
+  }
 }
