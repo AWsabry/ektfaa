@@ -65,7 +65,7 @@ We may update this Privacy Policy from time to time. The "Last Updated" date at 
 
 **8. Contact Us**
 
-If you have any questions or concerns about this Privacy Policy or our privacy practices, please contact us at [Insert Contact Information].
+If you have any questions or concerns about this Privacy Policy or our privacy practices, please contact us at awsabry2000@gmail.com.
 
 By using Ektfaa, you agree to the terms and conditions of this Privacy Policy. If you do not agree with these terms, please do not use Ektfaa.
 
