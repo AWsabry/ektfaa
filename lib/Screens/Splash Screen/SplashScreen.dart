@@ -18,16 +18,30 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    SignUpCubit.get(context).getphoneFromSharedPrefreance();
-    Future.delayed(const Duration(seconds: 2), () {
-      if (SignUpCubit.get(context).phoneFromSharedPreference.isNotEmpty) {
-        SignInCubit.get(context).checkUserByPhone(
-            SignUpCubit.get(context).phoneFromSharedPreference);
+    fetchData();
+  }
 
-        pushAndRemoved(context, const DashBoard());
-      } else {
+  Future<void> fetchData() async {
+    SignUpCubit.get(context).getPhoneFromSharedPreference();
+    SignInCubit.get(context)
+        .checkUserByPhone(SignUpCubit.get(context).phoneFromSharedPreference);
+
+    // Since we've awaited the data retrieval, it should be available here
+    Future.delayed(const Duration(milliseconds: 1500)).then((value) async {
+      if (SignInCubit.get(context).userInformation.isEmpty &&
+          SignUpCubit.get(context).phoneFromSharedPreference.isEmpty) {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const OnBoardingScreen()));
+      } else {
+        SignInCubit.get(context).checkUserByPhone(
+            SignUpCubit.get(context).phoneFromSharedPreference);
+        // print("User INFO: ${SignInCubit.get(context).userInformation}");
+        // No need to call checkUserByPhone again, as you've already called it.
+        // Do whatever you need with the userInformation here.
+        pushAndRemoved(
+          context,
+          const DashBoard(),
+        );
       }
     });
   }

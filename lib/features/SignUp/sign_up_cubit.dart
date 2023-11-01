@@ -5,6 +5,7 @@ import 'package:ektfaa/Screens/DashBoard.dart';
 import 'package:ektfaa/features/SignUp/sign_up_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class SignUpCubit extends Cubit<InitialSignUpState> {
@@ -65,6 +66,7 @@ class SignUpCubit extends Cubit<InitialSignUpState> {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       sharedPreferences.setString("PhoneNumber", countryCode + phoneNumber);
+      Logger().i(countryCode + phoneNumber);
       emit(UserSignedUpSuccessfully());
       pushAndRemoved(context, const DashBoard());
     } catch (error) {
@@ -74,7 +76,8 @@ class SignUpCubit extends Cubit<InitialSignUpState> {
   }
 
   String phoneFromSharedPreference = "";
-  getphoneFromSharedPrefreance() async {
+  getPhoneFromSharedPreference() async {
+    print(phoneFromSharedPreference);
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     phoneFromSharedPreference = sharedPreferences.getString("PhoneNumber")!;
     emit(GetEmailFromSharedPreferenceSuccessfully());

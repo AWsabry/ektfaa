@@ -1,3 +1,4 @@
+import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/features/Search/ProductsCubit.dart';
 import 'package:ektfaa/features/Search/ProductsStates.dart';
 import 'package:ektfaa/loading.dart';
@@ -26,11 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false, // Remove the back icon
-            title: const Padding(
-              padding: EdgeInsets.only(top: 10),
+            title: Padding(
+              padding: const EdgeInsets.only(top: 10),
               child: Text(
-                "Products Checker",
-                style: TextStyle(color: Colors.black),
+                EktfaaConstants.homeTitle,
+                style: const TextStyle(color: Colors.black),
               ),
             ),
             backgroundColor: Colors.transparent,
@@ -53,23 +54,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         if (value!.isNotEmpty) {
                           return null;
                         } else {
-                          return 'Search must not be empty';
+                          return EktfaaConstants.searchEmpty;
                         }
                       },
-                      decoration: const InputDecoration(
-                        focusedBorder: OutlineInputBorder(
+                      decoration: InputDecoration(
+                        focusedBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20.0)),
                           borderSide: BorderSide(
                             color:
                                 Colors.grey, // Change the active border color
                           ),
                         ),
-                        hintText: 'Search for products',
-                        prefixIcon: Icon(
+                        hintText: EktfaaConstants.searchHint,
+                        prefixIcon: const Icon(
                           Icons.search,
                           color: Colors.grey,
                         ),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(13.0)),
                         ),
                       ),
@@ -98,49 +99,76 @@ class _HomeScreenState extends State<HomeScreen> {
                             );
                           },
                           itemBuilder: (context, index) {
-                            print(list);
-                            return Row(
-                              textDirection: TextDirection.rtl,
-                              children: <Widget>[
-                                CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor: Colors.transparent,
-                                  child: CircleAvatar(
-                                      backgroundColor: Colors.transparent,
-                                      radius: 40,
-                                      backgroundImage: list[index]['image'] ==
-                                                  null ||
-                                              list[index]['image'] == ""
-                                          ? const AssetImage(
-                                              'assets/Images/3.png')
-                                          : AssetImage(list[index]['image'])),
+                            return Column(
+                              children: [
+                                Center(
+                                  child: Text(
+                                    "The product you searched for '${widget.controller.text}' is not subject to Ektfaa regulations, but here are the alternatives for you:",
+                                    style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                                 const SizedBox(
-                                    width:
-                                        10), // Add some spacing between the image and the text
+                                  height: 25,
+                                ),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start, // Align text to the start
+                                  textDirection: TextDirection.rtl,
+                                  children: <Widget>[
+                                    CircleAvatar(
+                                      radius: 40,
+                                      backgroundColor: Colors.transparent,
+                                      child: CircleAvatar(
+                                          backgroundColor: Colors.transparent,
+                                          radius: 40,
+                                          backgroundImage:
+                                              list[index]['image'] == null ||
+                                                      list[index]['image'] == ""
+                                                  ? const AssetImage(
+                                                      'assets/Images/3.png')
+                                                  : AssetImage(
+                                                      list[index]['image'])),
+                                    ),
+                                    const SizedBox(
+                                        width:
+                                            20), // Add some spacing between the image and the text
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          list[index][
-                                              'product_arabic_name'], // Your name in Arabic
-                                          style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          list[index][
-                                              'product_english_name'], // Your description in Arabic
-                                          style: const TextStyle(
-                                              fontSize: 14, color: Colors.grey),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              list[index][
+                                                  'product_arabic_name'], // Your name in Arabic
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis for overflow
+                                              maxLines:
+                                                  1, // Limit to 1 line to prevent excessive overflow
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              list[index][
+                                                  'product_english_name'], // Your description in Arabic
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis for overflow
+                                              maxLines:
+                                                  2, // Limit to 2 lines to prevent excessive overflow
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
-                                    ),
+                                    )
                                   ],
                                 ),
                               ],
@@ -148,15 +176,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         )
                       : state is ProductSearchFail
-                          ? const Center(
-                              child: Text("There is no arab products"),
+                          ? Center(
+                              child: Text(EktfaaConstants.noProductsResults),
                             )
                           : state is newProductsStateLoading
                               ? const Center(
                                   child: Loading(),
                                 )
-                              : const Center(
-                                  child: Text("Please Check Arab Products"),
+                              : Center(
+                                  child:
+                                      Text(EktfaaConstants.searchDescription),
                                 ),
 
                   // const SearchResults(),

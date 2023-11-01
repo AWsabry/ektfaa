@@ -1,4 +1,5 @@
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
 import 'package:ektfaa/Screens/Auth/SignUp.dart';
 import 'package:ektfaa/Screens/DashBoard.dart';
@@ -9,6 +10,8 @@ import 'package:ektfaa/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import '../../Theme.dart';
 
@@ -91,7 +94,7 @@ class _SignInState extends State<SignIn> {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your phone';
+                          return EktfaaConstants.phoneNumberHint;
                         }
 
                         // Return null if the entered email is valid
@@ -128,10 +131,27 @@ class _SignInState extends State<SignIn> {
                                                 SignUpCubit.get(context)
                                                     .phoneController
                                                     .text)
-                                        .then((value) {
+                                        .then((value) async {
                                       if (SignInCubit.get(context)
                                           .userInformation
                                           .isNotEmpty) {
+                                        SharedPreferences sharedPreferences =
+                                            await SharedPreferences
+                                                .getInstance();
+                                        sharedPreferences.setString(
+                                            "PhoneNumber",
+                                            // ignore: use_build_context_synchronously
+                                            SignUpCubit.get(context)
+                                                    .countryCode +
+                                                SignUpCubit.get(context)
+                                                    .phoneController
+                                                    .text);
+                                        Logger().i(SignUpCubit.get(context)
+                                                .countryCode +
+                                            SignUpCubit.get(context)
+                                                .phoneController
+                                                .text);
+                                        // ignore: use_build_context_synchronously
                                         pushAndRemoved(
                                             context, const DashBoard());
                                       } else {

@@ -7,3 +7,5 @@ class GetUserInformationSuccessfully extends SuperSignInState {}
 class IsClickedSuccessfully extends SuperSignInState {}
 
 class CloseIsClickedSuccessfully extends SuperSignInState {}
+
+class GetPhoneSharedPreferenceSuccessfully extends SuperSignInState {}

@@ -1,5 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/Screens/Auth/SignIn.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:ektfaa/features/SignIn/sign_in_cubit.dart';
@@ -33,9 +34,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
       return SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            title: const Text(
-              "Complete Profile",
-              style: TextStyle(color: Colors.black),
+            title: Text(
+              EktfaaConstants.completeProfileTitle,
+              style: const TextStyle(color: Colors.black),
             ),
             centerTitle: true,
             backgroundColor: Colors.transparent,
@@ -54,16 +55,16 @@ class _CompleteProfileState extends State<CompleteProfile> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Text(
-                        "Let's seek for arab products",
-                        style: TextStyle(
+                      Text(
+                        EktfaaConstants.completeProfileSubTitle,
+                        style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
                             color: AppColors.redAccent),
                       ),
-                      const Text(
-                        "Create an account to know more !",
-                        style: TextStyle(color: AppColors.grey),
+                      Text(
+                        EktfaaConstants.completeProfileSubSubTitle,
+                        style: const TextStyle(color: AppColors.grey),
                       ),
                       const SizedBox(
                         height: 20,
@@ -74,9 +75,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
                       TextFormField(
                         controller: SignUpCubit.get(context).firstName,
                         decoration: InputDecoration(
-                          labelText: "First Name",
+                          labelText: EktfaaConstants.firstName,
                           labelStyle: const TextStyle(color: AppColors.grey),
-                          hintText: "Enter your First Name",
+                          hintText: EktfaaConstants.firstNameHint,
                           prefixIcon: const Icon(
                             Icons.person_outline,
                             color: Colors.black,
@@ -105,7 +106,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your first name';
+                            return EktfaaConstants.firstNameHint;
                           }
 
                           // Return null if the entered email is valid
@@ -118,9 +119,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
                       TextFormField(
                         controller: SignUpCubit.get(context).lastName,
                         decoration: InputDecoration(
-                          labelText: "last Name",
+                          labelText: EktfaaConstants.lastName,
                           labelStyle: const TextStyle(color: AppColors.grey),
-                          hintText: "Enter your last Name",
+                          hintText: EktfaaConstants.lastNameHint,
                           prefixIcon: const Icon(
                             Icons.person_outline,
                             color: Colors.black,
@@ -149,7 +150,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your last name';
+                            return EktfaaConstants.lastNameHint;
                           }
 
                           // Return null if the entered email is valid
@@ -163,9 +164,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         readOnly: true,
                         controller: SignUpCubit.get(context).countryName,
                         decoration: InputDecoration(
-                          labelText: "Country",
+                          labelText: EktfaaConstants.country,
                           labelStyle: const TextStyle(color: AppColors.grey),
-                          hintText: "Enter your Country",
+                          hintText: EktfaaConstants.countryHint,
                           prefixIcon: Align(
                             widthFactor: 1.0,
                             heightFactor: 1.0,
@@ -235,7 +236,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please choose your contry';
+                            return EktfaaConstants.countryHint;
                           }
 
                           // Return null if the entered email is valid
@@ -248,9 +249,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
                       TextFormField(
                         controller: SignUpCubit.get(context).city,
                         decoration: InputDecoration(
-                          labelText: "City",
+                          labelText: EktfaaConstants.city,
                           labelStyle: const TextStyle(color: AppColors.grey),
-                          hintText: "Enter your City",
+                          hintText: EktfaaConstants.cityHint,
                           prefixIcon: const Icon(
                             Icons.location_city,
                             color: Colors.black,
@@ -279,7 +280,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your city';
+                            return EktfaaConstants.cityHint;
                           }
 
                           // Return null if the entered email is valid
@@ -293,9 +294,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         keyboardType: TextInputType.number,
                         controller: SignUpCubit.get(context).phoneController,
                         decoration: InputDecoration(
-                          labelText: "Phone Number",
+                          labelText: EktfaaConstants.phoneNumber,
                           labelStyle: const TextStyle(color: AppColors.grey),
-                          hintText: "Enter your Phone Number",
+                          hintText: EktfaaConstants.phoneNumberHint,
                           prefixIcon: Align(
                             widthFactor: 1.0,
                             heightFactor: 1.0,
@@ -338,7 +339,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your country';
+                            return EktfaaConstants.countryHint;
                           }
 
                           // Return null if the entered email is valid
@@ -352,9 +353,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         keyboardType: TextInputType.number,
                         controller: SignUpCubit.get(context).age,
                         decoration: InputDecoration(
-                          labelText: "age",
+                          labelText: EktfaaConstants.age,
                           labelStyle: const TextStyle(color: AppColors.grey),
-                          hintText: "Enter your Age",
+                          hintText: EktfaaConstants.ageHint,
                           prefixIcon: const Icon(
                             Icons.person_outline,
                             color: Colors.black,
@@ -383,7 +384,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your age';
+                            return EktfaaConstants.ageHint;
                           }
                           return null;
                         },
@@ -395,9 +396,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         controller: SignUpCubit.get(context).gender,
                         readOnly: true,
                         decoration: InputDecoration(
-                          labelText: "Gender",
+                          labelText: EktfaaConstants.gender,
                           labelStyle: const TextStyle(color: AppColors.grey),
-                          hintText: "Press on the arrow",
+                          hintText: EktfaaConstants.genderHint,
                           prefixIcon: DropdownButtonHideUnderline(
                             child: DropdownButton<String>(
                               underline: null,
@@ -454,7 +455,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please choose your gender';
+                            return EktfaaConstants.genderHint;
                           }
                           return null;
                         },
@@ -465,7 +466,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                       FormField(
                         validator: (value) {
                           if (!checker) {
-                            return 'You need to accept terms';
+                            return EktfaaConstants.termsHint;
                           } else {
                             return null;
                           }
@@ -558,9 +559,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                   );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
+                                      SnackBar(
                                           content: Text(
-                                              "This Phone Already Have an account")));
+                                              EktfaaConstants.phoneExists)));
                                 }
                               });
                             }
@@ -568,7 +569,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.redAccent,
                           ),
-                          child: const Text("Complete"),
+                          child: Text(EktfaaConstants.complete),
                         ),
                       ),
                       const SizedBox(
@@ -579,9 +580,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
-                              "Already have an account? ",
-                              style: TextStyle(color: Colors.grey),
+                            Text(
+                              EktfaaConstants.alreadyHaveAnAccount,
+                              style: const TextStyle(color: Colors.grey),
                             ),
                             GestureDetector(
                               onTap: () {
@@ -590,9 +591,10 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                     MaterialPageRoute(
                                         builder: (context) => const SignIn()));
                               },
-                              child: const Text(
-                                " Sign In",
-                                style: TextStyle(color: AppColors.redAccent),
+                              child: Text(
+                                " ${EktfaaConstants.signIn}",
+                                style:
+                                    const TextStyle(color: AppColors.redAccent),
                               ),
                             ),
                           ],

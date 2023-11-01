@@ -1,3 +1,4 @@
+import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
 import 'package:ektfaa/Screens/Auth/SignIn.dart';
 import 'package:ektfaa/Screens/Auth/completeProfile.dart';
@@ -38,7 +39,7 @@ class _SignUpState extends State<SignUp> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Registration",
+                        EktfaaConstants.registration,
                         style: GoogleFonts.poppins(
                             color: Colors.black,
                             fontSize: 26,
@@ -47,9 +48,9 @@ class _SignUpState extends State<SignUp> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Text(
-                        "Welcome to Ektfaa ",
-                        style: TextStyle(
+                      Text(
+                        EktfaaConstants.welcome,
+                        style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
                             color: AppColors.redAccent),
@@ -60,9 +61,9 @@ class _SignUpState extends State<SignUp> {
                       TextFormField(
                         controller: SignUpCubit.get(context).emailController,
                         decoration: InputDecoration(
-                          labelText: "Email",
+                          labelText: EktfaaConstants.email,
                           labelStyle: const TextStyle(color: AppColors.grey),
-                          hintText: "Enter your Email",
+                          hintText: EktfaaConstants.emailHint,
                           prefixIcon: const Icon(
                             Icons.email_outlined,
                             color: Colors.black,
@@ -91,11 +92,11 @@ class _SignUpState extends State<SignUp> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your email address';
+                            return EktfaaConstants.emailHint;
                           }
                           // Check if the entered email has the right format
                           if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                            return 'Please enter a valid email address';
+                            return EktfaaConstants.emailValidation;
                           }
                           // Return null if the entered email is valid
                           return null;
@@ -121,9 +122,9 @@ class _SignUpState extends State<SignUp> {
                                         .showPassword(context);
                                   },
                                   icon: const Icon(Icons.visibility_off)),
-                          labelText: "Password",
+                          labelText: EktfaaConstants.password,
                           labelStyle: const TextStyle(color: AppColors.grey),
-                          hintText: "Enter your Password",
+                          hintText: EktfaaConstants.passwordHint,
                           prefixIcon: const Icon(
                             Icons.lock_open_outlined,
                             color: Colors.black,
@@ -152,14 +153,14 @@ class _SignUpState extends State<SignUp> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
+                            return EktfaaConstants.passwordHint;
                           }
                           if (SignUpCubit.get(context)
                                   .passwordController
                                   .text
                                   .length <
                               8) {
-                            return 'Please enter a password not less than 8';
+                            return EktfaaConstants.passwordValidation;
                           }
                           // Check if the entered email has the right format
 
@@ -174,9 +175,9 @@ class _SignUpState extends State<SignUp> {
                         obscureText:
                             VerificationCubit.get(context).isConfirmPassword,
                         decoration: InputDecoration(
-                          labelText: "Confirm Password",
+                          labelText: EktfaaConstants.confirmPassword,
                           labelStyle: const TextStyle(color: AppColors.grey),
-                          hintText: "Re-enter Your password",
+                          hintText: EktfaaConstants.reEnterPassword,
                           suffixIcon:
                               VerificationCubit.get(context).isConfirmPassword
                                   ? IconButton(
@@ -219,14 +220,14 @@ class _SignUpState extends State<SignUp> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your Password';
+                            return EktfaaConstants.passwordHint;
                           }
 
                           if (value !=
                               SignUpCubit.get(context)
                                   .passwordController
                                   .text) {
-                            return 'Please put your right password';
+                            return EktfaaConstants.confirmPasswordValidation;
                           }
 
                           // Return null if the entered email is valid
@@ -260,7 +261,7 @@ class _SignUpState extends State<SignUp> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.redAccent,
                           ),
-                          child: const Text("Sign Up"),
+                          child: Text(EktfaaConstants.signUp),
                         ),
                       ),
                       const SizedBox(
@@ -271,9 +272,9 @@ class _SignUpState extends State<SignUp> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
-                              "Already have an account? ",
-                              style: TextStyle(color: Colors.grey),
+                            Text(
+                              EktfaaConstants.alreadyHaveAnAccount,
+                              style: const TextStyle(color: Colors.grey),
                             ),
                             GestureDetector(
                               onTap: () {
@@ -282,9 +283,10 @@ class _SignUpState extends State<SignUp> {
                                     MaterialPageRoute(
                                         builder: (context) => const SignIn()));
                               },
-                              child: const Text(
-                                " Sign In",
-                                style: TextStyle(color: AppColors.redAccent),
+                              child: Text(
+                                " ${EktfaaConstants.signIn}",
+                                style:
+                                    const TextStyle(color: AppColors.redAccent),
                               ),
                             ),
                           ],

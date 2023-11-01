@@ -1,5 +1,7 @@
+import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/features/SignIn/sign_in_cubit.dart';
 import 'package:ektfaa/features/SignIn/sign_in_states.dart';
+import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,20 +13,35 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  List data = [];
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    await SignUpCubit.get(context).getPhoneFromSharedPreference();
+    await SignInCubit.get(context)
+        .checkUserByPhone(SignUpCubit.get(context).phoneFromSharedPreference);
+
+    data = SignInCubit.get(context).userInformation;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignInCubit, InitialSignInState>(
         builder: (context, state) {
-      List data = SignInCubit.get(context).userInformation;
+      data = SignInCubit.get(context).userInformation;
       print(data);
       return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false, // Remove the back icon
-          title: const Padding(
-            padding: EdgeInsets.only(top: 10),
+          title: Padding(
+            padding: const EdgeInsets.only(top: 10),
             child: Text(
-              "Profile Screen",
-              style: TextStyle(color: Colors.black),
+              EktfaaConstants.profileTitle,
+              style: const TextStyle(color: Colors.black),
             ),
           ),
           backgroundColor: Colors.transparent,
@@ -57,12 +74,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 RichText(
                   text: TextSpan(
-                    text: 'Hello, ',
+                    text: 'Hello ',
                     style: DefaultTextStyle.of(context)
                         .style, // Default text style
                     children: <TextSpan>[
                       const TextSpan(
-                        text: 'Arab world',
+                        text: 'World',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.redAccent,
@@ -83,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       const TextSpan(
-                        text: 'Lets have our ',
+                        text: 'Let\'s have our ',
                         style: TextStyle(
                           color: Colors.black,
                         ),
@@ -101,9 +118,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           color: Colors.black,
                         ),
                       ),
-                      const TextSpan(
-                        text: 'Arabian',
-                        style: TextStyle(
+                      TextSpan(
+                        text: data[0]['first_name'],
+                        style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),

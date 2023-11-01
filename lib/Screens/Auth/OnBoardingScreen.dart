@@ -1,3 +1,4 @@
+import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/Screens/Auth/SignIn.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:flutter/material.dart';
@@ -12,22 +13,20 @@ class OnBoardingScreen extends StatelessWidget {
       child: IntroductionScreen(
         pages: [
           PageViewModel(
-            title: 'Check Product Manufacturer',
-            body:
-                'Ektfaa give you the ability to know more about the arabic products in your location.',
+            title: EktfaaConstants.onBoardingTitle1,
+            body: EktfaaConstants.onBoardingBody1,
             image: buildImage('assets/Images/arab.png'),
             decoration: getPageDecoration(),
           ),
           PageViewModel(
-            title: 'If it EXISTS, it\'s ARABIC',
-            body:
-                'Ektfaa supports you with a search engine to give you more information about the arabic products.',
+            title: EktfaaConstants.onBoardingTitle2,
+            body: EktfaaConstants.onBoardingBody2,
             image: buildImage1('assets/Images/09.jpg'),
             decoration: getPageDecoration(),
           ),
           PageViewModel(
-            title: 'Let\'s have our Ektfaa !',
-            body: 'If the results appear, it\'s arabic, otherwise it\'s not.',
+            title: EktfaaConstants.onBoardingTitle3,
+            body: EktfaaConstants.onBoardingBody3,
             image: buildImage2('assets/Images/06.jpg'),
             decoration: getPageDecoration(),
           ),

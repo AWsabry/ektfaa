@@ -1,3 +1,4 @@
+import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/features/Verification/verification_cubit.dart';
@@ -61,16 +62,16 @@ class _OTP_VerificationState extends State<OTP_Verification> {
                     const Image(
                       image: AssetImage("assets/Images/arab.png"),
                     ),
-                    const Text(
-                      "Enter Code",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                    Text(
+                      EktfaaConstants.enterCode,
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     const Text(
-                      "*  *  *  *  *",
+                      "*  *  *  *  *  *",
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
@@ -82,9 +83,9 @@ class _OTP_VerificationState extends State<OTP_Verification> {
                     const SizedBox(
                       height: 5,
                     ),
-                    const Text(
-                      " 6 digit verification code ",
-                      style: TextStyle(color: Colors.grey),
+                    Text(
+                      EktfaaConstants.sixDigits,
+                      style: const TextStyle(color: Colors.grey),
                     ),
                     const SizedBox(
                       height: 60,
@@ -136,9 +137,9 @@ class _OTP_VerificationState extends State<OTP_Verification> {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text(
-                      "Did not receive the code?",
-                      style: TextStyle(color: Colors.black),
+                    Text(
+                      EktfaaConstants.codeArrive,
+                      style: const TextStyle(color: Colors.black),
                     ),
                     const SizedBox(
                       height: 20,
@@ -151,9 +152,9 @@ class _OTP_VerificationState extends State<OTP_Verification> {
                           context,
                         );
                       },
-                      child: const Text(
-                        "Re-Send",
-                        style: TextStyle(
+                      child: Text(
+                        EktfaaConstants.resend,
+                        style: const TextStyle(
                             color: AppColors.redAccent,
                             fontWeight: FontWeight.w500),
                       ),

@@ -19,15 +19,10 @@ class ProductsCubit extends Cubit<ProductsStates> {
     valueRequest,
     context,
   ) async {
-    ProductsCubit.get(context).getphoneFromSharedPrefreance();
+    ProductsCubit.get(context).getPhoneFromSharedPreferenceInProductsCubit();
     String phoneNumber = ProductsCubit.get(context).phone;
 
-    print(searchedProducts);
-    print(valueRequest);
-    print(phoneNumber);
-
     searchedProducts.clear();
-    var data = "No Data";
     emit(newProductsStateLoading());
     Dio()
         .get(
@@ -48,7 +43,7 @@ class ProductsCubit extends Cubit<ProductsStates> {
   }
 
   String phone = "";
-  getphoneFromSharedPrefreance() async {
+  getPhoneFromSharedPreferenceInProductsCubit() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     phone = sharedPreferences.getString("PhoneNumber")!;
     emit(GetEmailFromSharedPreferenceDone());

@@ -11,14 +11,11 @@ class SignInCubit extends Cubit<InitialSignInState> {
   static SignInCubit get(context) => BlocProvider.of(context);
 
   List userInformation = [];
-  Future<void> checkUserByPhone(String phoneNumber) async {
+  Future checkUserByPhone(String phoneNumber) async {
     await Dio()
         .get('${EktfaaConstants.BaseUrl}/get_user_by_phone/$phoneNumber')
         .then((value) async {
       userInformation = value.data["Names"];
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      sharedPreferences.setString("PhoneNumber", phoneNumber);
       emit(GetUserInformationSuccessfully());
     });
   }
@@ -38,5 +35,12 @@ class SignInCubit extends Cubit<InitialSignInState> {
   closeClicked() {
     isClicked = false;
     emit(CloseIsClickedSuccessfully());
+  }
+
+  String phone = "";
+  getPhoneFromSignInCubit() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    phone = sharedPreferences.getString("PhoneNumber")!;
+    emit(GetPhoneSharedPreferenceSuccessfully());
   }
 }
