@@ -27,7 +27,7 @@ abstract class EktfaaConstants {
 
   static String getStarted = "Get Started";
   static String alreadyHaveAnAccount = "Already have an account?";
-  static String didntHaveAnAccount = "Didn't have an account? Sign up";
+  static String didntHaveAnAccount = "Didn't have an account? ";
   static String dontReceiveCode = "Don't Receive The Code";
   static String phoneVerification = "Phone Verification";
   static String sentCode = "Sent Code";

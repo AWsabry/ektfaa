@@ -114,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   height: 25,
                                 ),
                                 Row(
-                                  textDirection: TextDirection.rtl,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     CircleAvatar(
                                       radius: 40,
@@ -130,45 +130,44 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   : AssetImage(
                                                       list[index]['image'])),
                                     ),
-                                    const SizedBox(
-                                        width:
-                                            20), // Add some spacing between the image and the text
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              list[index][
-                                                  'product_arabic_name'], // Your name in Arabic
-                                              overflow: TextOverflow
-                                                  .ellipsis, // Use ellipsis for overflow
-                                              maxLines:
-                                                  1, // Limit to 1 line to prevent excessive overflow
-                                              style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                    const Spacer(),
+                                    SizedBox(
+                                      width: 65,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  list[index][
+                                                      'product_arabic_name'], // Your name in Arabic
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  list[index][
+                                                      'product_english_name'], // Your description in Arabic
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.grey,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            Text(
-                                              list[index][
-                                                  'product_english_name'], // Your description in Arabic
-                                              overflow: TextOverflow
-                                                  .ellipsis, // Use ellipsis for overflow
-                                              maxLines:
-                                                  2, // Limit to 2 lines to prevent excessive overflow
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.grey,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    )
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],

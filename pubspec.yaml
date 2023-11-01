@@ -43,8 +43,7 @@ dependencies:
   csc_picker: ^0.2.7
   flutter_launcher_icons:
   flutter_spinkit:
-  logger: ^2.0.2
-  
+  logger: ^2.0.2+1  
   flutter:
     sdk: flutter
 

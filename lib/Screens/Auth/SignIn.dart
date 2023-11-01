@@ -186,9 +186,9 @@ class _SignInState extends State<SignIn> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            "Already have an account? ",
-                            style: TextStyle(color: Colors.grey),
+                          Text(
+                            EktfaaConstants.didntHaveAnAccount,
+                            style: const TextStyle(color: Colors.grey),
                           ),
                           GestureDetector(
                             onTap: () {
@@ -197,9 +197,10 @@ class _SignInState extends State<SignIn> {
                                   MaterialPageRoute(
                                       builder: (context) => const SignUp()));
                             },
-                            child: const Text(
-                              " Sign Up",
-                              style: TextStyle(color: AppColors.redAccent),
+                            child: Text(
+                              EktfaaConstants.signUp,
+                              style:
+                                  const TextStyle(color: AppColors.redAccent),
                             ),
                           ),
                         ],
