@@ -90,31 +90,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
 
                   list.isNotEmpty
-                      ? ListView.separated(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: list.length,
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(
-                              height: 15,
-                            );
-                          },
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                Center(
-                                  child: Text(
-                                    "The product you searched for '${widget.controller.text}' is not subject to Ektfaa regulations, but here are the alternatives for you:",
-                                    style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 25,
-                                ),
-                                Row(
+                      ? Column(
+                          children: [
+                            Center(
+                              child: Text(
+                                "The product you searched for '${widget.controller.text}' is not subject to Ektfaa regulations, but here are the alternatives for you:",
+                                style: const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: list.length,
+                              separatorBuilder: (context, index) {
+                                return const SizedBox(
+                                  height: 15,
+                                );
+                              },
+                              itemBuilder: (context, index) {
+                                return Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     CircleAvatar(
@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     const Spacer(),
                                     SizedBox(
-                                      width: 65,
+                                      width: 150,
                                       child: Row(
                                         children: [
                                           Expanded(
@@ -170,10 +170,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                   ],
-                                ),
-                              ],
-                            );
-                          },
+                                );
+                              },
+                            ),
+                          ],
                         )
                       : state is ProductSearchFail
                           ? Center(
