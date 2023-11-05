@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Text(
                                                   list[index][
                                                       'product_arabic_name'], // Your name in Arabic
-                                                  maxLines: 2,
+                                                  maxLines: 4,
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style: const TextStyle(
@@ -155,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Text(
                                                   list[index][
                                                       'product_english_name'], // Your description in Arabic
-                                                  maxLines: 2,
+                                                  maxLines: 4,
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style: const TextStyle(
