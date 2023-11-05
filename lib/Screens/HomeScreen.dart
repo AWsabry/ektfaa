@@ -92,6 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   list.isNotEmpty
                       ? ListView.separated(
                           shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: list.length,
                           separatorBuilder: (context, index) {
                             return const SizedBox(
