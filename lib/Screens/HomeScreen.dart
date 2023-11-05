@@ -118,11 +118,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     CircleAvatar(
-                                      radius: 40,
+                                      radius: 30,
                                       backgroundColor: Colors.transparent,
                                       child: CircleAvatar(
                                           backgroundColor: Colors.transparent,
-                                          radius: 40,
+                                          radius: 30,
                                           backgroundImage:
                                               list[index]['image'] == null ||
                                                       list[index]['image'] == ""
@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     const Spacer(),
                                     SizedBox(
-                                      width: 150,
+                                      width: 240,
                                       child: Row(
                                         children: [
                                           Expanded(
@@ -144,11 +144,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Text(
                                                   list[index][
                                                       'product_arabic_name'], // Your name in Arabic
-                                                  maxLines: 4,
+                                                  textAlign: TextAlign.right,
+                                                  maxLines: 3,
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style: const TextStyle(
-                                                    fontSize: 18,
+                                                    fontSize: 16,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
@@ -188,7 +189,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Text(EktfaaConstants.searchDescription),
                                 ),
 
-                  // const SearchResults(),
                   const SizedBox(
                     height: 70,
                   ),
