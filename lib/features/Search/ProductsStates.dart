@@ -13,3 +13,5 @@ class ProductSearchFail extends SuperProductsStates {
 }
 
 class GetEmailFromSharedPreferenceDone extends ProductsStates {}
+
+class ClearListSuccessfully extends ProductsStates {}

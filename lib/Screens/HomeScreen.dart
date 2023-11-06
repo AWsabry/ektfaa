@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
-  var controller = TextEditingController();
+  const HomeScreen({Key? key}) : super(key: key);
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -22,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child:
           BlocBuilder<ProductsCubit, ProductsStates>(builder: (context, state) {
-        var list = ProductsCubit.get(context).searchedProducts;
         var message = ProductsCubit.get(context).message;
         return Scaffold(
           appBar: AppBar(
@@ -48,8 +46,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     padding: const EdgeInsets.only(top: 10),
                     child: TextFormField(
-                      controller: widget.controller,
+                      controller: ProductsCubit.get(context).searchController,
                       cursorColor: Colors.redAccent,
+                      onFieldSubmitted: (value) {
+                        ProductsCubit.get(context).getSearchedProducts(
+                            ProductsCubit.get(context).searchController.text,
+                            context);
+                      },
+                      onChanged: (value) {
+                        ProductsCubit.get(context).searchController.text =
+                            value;
+                      },
                       validator: (value) {
                         if (value!.isNotEmpty) {
                           return null;
@@ -66,20 +73,28 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         hintText: EktfaaConstants.searchHint,
-                        prefixIcon: const Icon(
-                          Icons.search,
-                          color: Colors.grey,
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(14))),
+                            child: IconButton(
+                                color: Colors.grey,
+                                onPressed: () {
+                                  ProductsCubit.get(context)
+                                      .clearListOfProducts();
+                                },
+                                icon: const Icon(Icons.close)),
+                          ),
                         ),
                         border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(13.0)),
                         ),
                       ),
-                      onChanged: (value) {
-                        ProductsCubit.get(context).getSearchedProducts(
-                          value,
-                          context,
-                        );
-                      },
                     ),
                   ),
 
@@ -89,12 +104,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 30,
                   ),
 
-                  list.isNotEmpty
+                  ProductsCubit.get(context).searchedProducts.isNotEmpty
                       ? Column(
                           children: [
                             Center(
                               child: Text(
-                                "The product you searched for '${widget.controller.text}' is not subject to Ektfaa regulations, but here are the alternatives for you:",
+                                "The product you searched for '${ProductsCubit.get(context).searchController.text}' is not subject to Ektfaa regulations, but here are the alternatives for you:",
                                 style: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 12,
@@ -107,7 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             ListView.separated(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: list.length,
+                              itemCount: ProductsCubit.get(context)
+                                  .searchedProducts
+                                  .length,
                               separatorBuilder: (context, index) {
                                 return const SizedBox(
                                   height: 15,
@@ -123,13 +140,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: CircleAvatar(
                                           backgroundColor: Colors.transparent,
                                           radius: 30,
-                                          backgroundImage:
-                                              list[index]['image'] == null ||
-                                                      list[index]['image'] == ""
-                                                  ? const AssetImage(
-                                                      'assets/Images/3.png')
-                                                  : AssetImage(
-                                                      list[index]['image'])),
+                                          backgroundImage: ProductsCubit.get(context)
+                                                              .searchedProducts[
+                                                          index]['image'] ==
+                                                      null ||
+                                                  ProductsCubit.get(context)
+                                                              .searchedProducts[
+                                                          index]['image'] ==
+                                                      ""
+                                              ? const AssetImage(
+                                                  'assets/Images/3.png')
+                                              : AssetImage(
+                                                  ProductsCubit.get(context)
+                                                          .searchedProducts[index]
+                                                      ['image'])),
                                     ),
                                     const Spacer(),
                                     SizedBox(
@@ -142,7 +166,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  list[index][
+                                                  ProductsCubit.get(context)
+                                                              .searchedProducts[
+                                                          index][
                                                       'product_arabic_name'], // Your name in Arabic
                                                   textAlign: TextAlign.right,
                                                   maxLines: 3,
@@ -154,7 +180,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  list[index][
+                                                  ProductsCubit.get(context)
+                                                              .searchedProducts[
+                                                          index][
                                                       'product_english_name'], // Your description in Arabic
                                                   maxLines: 4,
                                                   overflow:
@@ -180,13 +208,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? Center(
                               child: Text(EktfaaConstants.noProductsResults),
                             )
-                          : state is newProductsStateLoading
+                          : state is GetEmailFromSharedPreferenceDone
                               ? const Center(
                                   child: Loading(),
                                 )
                               : Center(
-                                  child:
-                                      Text(EktfaaConstants.searchDescription),
+                                  child: ElevatedButton(
+                                      onPressed: () {
+                                        ProductsCubit.get(context)
+                                            .getSearchedProducts(
+                                                ProductsCubit.get(context)
+                                                    .searchController
+                                                    .text,
+                                                context);
+                                      },
+                                      child: Text(EktfaaConstants.searchHint)),
                                 ),
 
                   const SizedBox(

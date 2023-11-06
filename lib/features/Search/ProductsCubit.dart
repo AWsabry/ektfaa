@@ -14,6 +14,11 @@ class ProductsCubit extends Cubit<ProductsStates> {
 
   List<dynamic> searchedProducts = [];
   var message;
+  void clearListOfProducts() {
+    searchedProducts.clear();
+    searchController.clear();
+    emit(ClearListSuccessfully());
+  }
 
   void getSearchedProducts(
     valueRequest,

@@ -50,7 +50,7 @@ abstract class EktfaaConstants {
       "If the results appear, feel free to buy it, otherwise you will find the similar one.";
 
   // Search Hint
-  static String searchHint = "Search for products";
+  static String searchHint = " Search for products";
   // Home title
   static String homeTitle = "Products Checker";
 
