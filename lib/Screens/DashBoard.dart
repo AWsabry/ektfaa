@@ -1,5 +1,6 @@
 import 'package:ektfaa/Screens/HomeScreen.dart';
 import 'package:ektfaa/Screens/ProfileScreen.dart';
+import 'package:ektfaa/Screens/addProduct.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -16,11 +17,13 @@ class _DashBoardState extends State<DashBoard> {
 
   Widget getFragment() {
     if (selectedIndex == 0) {
-      return HomeScreen();
+      return const HomeScreen();
     } else if (selectedIndex == 1) {
+      return const AddProducts();
+    } else if (selectedIndex == 2) {
       return const ProfileScreen();
     }
-    return HomeScreen();
+    return const HomeScreen();
   }
 
   @override
@@ -68,6 +71,24 @@ class _DashBoardState extends State<DashBoard> {
                         color: AppColors.redAccent)
                     .paddingTop(12),
               ),
+
+              //
+              BottomNavigationBarItem(
+                icon: Image.asset('assets/Icons/ic_share.png',
+                        height: 24.66,
+                        width: 24.66,
+                        fit: BoxFit.cover,
+                        color: AppColors.grey)
+                    .paddingTop(12),
+                label: '',
+                activeIcon: Image.asset('assets/Icons/ic_share.png',
+                        height: 24.66,
+                        width: 24.66,
+                        fit: BoxFit.cover,
+                        color: AppColors.redAccent)
+                    .paddingTop(12),
+              ),
+              //
               BottomNavigationBarItem(
                 icon: Image.asset('assets/Icons/ic_profile.png',
                         height: 24.66,

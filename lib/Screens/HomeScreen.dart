@@ -1,6 +1,7 @@
 import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/features/Search/ProductsCubit.dart';
 import 'package:ektfaa/features/Search/ProductsStates.dart';
+import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String phone = "";
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    await SignUpCubit.get(context).getPhoneFromSharedPreference();
+    phone = SignUpCubit.get(context).phoneFromSharedPreference;
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -21,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child:
           BlocBuilder<ProductsCubit, ProductsStates>(builder: (context, state) {
+        print(phone);
         var message = ProductsCubit.get(context).message;
         return Scaffold(
           appBar: AppBar(
@@ -49,9 +63,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       controller: ProductsCubit.get(context).searchController,
                       cursorColor: Colors.redAccent,
                       onFieldSubmitted: (value) {
-                        ProductsCubit.get(context).getSearchedProducts(
-                            ProductsCubit.get(context).searchController.text,
-                            context);
+                        ProductsCubit.get(context).getSearchedProducts(context,
+                            valueRequest: ProductsCubit.get(context)
+                                .searchController
+                                .text,
+                            phoneNumber: phone);
                       },
                       onChanged: (value) {
                         ProductsCubit.get(context).searchController.text =
@@ -217,10 +233,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                       onPressed: () {
                                         ProductsCubit.get(context)
                                             .getSearchedProducts(
-                                                ProductsCubit.get(context)
-                                                    .searchController
-                                                    .text,
-                                                context);
+                                          context,
+                                          valueRequest:
+                                              ProductsCubit.get(context)
+                                                  .searchController
+                                                  .text,
+                                          phoneNumber: phone,
+                                        );
                                       },
                                       child: Text(EktfaaConstants.searchHint)),
                                 ),

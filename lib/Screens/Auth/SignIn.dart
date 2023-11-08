@@ -124,6 +124,18 @@ class _SignInState extends State<SignIn> {
                                 onPressed: () {
                                   if (formkey.currentState!.validate()) {
                                     SignInCubit.get(context).clicked();
+
+                                    String phoneNumber =
+                                        SignUpCubit.get(context)
+                                            .phoneController
+                                            .text;
+                                    if (phoneNumber.startsWith('0')) {
+                                      phoneNumber = phoneNumber.substring(1);
+                                    }
+                                    SignUpCubit.get(context)
+                                        .phoneController
+                                        .text = phoneNumber;
+
                                     SignInCubit.get(context)
                                         .checkUserByPhone(
                                             SignUpCubit.get(context)

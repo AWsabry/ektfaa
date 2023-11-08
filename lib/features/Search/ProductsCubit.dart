@@ -3,7 +3,6 @@ import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/features/Search/ProductsStates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 // enum Privacy { Private, Public }
 
@@ -11,6 +10,7 @@ class ProductsCubit extends Cubit<ProductsStates> {
   ProductsCubit() : super(SuperProductsStates());
   static ProductsCubit get(context) => BlocProvider.of(context);
   TextEditingController searchController = TextEditingController();
+  final uploadProductFormKey = GlobalKey<FormState>();
 
   List<dynamic> searchedProducts = [];
   var message;
@@ -20,13 +20,8 @@ class ProductsCubit extends Cubit<ProductsStates> {
     emit(ClearListSuccessfully());
   }
 
-  void getSearchedProducts(
-    valueRequest,
-    context,
-  ) async {
-    ProductsCubit.get(context).getPhoneFromSharedPreferenceInProductsCubit();
-    String phoneNumber = ProductsCubit.get(context).phone;
-
+  void getSearchedProducts(context,
+      {required String phoneNumber, required String valueRequest}) async {
     searchedProducts.clear();
     emit(newProductsStateLoading());
     Dio()
@@ -39,6 +34,7 @@ class ProductsCubit extends Cubit<ProductsStates> {
       } else if (value.statusCode == 302) {
         message = value.data["message"];
       }
+
       emit(ProductSearchSuccess());
     }).catchError((error) {
       searchedProducts.clear();
@@ -47,10 +43,26 @@ class ProductsCubit extends Cubit<ProductsStates> {
     // return data;
   }
 
-  String phone = "";
-  getPhoneFromSharedPreferenceInProductsCubit() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    phone = sharedPreferences.getString("PhoneNumber")!;
-    emit(GetEmailFromSharedPreferenceDone());
+  void uploadProducts(
+    context, {
+    required String phoneNumber,
+  }) async {
+    searchedProducts.clear();
+    emit(newProductsStateLoading());
+    Dio().post("${EktfaaConstants.BaseUrl}/get_products/$phoneNumber",
+        data: {}).then((value) {
+      if (value.statusCode == 200) {
+        searchedProducts.clear();
+        searchedProducts = value.data["Names"];
+      } else if (value.statusCode == 302) {
+        message = value.data["message"];
+      }
+
+      emit(ProductSearchSuccess());
+    }).catchError((error) {
+      searchedProducts.clear();
+      emit(ProductSearchFail(error.toString()));
+    });
+    // return data;
   }
 }

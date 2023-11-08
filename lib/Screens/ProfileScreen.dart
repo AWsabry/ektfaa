@@ -33,7 +33,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return BlocBuilder<SignInCubit, InitialSignInState>(
         builder: (context, state) {
       data = SignInCubit.get(context).userInformation;
-      print(data);
       return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false, // Remove the back icon
@@ -48,15 +47,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           centerTitle: true,
           iconTheme: const IconThemeData(color: Colors.black),
           elevation: 0,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.exit_to_app), // Use the sign-out icon
-              onPressed: () {
-                SignInCubit.get(context).closeClicked();
-                SignInCubit.get(context).signOut(context);
-              },
-            ),
-          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -69,7 +59,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const Center(
                   child: Image(
-                    image: AssetImage("assets/Images/arab.png"),
+                    image: AssetImage("assets/Images/1.png"),
+                    height: 150,
                   ),
                 ),
                 RichText(
@@ -127,6 +118,140 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                const Divider(),
+                const SizedBox(
+                  height: 15,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    width: double.infinity, // Full width of the screen
+                    padding: const EdgeInsets.all(10.0),
+                    color: Colors
+                        .transparent, // Change the background color as needed
+
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Your Wishlist', // Text at the start
+                          style: TextStyle(
+                              color: Colors.black, // Text color
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Icon(
+                          Icons
+                              .arrow_forward_ios_sharp, // Arrow icon at the end
+                          color: Colors.black, // Icon color
+                          size: 15.0, // Icon size
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    width: double.infinity, // Full width of the screen
+                    padding: const EdgeInsets.all(10.0),
+                    color: Colors
+                        .transparent, // Change the background color as needed
+
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Your Uploaded Products', // Text at the start
+                          style: TextStyle(
+                              color: Colors.black, // Text color
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Icon(
+                          Icons
+                              .arrow_forward_ios_sharp, // Arrow icon at the end
+                          color: Colors.black, // Icon color
+                          size: 15.0, // Icon size
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    width: double.infinity, // Full width of the screen
+                    padding: const EdgeInsets.all(10.0),
+                    color: Colors
+                        .transparent, // Change the background color as needed
+
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Settings', // Text at the start
+                          style: TextStyle(
+                              color: Colors.black, // Text color
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Icon(
+                          Icons
+                              .arrow_forward_ios_sharp, // Arrow icon at the end
+                          color: Colors.black, // Icon color
+                          size: 15.0, // Icon size
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                InkWell(
+                  onTap: () {
+                    SignInCubit.get(context).closeClicked();
+                    SignInCubit.get(context).signOut(context);
+                  },
+                  child: Container(
+                    width: double.infinity, // Full width of the screen
+                    padding: const EdgeInsets.all(10.0),
+                    color: Colors
+                        .transparent, // Change the background color as needed
+
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Logout', // Text at the start
+                          style: TextStyle(
+                              color: Colors.black, // Text color
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Icon(
+                          Icons
+                              .arrow_forward_ios_sharp, // Arrow icon at the end
+                          color: Colors.black, // Icon color
+                          size: 15.0, // Icon size
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
                 ),
               ],
             ),

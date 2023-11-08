@@ -63,7 +63,7 @@ abstract class EktfaaConstants {
       "The product you searched for is not subject to Ektfaa regulations, but here are the alternatives for you:";
 // Home Title
   static String profileTitle = "Profile Screen";
-
+  static String uploadProductTitle = "Upload Screen";
 // Complete Profile Titles
   static String completeProfileTitle = "Complete Profile";
   static String completeProfileSubTitle = "Let's check some products validity";
@@ -96,6 +96,8 @@ abstract class EktfaaConstants {
   static String phoneExists = "This Phone Already Have an account";
 
   static String complete = "Complete";
+
+  static String uploadProduct = "Upload";
 
   static String searchEmpty = "Search must not be empty";
 }

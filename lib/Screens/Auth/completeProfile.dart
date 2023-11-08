@@ -532,10 +532,19 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                               .phoneController
                                               .text)
                                   .then((value) {
-                                print(SignInCubit.get(context).userInformation);
                                 if (SignInCubit.get(context)
                                     .userInformation
                                     .isEmpty) {
+                                  String phoneNumber = SignUpCubit.get(context)
+                                      .phoneController
+                                      .text;
+                                  if (phoneNumber.startsWith('0')) {
+                                    phoneNumber = phoneNumber.substring(1);
+                                  }
+                                  SignUpCubit.get(context)
+                                      .phoneController
+                                      .text = phoneNumber;
+
                                   VerificationCubit.get(context).verification(
                                     context,
                                     firstName:
