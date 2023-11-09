@@ -35,12 +35,12 @@ class _SplashScreenState extends State<SplashScreen> {
       } else {
         SignInCubit.get(context).checkUserByPhone(
             SignUpCubit.get(context).phoneFromSharedPreference);
-        // print("User INFO: ${SignInCubit.get(context).userInformation}");
-        // No need to call checkUserByPhone again, as you've already called it.
-        // Do whatever you need with the userInformation here.
+
         pushAndRemoved(
           context,
-          const DashBoard(),
+          DashBoard(
+            selectedIndex: 0,
+          ),
         );
       }
     });

@@ -10,7 +10,10 @@ class ProductsCubit extends Cubit<ProductsStates> {
   ProductsCubit() : super(SuperProductsStates());
   static ProductsCubit get(context) => BlocProvider.of(context);
   TextEditingController searchController = TextEditingController();
+  final tagsController = TextEditingController();
+
   final uploadProductFormKey = GlobalKey<FormState>();
+  final searchKey = GlobalKey<FormState>();
 
   List<dynamic> searchedProducts = [];
   var message;

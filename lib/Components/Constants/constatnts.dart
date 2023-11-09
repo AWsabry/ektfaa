@@ -51,6 +51,7 @@ abstract class EktfaaConstants {
 
   // Search Hint
   static String searchHint = " Search for products";
+  static String searchButton = " Search";
   // Home title
   static String homeTitle = "Products Checker";
 
@@ -100,4 +101,22 @@ abstract class EktfaaConstants {
   static String uploadProduct = "Upload";
 
   static String searchEmpty = "Search must not be empty";
+
+  //  Add Product Screen
+
+  static String productEnglishName = "Product English Name *";
+
+  static String productEnglishNameHint = "* Please Enter Product English Name";
+  static String productArabicName = "Product Arabic Name *";
+  static String productArabicNameHint = "* Please Enter Product Arabic Name";
+  static String link = "Link (Optional)";
+  static String vendor = "Vendor (Optional)";
+  static String companyName = "Company (Optional)";
+  static String description = "Description (Optional)";
+  static String descriptionHint =
+      "Write anything about the product, you think it could help us !";
+  static String tags = "Tags *";
+  static String tagsHint = "eg. Company Name, Product category";
+  static String tagsError = "* Minimum 3 Tags Should be added";
+  static String tagsSnakeBar = "* Maximum 6 Tags Could be added";
 }

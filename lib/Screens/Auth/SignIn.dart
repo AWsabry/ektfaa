@@ -165,7 +165,10 @@ class _SignInState extends State<SignIn> {
                                                 .text);
                                         // ignore: use_build_context_synchronously
                                         pushAndRemoved(
-                                            context, const DashBoard());
+                                            context,
+                                            DashBoard(
+                                              selectedIndex: 0,
+                                            ));
                                       } else {
                                         SignInCubit.get(context).clicked();
 

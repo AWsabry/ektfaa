@@ -68,7 +68,11 @@ class SignUpCubit extends Cubit<InitialSignUpState> {
       sharedPreferences.setString("PhoneNumber", countryCode + phoneNumber);
       Logger().i(countryCode + phoneNumber);
       emit(UserSignedUpSuccessfully());
-      pushAndRemoved(context, const DashBoard());
+      pushAndRemoved(
+          context,
+          DashBoard(
+            selectedIndex: 0,
+          ));
     } catch (error) {
       print('%ara');
       print(error);

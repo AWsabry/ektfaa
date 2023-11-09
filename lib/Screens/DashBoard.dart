@@ -6,21 +6,25 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class DashBoard extends StatefulWidget {
-  const DashBoard({Key? key}) : super(key: key);
+  int selectedIndex;
+  DashBoard({
+    Key? key,
+    required this.selectedIndex,
+  }) : super(key: key);
 
   @override
   State<DashBoard> createState() => _DashBoardState();
 }
 
-class _DashBoardState extends State<DashBoard> {
-  int selectedIndex = 0;
+// int _selectedIndex = 0;
 
+class _DashBoardState extends State<DashBoard> {
   Widget getFragment() {
-    if (selectedIndex == 0) {
+    if (widget.selectedIndex == 0) {
       return const HomeScreen();
-    } else if (selectedIndex == 1) {
+    } else if (widget.selectedIndex == 1) {
       return const AddProducts();
-    } else if (selectedIndex == 2) {
+    } else if (widget.selectedIndex == 2) {
       return const ProfileScreen();
     }
     return const HomeScreen();
@@ -34,6 +38,7 @@ class _DashBoardState extends State<DashBoard> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.selectedIndex);
     return SafeArea(
       child: Scaffold(
         body: getFragment(),
@@ -106,10 +111,12 @@ class _DashBoardState extends State<DashBoard> {
               ),
             ],
             onTap: (val) {
-              selectedIndex = val;
-              setState(() {});
+              widget.selectedIndex = val;
+              setState(() {
+                widget.selectedIndex = val;
+              });
             },
-            currentIndex: selectedIndex,
+            currentIndex: widget.selectedIndex,
           ),
         ),
       ),

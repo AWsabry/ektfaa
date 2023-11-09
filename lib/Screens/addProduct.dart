@@ -1,4 +1,6 @@
 import 'package:ektfaa/Components/Constants/constatnts.dart';
+import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
+import 'package:ektfaa/Screens/thankYouScreen.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:ektfaa/features/Search/ProductsCubit.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,6 @@ class AddProducts extends StatefulWidget {
 }
 
 class _AddProductsState extends State<AddProducts> {
-  @override
   XFile? _image;
   // Function to open the image picker
   Future<void> _pickImage(ImageSource source) async {
@@ -22,6 +23,21 @@ class _AddProductsState extends State<AddProducts> {
         _image = XFile(pickedFile.path);
       });
     }
+  }
+
+  void clearImage() {
+    setState(() {
+      _image = null;
+    });
+  }
+
+  List<String> tags = [];
+
+  void addTag(String tag) {
+    setState(() {
+      tags.add(tag);
+      ProductsCubit.get(context).tagsController.clear();
+    });
   }
 
   @override
@@ -54,7 +70,39 @@ class _AddProductsState extends State<AddProducts> {
                   const SizedBox(
                     height: 25,
                   ),
-                  Container(
+                  InkWell(
+                    onTap: () {
+                      // Show a modal bottom sheet with options to take a photo or select from gallery
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return SizedBox(
+                            height: 150,
+                            child: Column(
+                              children: <Widget>[
+                                ListTile(
+                                  leading: const Icon(Icons.camera),
+                                  title: const Text('Take a Photo'),
+                                  onTap: () {
+                                    _pickImage(ImageSource.camera);
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.photo),
+                                  title: const Text('Choose from Gallery'),
+                                  onTap: () {
+                                    _pickImage(ImageSource.gallery);
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
                       height: 171,
                       width: double.maxFinite,
                       decoration: BoxDecoration(
@@ -69,8 +117,11 @@ class _AddProductsState extends State<AddProducts> {
                                   width: MediaQuery.of(context).size.width / 2,
                                   child: Image.asset("assets/Images/image.png"),
                                 ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
                                 const Text(
-                                  "Upload your photo here",
+                                  "Upload your photo here (Optional)",
                                   style: TextStyle(
                                     fontSize: 10,
                                     color: Color.fromRGBO(112, 112, 112, 1),
@@ -84,32 +135,47 @@ class _AddProductsState extends State<AddProducts> {
                                 Icon(
                                   Icons.insert_drive_file_outlined,
                                   color: const Color.fromRGBO(117, 117, 117, 1),
-                                  size:
-                                      MediaQuery.of(context).size.height / 8.5,
+                                  size: MediaQuery.of(context).size.height / 10,
                                 ),
-                                const Text(
-                                  "File name:\n",
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      color: Color.fromRGBO(117, 117, 117, 1)),
-                                )
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  child: Text(
+                                    "File name:\n${_image!.name}",
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    style: const TextStyle(
+                                        fontSize: 8,
+                                        color:
+                                            Color.fromRGBO(117, 117, 117, 1)),
+                                  ),
+                                ),
+                                if (_image != null)
+                                  IconButton(
+                                    icon: const Icon(Icons.close),
+                                    onPressed: clearImage,
+                                  ),
                               ],
-                            )),
+                            ),
+                    ),
+                  ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 90,
                   ),
-
                   const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
                     // controller: SignUpCubit.get(context).firstName,
                     decoration: InputDecoration(
-                      labelText: EktfaaConstants.firstName,
-                      labelStyle: const TextStyle(color: AppColors.grey),
-                      hintText: EktfaaConstants.firstNameHint,
+                      labelText: EktfaaConstants.productEnglishName,
+                      labelStyle:
+                          const TextStyle(color: AppColors.grey, fontSize: 12),
+                      hintStyle: const TextStyle(
+                        fontSize: 12, // Adjust the font size as needed
+                      ),
+                      hintText: EktfaaConstants.productEnglishName,
                       prefixIcon: const Icon(
-                        Icons.person_outline,
+                        Icons.language,
                         color: Colors.black,
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -136,7 +202,7 @@ class _AddProductsState extends State<AddProducts> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return EktfaaConstants.firstNameHint;
+                        return EktfaaConstants.productEnglishNameHint;
                       }
 
                       // Return null if the entered email is valid
@@ -149,11 +215,15 @@ class _AddProductsState extends State<AddProducts> {
                   TextFormField(
                     // controller: SignUpCubit.get(context).lastName,
                     decoration: InputDecoration(
-                      labelText: EktfaaConstants.lastName,
-                      labelStyle: const TextStyle(color: AppColors.grey),
-                      hintText: EktfaaConstants.lastNameHint,
+                      labelText: EktfaaConstants.productArabicName,
+                      labelStyle:
+                          const TextStyle(color: AppColors.grey, fontSize: 12),
+                      hintStyle: const TextStyle(
+                        fontSize: 12, // Adjust the font size as needed
+                      ),
+                      hintText: EktfaaConstants.productArabicName,
                       prefixIcon: const Icon(
-                        Icons.person_outline,
+                        Icons.language,
                         color: Colors.black,
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -180,7 +250,7 @@ class _AddProductsState extends State<AddProducts> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return EktfaaConstants.lastNameHint;
+                        return EktfaaConstants.productArabicNameHint;
                       }
 
                       // Return null if the entered email is valid
@@ -190,16 +260,138 @@ class _AddProductsState extends State<AddProducts> {
                   const SizedBox(
                     height: 20,
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
-                    // controller: SignUpCubit.get(context).age,
+                    // controller: SignUpCubit.get(context).lastName,
                     decoration: InputDecoration(
-                      labelText: EktfaaConstants.age,
-                      labelStyle: const TextStyle(color: AppColors.grey),
-                      hintText: EktfaaConstants.ageHint,
+                      labelText: EktfaaConstants.link,
+                      labelStyle:
+                          const TextStyle(color: AppColors.grey, fontSize: 12),
+                      hintStyle: const TextStyle(
+                        fontSize: 12, // Adjust the font size as needed
+                      ),
+                      hintText: EktfaaConstants.link,
                       prefixIcon: const Icon(
-                        Icons.person_outline,
+                        Icons.link,
+                        color: Colors.black,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.black),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 1, color: AppColors.redAccent),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.redAccent),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.redAccent),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    // controller: SignUpCubit.get(context).lastName,
+                    decoration: InputDecoration(
+                      labelText: EktfaaConstants.vendor,
+                      labelStyle:
+                          const TextStyle(color: AppColors.grey, fontSize: 12),
+                      hintStyle: const TextStyle(
+                        fontSize: 12, // Adjust the font size as needed
+                      ),
+                      hintText: EktfaaConstants.vendor,
+                      prefixIcon: const Icon(
+                        Icons.shopping_bag_outlined,
+                        color: Colors.black,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.black),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 1, color: AppColors.redAccent),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.redAccent),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.redAccent),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    // controller: SignUpCubit.get(context).lastName,
+                    decoration: InputDecoration(
+                      labelText: EktfaaConstants.companyName,
+                      labelStyle:
+                          const TextStyle(color: AppColors.grey, fontSize: 12),
+                      hintStyle: const TextStyle(
+                        fontSize: 12, // Adjust the font size as needed
+                      ),
+                      hintText: EktfaaConstants.companyName,
+                      prefixIcon: const Icon(
+                        Icons.apartment,
+                        color: Colors.black,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.black),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 1, color: AppColors.redAccent),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.redAccent),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.redAccent),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: ProductsCubit.get(context).tagsController,
+                    decoration: InputDecoration(
+                      labelText: EktfaaConstants.tags,
+                      labelStyle:
+                          const TextStyle(color: AppColors.grey, fontSize: 12),
+                      hintStyle: const TextStyle(
+                        fontSize: 12, // Adjust the font size as needed
+                      ),
+                      hintText: EktfaaConstants.tagsHint,
+                      prefixIcon: const Icon(
+                        Icons.tag_sharp,
                         color: Colors.black,
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -225,27 +417,55 @@ class _AddProductsState extends State<AddProducts> {
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                     ),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return EktfaaConstants.ageHint;
+                      if (tags.length < 2) {
+                        return EktfaaConstants.tagsError;
                       }
+
+                      // Return null if the entered email is valid
                       return null;
                     },
+                    onFieldSubmitted: (value) {
+                      if (value.isEmpty || tags.length < 2) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(EktfaaConstants.tagsError)));
+                      }
+                      if (tags.length <= 5) {
+                        addTag(value);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(EktfaaConstants.tagsSnakeBar)));
+                        ProductsCubit.get(context).tagsController.clear();
+                      }
+
+                      print(tags);
+                    },
+                  ),
+                  Wrap(
+                    children: tags.map((tag) {
+                      return Chip(
+                        label: Text(tag),
+                        onDeleted: () {
+                          setState(() {
+                            tags.remove(tag);
+                          });
+                        },
+                      );
+                    }).toList(),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 40,
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
-                    // controller: SignUpCubit.get(context).age,
+                    maxLines: 5,
+                    // controller: SignUpCubit.get(context).lastName,
                     decoration: InputDecoration(
-                      labelText: EktfaaConstants.age,
-                      labelStyle: const TextStyle(color: AppColors.grey),
-                      hintText: EktfaaConstants.ageHint,
-                      prefixIcon: const Icon(
-                        Icons.person_outline,
-                        color: Colors.black,
+                      labelText: EktfaaConstants.description,
+                      labelStyle:
+                          const TextStyle(color: AppColors.grey, fontSize: 12),
+                      hintStyle: const TextStyle(
+                        fontSize: 12, // Adjust the font size as needed
                       ),
+                      hintText: EktfaaConstants.descriptionHint,
                       enabledBorder: OutlineInputBorder(
                         borderSide:
                             const BorderSide(width: 1, color: Colors.black),
@@ -268,75 +488,22 @@ class _AddProductsState extends State<AddProducts> {
                       ),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return EktfaaConstants.ageHint;
-                      }
-                      return null;
-                    },
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 25,
                   ),
-
-                  // FormField(
-                  //   validator: (value) {
-                  //     if (!checker) {
-                  //       return EktfaaConstants.termsHint;
-                  //     } else {
-                  //       return null;
-                  //     }
-                  //   },
-                  //   builder: (state) {
-                  //     return Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         InkWell(
-                  //           onTap: () {
-                  //             setState(() {
-                  //               checker = !checker;
-                  //             });
-                  //           },
-                  //           child: Row(
-                  //             children: [
-                  //               Checkbox(
-                  //                 value: checker,
-                  //                 onChanged: (value) {
-                  //                   setState(() {
-                  //                     checker = !checker;
-
-                  //                     state.didChange(value);
-                  //                   });
-                  //                 },
-                  //               ),
-                  //               const Text(
-                  //                 'Agree to our privacy & policy',
-                  //                 overflow: TextOverflow.ellipsis,
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //         Padding(
-                  //           padding: const EdgeInsets.only(left: 8.0),
-                  //           child: Text(
-                  //             state.errorText ?? '',
-                  //             style: const TextStyle(
-                  //               color: Colors.red,
-                  //             ),
-                  //           ),
-                  //         )
-                  //       ],
-                  //     );
-                  //   },
-                  // ),
-                  // const SizedBox(
-                  //   height: 20,
-                  // ),
                   SizedBox(
                     width: 500,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (ProductsCubit.get(context)
+                            .uploadProductFormKey
+                            .currentState!
+                            .validate()) {
+                          pushAndRemoved(context, const ThankYou());
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.redAccent,
                       ),
