@@ -64,7 +64,7 @@ abstract class EktfaaConstants {
       "The product you searched for is not subject to Ektfaa regulations, but here are the alternatives for you:";
 // Home Title
   static String profileTitle = "Profile Screen";
-  static String uploadProductTitle = "Upload Screen";
+  static String uploadProductTitle = "Upload a Product";
 // Complete Profile Titles
   static String completeProfileTitle = "Complete Profile";
   static String completeProfileSubTitle = "Let's check some products validity";
@@ -121,4 +121,10 @@ abstract class EktfaaConstants {
   static String tagsHint = "eg. Company Name, Product category";
   static String tagsError = "* Minimum 3 Tags Should be added";
   static String tagsSnakeBar = "* Maximum 6 Tags Could be added";
+  static String productAdded =
+      "* Product Added, We will review & come back to you";
+
+  // User Uploaded Screen
+
+  static String screenTitleUploadedProducts = "Your Products Upload";
 }

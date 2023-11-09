@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/Theme.dart';
-import 'package:ektfaa/features/Search/ProductsCubit.dart';
-import 'package:ektfaa/features/Search/ProductsStates.dart';
+import 'package:ektfaa/features/Product/ProductsCubit.dart';
+import 'package:ektfaa/features/Product/ProductsStates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class AddProducts extends StatefulWidget {
   const AddProducts({Key? key}) : super(key: key);
@@ -14,13 +17,27 @@ class AddProducts extends StatefulWidget {
 }
 
 class _AddProductsState extends State<AddProducts> {
-  XFile? _image;
+  File? _image;
+  String phone = "";
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      phone = prefs.getString('PhoneNumber') ?? '';
+    });
+  }
+
   // Function to open the image picker
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
     if (pickedFile != null) {
       setState(() {
-        _image = XFile(pickedFile.path);
+        _image = File(pickedFile.path);
       });
     }
   }
@@ -149,7 +166,7 @@ class _AddProductsState extends State<AddProducts> {
                                       width:
                                           MediaQuery.of(context).size.width / 2,
                                       child: Text(
-                                        "File name:\n${_image!.name}",
+                                        "File name:\n${_image!.path}",
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 2,
                                         style: const TextStyle(
@@ -274,6 +291,7 @@ class _AddProductsState extends State<AddProducts> {
                       TextFormField(
                         controller:
                             ProductsCubit.get(context).serialNumberController,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: EktfaaConstants.serialNumber,
                           labelStyle: const TextStyle(
@@ -316,86 +334,6 @@ class _AddProductsState extends State<AddProducts> {
                           // Return null if the entered email is valid
                           return null;
                         },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        // controller: SignUpCubit.get(context).lastName,
-                        decoration: InputDecoration(
-                          labelText: EktfaaConstants.vendor,
-                          labelStyle: const TextStyle(
-                              color: AppColors.grey, fontSize: 12),
-                          hintStyle: const TextStyle(
-                            fontSize: 12, // Adjust the font size as needed
-                          ),
-                          hintText: EktfaaConstants.vendor,
-                          prefixIcon: const Icon(
-                            Icons.shopping_bag_outlined,
-                            color: Colors.black,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 1, color: Colors.black),
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1, color: AppColors.redAccent),
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1, color: Colors.redAccent),
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1, color: Colors.redAccent),
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        // controller: SignUpCubit.get(context).lastName,
-                        decoration: InputDecoration(
-                          labelText: EktfaaConstants.companyName,
-                          labelStyle: const TextStyle(
-                              color: AppColors.grey, fontSize: 12),
-                          hintStyle: const TextStyle(
-                            fontSize: 12, // Adjust the font size as needed
-                          ),
-                          hintText: EktfaaConstants.companyName,
-                          prefixIcon: const Icon(
-                            Icons.apartment,
-                            color: Colors.black,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 1, color: Colors.black),
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1, color: AppColors.redAccent),
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1, color: Colors.redAccent),
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                width: 1, color: Colors.redAccent),
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                        ),
                       ),
                       const SizedBox(
                         height: 20,
@@ -522,9 +460,17 @@ class _AddProductsState extends State<AddProducts> {
                                 .uploadProductFormKey
                                 .currentState!
                                 .validate()) {
-                              ProductsCubit.get(context).uploadProducts(context,
-                                  phoneNumber: "+201015881141", image: _image);
-                              // pushAndRemoved(context, const ThankYou());
+                              // Example usage
+
+                              ProductsCubit.get(context).uploadImage(context,
+                                  imageFile: _image,
+                                  phoneNumber: phone,
+                                  tags: tags);
+                              print("Image${_image.toString()}");
+
+                              setState(() {
+                                _image = null;
+                              });
                             }
                           },
                           style: ElevatedButton.styleFrom(

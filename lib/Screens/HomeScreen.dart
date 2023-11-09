@@ -1,7 +1,7 @@
 import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/Screens/DashBoard.dart';
-import 'package:ektfaa/features/Search/ProductsCubit.dart';
-import 'package:ektfaa/features/Search/ProductsStates.dart';
+import 'package:ektfaa/features/Product/ProductsCubit.dart';
+import 'package:ektfaa/features/Product/ProductsStates.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/loading.dart';
 import 'package:flutter/material.dart';
@@ -81,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         controller: ProductsCubit.get(context).searchController,
                         cursorColor: Colors.redAccent,
                         onFieldSubmitted: (value) {
+                          const Loading();
                           ProductsCubit.get(context)
                               .searchKey
                               .currentState!
@@ -150,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               Center(
                                 child: Text(
-                                  "The product you searched for '${ProductsCubit.get(context).searchController.text}' is not subject to Ektfaa regulations, but here are the alternatives for you:",
+                                  "The product you searched for '${ProductsCubit.get(context).searchController.text}' is not subject to Ektfaa regulations, but here are the local or trusted alternatives for you:",
                                   style: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 12,
@@ -192,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             ['image'] ==
                                                         ""
                                                 ? const NetworkImage(
-                                                    'https://media.licdn.com/dms/image/D4D0BAQEOPeLwDmQsMw/company-logo_100_100/0/1698413985728?e=1707350400&v=beta&t=2k6vq52Fvw2rZg6go6UhSc1m4hbeft34gH1bI1tai6s')
+                                                    'https://firebasestorage.googleapis.com/v0/b/ektfaaorganization.appspot.com/o/1.png?alt=media&token=1ef0b8f2-00ee-46bf-85d3-799ea117ee2a')
                                                 : NetworkImage(
                                                     "${EktfaaConstants.BaseUrl}/uploads/" +
                                                         ProductsCubit.get(context)

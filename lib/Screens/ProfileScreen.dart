@@ -1,4 +1,6 @@
 import 'package:ektfaa/Components/Constants/constatnts.dart';
+import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
+import 'package:ektfaa/Screens/userUploaded.dart';
 import 'package:ektfaa/features/SignIn/sign_in_cubit.dart';
 import 'package:ektfaa/features/SignIn/sign_in_states.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
@@ -126,8 +128,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const SizedBox(
                   height: 15,
                 ),
+                // InkWell(
+                //   onTap: () {},
+                //   child: Container(
+                //     width: double.infinity, // Full width of the screen
+                //     padding: const EdgeInsets.all(10.0),
+                //     color: Colors
+                //         .transparent, // Change the background color as needed
+
+                //     child: const Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: <Widget>[
+                //         Text(
+                //           'Your Wishlist', // Text at the start
+                //           style: TextStyle(
+                //               color: Colors.black, // Text color
+                //               fontSize: 16.0,
+                //               fontWeight: FontWeight.bold),
+                //         ),
+                //         Icon(
+                //           Icons
+                //               .arrow_forward_ios_sharp, // Arrow icon at the end
+                //           color: Colors.black, // Icon color
+                //           size: 15.0, // Icon size
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 15,
+                // ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    pushAndRemoved(context, const UserUploadedProducts());
+                  },
                   child: Container(
                     width: double.infinity, // Full width of the screen
                     padding: const EdgeInsets.all(10.0),
@@ -138,7 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          'Your Wishlist', // Text at the start
+                          'Your Uploaded Products "Soon" ', // Text at the start
                           style: TextStyle(
                               color: Colors.black, // Text color
                               fontSize: 16.0,
@@ -169,38 +204,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          'Your Uploaded Products', // Text at the start
-                          style: TextStyle(
-                              color: Colors.black, // Text color
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Icon(
-                          Icons
-                              .arrow_forward_ios_sharp, // Arrow icon at the end
-                          color: Colors.black, // Icon color
-                          size: 15.0, // Icon size
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    width: double.infinity, // Full width of the screen
-                    padding: const EdgeInsets.all(10.0),
-                    color: Colors
-                        .transparent, // Change the background color as needed
-
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'Settings', // Text at the start
+                          'Settings "Soon" ', // Text at the start
                           style: TextStyle(
                               color: Colors.black, // Text color
                               fontSize: 16.0,

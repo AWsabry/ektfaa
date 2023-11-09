@@ -45,6 +45,9 @@ dependencies:
   flutter_spinkit:
   logger: ^2.0.2+1
   flutter_tags:
+  firebase_storage:
+  firebase_core:
+  intl:
    
   flutter:
     sdk: flutter
