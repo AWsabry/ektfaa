@@ -173,7 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          'Your Uploaded Products "Soon" ', // Text at the start
+                          'Your Uploaded Products', // Text at the start
                           style: TextStyle(
                               color: Colors.black, // Text color
                               fontSize: 16.0,

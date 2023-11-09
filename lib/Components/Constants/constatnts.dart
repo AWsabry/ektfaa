@@ -126,5 +126,5 @@ abstract class EktfaaConstants {
 
   // User Uploaded Screen
 
-  static String screenTitleUploadedProducts = "Your Products Upload";
+  static String screenTitleUploadedProducts = "Your Uploads";
 }

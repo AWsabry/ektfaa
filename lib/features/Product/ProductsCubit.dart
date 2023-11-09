@@ -174,7 +174,7 @@ class ProductsCubit extends Cubit<ProductsStates> {
     required String phoneNumber,
   }) async {
     userUploadedList.clear();
-    emit(newProductsStateLoading());
+    emit(UserUploadsLoading());
     Dio()
         .get("${EktfaaConstants.BaseUrl}/user_searched_products/$phoneNumber/")
         .then((value) {
@@ -185,10 +185,10 @@ class ProductsCubit extends Cubit<ProductsStates> {
         message = value.data["message"];
       }
 
-      emit(ProductSearchSuccess());
+      emit(UserUploadSuccess());
     }).catchError((error) {
       userUploadedList.clear();
-      emit(ProductSearchFail(error.toString()));
+      emit(UserUploadFailed(error.toString()));
     });
     // return data;
   }

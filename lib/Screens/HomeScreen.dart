@@ -1,5 +1,6 @@
 import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/Screens/DashBoard.dart';
+import 'package:ektfaa/Theme.dart';
 import 'package:ektfaa/features/Product/ProductsCubit.dart';
 import 'package:ektfaa/features/Product/ProductsStates.dart';
 import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
@@ -113,6 +114,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           hintText: EktfaaConstants.searchHint,
+                          hintStyle: const TextStyle(
+                              color: AppColors.grey, fontSize: 12),
+                          labelStyle: const TextStyle(
+                              color: AppColors.grey, fontSize: 10),
                           suffixIcon: Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: Container(
