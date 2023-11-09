@@ -188,15 +188,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             ['image'] ==
                                                         null ||
                                                     ProductsCubit.get(context)
-                                                                .searchedProducts[
-                                                            index]['image'] ==
+                                                                .searchedProducts[index]
+                                                            ['image'] ==
                                                         ""
-                                                ? const AssetImage(
-                                                    'assets/Images/3.png')
-                                                : AssetImage(
-                                                    ProductsCubit.get(context)
-                                                            .searchedProducts[index]
-                                                        ['image'])),
+                                                ? const NetworkImage(
+                                                    'https://media.licdn.com/dms/image/D4D0BAQEOPeLwDmQsMw/company-logo_100_100/0/1698413985728?e=1707350400&v=beta&t=2k6vq52Fvw2rZg6go6UhSc1m4hbeft34gH1bI1tai6s')
+                                                : NetworkImage(
+                                                    "${EktfaaConstants.BaseUrl}/uploads/" +
+                                                        ProductsCubit.get(context)
+                                                                .searchedProducts[index]
+                                                            ['image'])),
                                       ),
                                       const Spacer(),
                                       SizedBox(

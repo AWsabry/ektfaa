@@ -38,7 +38,6 @@ class _DashBoardState extends State<DashBoard> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.selectedIndex);
     return SafeArea(
       child: Scaffold(
         body: getFragment(),

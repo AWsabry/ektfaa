@@ -47,7 +47,7 @@ abstract class EktfaaConstants {
 
   static String onBoardingTitle3 = "Let's have our Ektfaa !";
   static String onBoardingBody3 =
-      "If the results appear, feel free to buy it, otherwise you will find the similar one.";
+      "Our Main target is to support the local brands !";
 
   // Search Hint
   static String searchHint = " Search for products";
@@ -109,6 +109,8 @@ abstract class EktfaaConstants {
   static String productEnglishNameHint = "* Please Enter Product English Name";
   static String productArabicName = "Product Arabic Name *";
   static String productArabicNameHint = "* Please Enter Product Arabic Name";
+  static String serialNumber = "Serial Number *";
+  static String serialNumberHint = "* Please Enter Product Serial Number";
   static String link = "Link (Optional)";
   static String vendor = "Vendor (Optional)";
   static String companyName = "Company (Optional)";

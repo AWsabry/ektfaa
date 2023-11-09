@@ -15,7 +15,7 @@ class OnBoardingScreen extends StatelessWidget {
           PageViewModel(
             title: EktfaaConstants.onBoardingTitle1,
             body: EktfaaConstants.onBoardingBody1,
-            image: buildImage('assets/Images/arab.png'),
+            image: buildImage('assets/Images/1.png'),
             decoration: getPageDecoration(),
           ),
           PageViewModel(
@@ -47,7 +47,7 @@ class OnBoardingScreen extends StatelessWidget {
   }
 
   Widget buildImage(String assetName, [double width = 350]) {
-    return Image.asset('assets/Images/arab.png', width: width);
+    return Image.asset('assets/Images/1.png', width: width);
   }
 
   Widget buildImage1(String assetName, [double width = 350]) {
