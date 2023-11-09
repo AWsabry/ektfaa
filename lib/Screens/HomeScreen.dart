@@ -81,7 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         controller: ProductsCubit.get(context).searchController,
                         cursorColor: Colors.redAccent,
                         onFieldSubmitted: (value) {
-                          const Loading();
                           ProductsCubit.get(context)
                               .searchKey
                               .currentState!
@@ -254,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ? Center(
                                 child: Text(EktfaaConstants.noProductsResults),
                               )
-                            : state is GetEmailFromSharedPreferenceDone
+                            : state is newProductsStateLoading
                                 ? const Center(
                                     child: Loading(),
                                   )

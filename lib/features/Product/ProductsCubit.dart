@@ -90,6 +90,7 @@ class ProductsCubit extends Cubit<ProductsStates> {
       {required File? imageFile,
       required List tags,
       required String phoneNumber}) async {
+    emit(UploadImageInitial());
     try {
       if (imageFile == null) {
         ScaffoldMessenger.of(context).showSnackBar(

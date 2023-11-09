@@ -4,6 +4,7 @@ import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:ektfaa/features/Product/ProductsCubit.dart';
 import 'package:ektfaa/features/Product/ProductsStates.dart';
+import 'package:ektfaa/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -452,33 +453,35 @@ class _AddProductsState extends State<AddProducts> {
                         height: 25,
                       ),
                       SizedBox(
-                        width: 500,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (ProductsCubit.get(context)
-                                .uploadProductFormKey
-                                .currentState!
-                                .validate()) {
-                              // Example usage
+                          width: 500,
+                          height: 50,
+                          child: state is UploadImageInitial ||
+                                  state is newProductsUploadingStateLoading ||
+                                  state is ProductUploadSuccess
+                              ? const Loading()
+                              : ElevatedButton(
+                                  onPressed: () {
+                                    if (ProductsCubit.get(context)
+                                        .uploadProductFormKey
+                                        .currentState!
+                                        .validate()) {
+                                      ProductsCubit.get(context).uploadImage(
+                                          context,
+                                          imageFile: _image,
+                                          phoneNumber: phone,
+                                          tags: tags);
+                                      print("Image${_image.toString()}");
 
-                              ProductsCubit.get(context).uploadImage(context,
-                                  imageFile: _image,
-                                  phoneNumber: phone,
-                                  tags: tags);
-                              print("Image${_image.toString()}");
-
-                              setState(() {
-                                _image = null;
-                              });
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.redAccent,
-                          ),
-                          child: Text(EktfaaConstants.uploadProduct),
-                        ),
-                      ),
+                                      setState(() {
+                                        _image = null;
+                                      });
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.redAccent,
+                                  ),
+                                  child: Text(EktfaaConstants.uploadProduct),
+                                )),
                       const SizedBox(
                         height: 20,
                       ),
