@@ -1,5 +1,4 @@
 import 'package:ektfaa/Components/Constants/constatnts.dart';
-import 'package:ektfaa/Screens/DashBoard.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:ektfaa/features/Product/ProductsCubit.dart';
 import 'package:ektfaa/features/Product/ProductsStates.dart';
@@ -39,20 +38,38 @@ class _HomeScreenState extends State<HomeScreen> {
         print(phone);
         var message = ProductsCubit.get(context).message;
         return Scaffold(
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.deepPurple,
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DashBoard(
-                            selectedIndex: 1,
-                          )));
-            },
-            child: const Icon(
-              Icons.camera,
-              color: Colors.white,
-            ),
+          floatingActionButton: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              // FloatingActionButton(
+              //   backgroundColor: Colors.black,
+              //   onPressed: () {
+              //     // push(context, const BarCode());
+              //   },
+              //   child: const Icon(
+              //     Icons.barcode_reader,
+              //     color: Colors.white,
+              //   ),
+              // ),
+              const SizedBox(
+                height: 20,
+              ),
+              FloatingActionButton(
+                backgroundColor: Colors.black,
+                onPressed: () {
+                  ProductsCubit.get(context).getSearchedProducts(
+                    context,
+                    valueRequest:
+                        ProductsCubit.get(context).searchController.text,
+                    phoneNumber: phone,
+                  );
+                },
+                child: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+              ),
+            ],
           ),
           appBar: AppBar(
             automaticallyImplyLeading: false, // Remove the back icon
@@ -78,67 +95,72 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Container(
                       padding: const EdgeInsets.only(top: 10),
-                      child: TextFormField(
-                        controller: ProductsCubit.get(context).searchController,
-                        cursorColor: Colors.redAccent,
-                        onFieldSubmitted: (value) {
-                          ProductsCubit.get(context)
-                              .searchKey
-                              .currentState!
-                              .validate();
+                      child: SizedBox(
+                        height: 50,
+                        child: TextFormField(
+                          controller:
+                              ProductsCubit.get(context).searchController,
+                          cursorColor: Colors.black,
+                          onFieldSubmitted: (value) {
+                            ProductsCubit.get(context)
+                                .searchKey
+                                .currentState!
+                                .validate();
 
-                          ProductsCubit.get(context).getSearchedProducts(
-                              context,
-                              valueRequest: ProductsCubit.get(context)
-                                  .searchController
-                                  .text,
-                              phoneNumber: phone);
-                        },
-                        onChanged: (value) {
-                          ProductsCubit.get(context).searchController.text =
-                              value;
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return EktfaaConstants.searchEmpty;
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          focusedBorder: const OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20.0)),
-                            borderSide: BorderSide(
-                              color:
-                                  Colors.grey, // Change the active border color
+                            ProductsCubit.get(context).getSearchedProducts(
+                                context,
+                                valueRequest: ProductsCubit.get(context)
+                                    .searchController
+                                    .text,
+                                phoneNumber: phone);
+                          },
+                          onChanged: (value) {
+                            ProductsCubit.get(context).searchController.text =
+                                value;
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return EktfaaConstants.searchEmpty;
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0)),
+                              borderSide: BorderSide(
+                                color: Colors
+                                    .grey, // Change the active border color
+                              ),
                             ),
-                          ),
-                          hintText: EktfaaConstants.searchHint,
-                          hintStyle: const TextStyle(
-                              color: AppColors.grey, fontSize: 12),
-                          labelStyle: const TextStyle(
-                              color: AppColors.grey, fontSize: 10),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: Container(
-                              height: 40,
-                              width: 40,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(14))),
-                              child: IconButton(
+                            hintText: EktfaaConstants.searchHint,
+                            hintStyle: const TextStyle(
+                                color: AppColors.grey, fontSize: 12),
+                            labelStyle: const TextStyle(
+                                color: AppColors.grey, fontSize: 10),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Container(
+                                height: 10,
+                                width: 10,
+                                decoration: const BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(14))),
+                                child: IconButton(
                                   color: Colors.grey,
                                   onPressed: () {
                                     ProductsCubit.get(context)
                                         .clearListOfProducts();
                                   },
-                                  icon: const Icon(Icons.close)),
+                                  icon: const Icon(Icons.close, size: 14),
+                                ),
+                              ),
                             ),
-                          ),
-                          border: const OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(13.0)),
+                            border: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(13.0)),
+                            ),
                           ),
                         ),
                       ),
@@ -207,42 +229,70 @@ class _HomeScreenState extends State<HomeScreen> {
                                       const Spacer(),
                                       SizedBox(
                                         width: 240,
-                                        child: Row(
+                                        child: Stack(
                                           children: [
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    ProductsCubit.get(context)
-                                                                .searchedProducts[
-                                                            index][
-                                                        'product_arabic_name'], // Your name in Arabic
-                                                    textAlign: TextAlign.right,
-                                                    maxLines: 3,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Text(
+                                                          ProductsCubit.get(
+                                                                      context)
+                                                                  .searchedProducts[index]
+                                                              [
+                                                              'product_english_name'],
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          maxLines: 3,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 11,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(height: 5),
+                                                      Text(
+                                                        ProductsCubit.get(
+                                                                        context)
+                                                                    .searchedProducts[
+                                                                index][
+                                                            'product_arabic_name'],
+                                                        maxLines: 4,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: const TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.grey,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Text(
-                                                    ProductsCubit.get(context)
-                                                                .searchedProducts[
-                                                            index][
-                                                        'product_english_name'], // Your description in Arabic
-                                                    maxLines: 4,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ],
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(width: 8),
+                                            const Positioned(
+                                              top: 0,
+                                              right: 0,
+                                              child: Icon(
+                                                Icons.check_circle_rounded,
+                                                color: Colors.green,
+                                                size: 12,
                                               ),
                                             ),
                                           ],
@@ -255,54 +305,68 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           )
                         : state is ProductSearchFail
-                            ? Center(
-                                child: Text(EktfaaConstants.noProductsResults),
+      
+                            ? Column(
+                                children: [
+                                  Text(EktfaaConstants.noProductsResults),
+                                  Center(
+                                    child: Text(
+                                      EktfaaConstants.searchNote,
+                                      style: const TextStyle(
+                                          color: Colors.grey, fontSize: 12),
+                                    ),
+                                  )
+                                ],
                               )
                             : state is newProductsStateLoading
                                 ? const Center(
                                     child: Loading(),
                                   )
-                                : Center(
-                                    child: ElevatedButton(
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.redAccent),
-                                        padding: MaterialStateProperty.all<
-                                            EdgeInsetsGeometry>(
-                                          const EdgeInsets.all(
-                                              16.0), // Padding around the button's content
-                                        ),
-                                        shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                10.0), // Adjust the border radius as needed
-                                            side: const BorderSide(
-                                              color: Colors.red, // Border color
-                                              width: 2.0, // Border width
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        ProductsCubit.get(context)
-                                            .getSearchedProducts(
-                                          context,
-                                          valueRequest:
-                                              ProductsCubit.get(context)
-                                                  .searchController
-                                                  .text,
-                                          phoneNumber: phone,
-                                        );
-                                      },
-                                      child: Text(
-                                        EktfaaConstants.searchHint,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ),
+                                : const SizedBox(
+                                    height: 0,
                                   ),
+
+                    // : Center(
+                    //     child: ElevatedButton(
+                    //       style: ButtonStyle(
+                    //         backgroundColor:
+                    //             MaterialStateProperty.all<Color>(
+                    //                 Colors.redAccent),
+                    //         padding: MaterialStateProperty.all<
+                    //             EdgeInsetsGeometry>(
+                    //           const EdgeInsets.all(
+                    //               16.0), // Padding around the button's content
+                    //         ),
+                    //         shape: MaterialStateProperty.all<
+                    //             RoundedRectangleBorder>(
+                    //           RoundedRectangleBorder(
+                    //             borderRadius: BorderRadius.circular(
+                    //                 10.0), // Adjust the border radius as needed
+                    //             side: const BorderSide(
+                    //               color: Colors.red, // Border color
+                    //               width: 2.0, // Border width
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //       onPressed: () {
+                    //         ProductsCubit.get(context)
+                    //             .getSearchedProducts(
+                    //           context,
+                    //           valueRequest:
+                    //               ProductsCubit.get(context)
+                    //                   .searchController
+                    //                   .text,
+                    //           phoneNumber: phone,
+                    //         );
+                    //       },
+                    //       child: Text(
+                    //         EktfaaConstants.searchButton,
+                    //         style: const TextStyle(
+                    //             fontWeight: FontWeight.w400),
+                    //       ),
+                    //     ),
+                    //   ),
 
                     const SizedBox(
                       height: 70,

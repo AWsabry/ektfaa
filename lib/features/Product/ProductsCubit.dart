@@ -20,7 +20,7 @@ class ProductsCubit extends Cubit<ProductsStates> {
   final productArabicNameController = TextEditingController();
   final descriptionController = TextEditingController();
   final serialNumberController = TextEditingController();
-  final uploadProductFormKey = GlobalKey<FormState>();
+
   final searchKey = GlobalKey<FormState>();
 
   List<dynamic> searchedProducts = [];
@@ -181,7 +181,8 @@ class ProductsCubit extends Cubit<ProductsStates> {
       if (value.statusCode == 200) {
         userUploadedList.clear();
         userUploadedList = value.data["Names"];
-      } else if (value.statusCode == 302) {
+        print(userUploadedList);
+      } else {
         message = value.data["message"];
       }
 

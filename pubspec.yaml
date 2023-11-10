@@ -47,6 +47,7 @@ dependencies:
   flutter_tags:
   firebase_storage:
   firebase_core:
+  flutter_barcode_scanner:
   intl:
    
   flutter:

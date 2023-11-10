@@ -50,14 +50,16 @@ abstract class EktfaaConstants {
       "Our Main target is to support the local brands !";
 
   // Search Hint
-  static String searchHint = " Search for products";
+  static String searchHint = " Search by Product or Company";
   static String searchButton = " Search";
   // Home title
   static String homeTitle = "Products Checker";
 
   // No Products in Search
-  static String noProductsResults =
-      "No Products exist, We are working on gathering as much data as we can.";
+  static String noProductsResults = "No Products exist\n ";
+
+  static String searchNote =
+      "We are working on gathering as much data as we can.";
 
   static String searchDescription = "Write a Product Name or Company Name";
   static String searchResultIsAvoided =

@@ -15,6 +15,7 @@ class SignInCubit extends Cubit<InitialSignInState> {
     await Dio()
         .get('${EktfaaConstants.BaseUrl}/get_user_by_phone/$phoneNumber')
         .then((value) async {
+      print(userInformation);
       userInformation = value.data["Names"];
       emit(GetUserInformationSuccessfully());
     });
