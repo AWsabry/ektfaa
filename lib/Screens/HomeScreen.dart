@@ -2,10 +2,10 @@ import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:ektfaa/features/Product/ProductsCubit.dart';
 import 'package:ektfaa/features/Product/ProductsStates.dart';
-import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
 import 'package:ektfaa/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -22,8 +22,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> fetchData() async {
-    await SignUpCubit.get(context).getPhoneFromSharedPreference();
-    phone = SignUpCubit.get(context).phoneFromSharedPreference;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      phone = prefs.getString('PhoneNumber') ?? '';
+    });
   }
 
   @override
@@ -54,21 +56,26 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 20,
               ),
-              FloatingActionButton(
-                backgroundColor: Colors.black,
-                onPressed: () {
-                  ProductsCubit.get(context).getSearchedProducts(
-                    context,
-                    valueRequest:
-                        ProductsCubit.get(context).searchController.text,
-                    phoneNumber: phone,
-                  );
-                },
-                child: const Icon(
-                  Icons.search,
-                  color: Colors.white,
+              if (state is newProductsStateLoading)
+                const SizedBox(
+                  height: 0,
+                )
+              else
+                FloatingActionButton(
+                  backgroundColor: Colors.black,
+                  onPressed: () {
+                    ProductsCubit.get(context).getSearchedProducts(
+                      context,
+                      valueRequest:
+                          ProductsCubit.get(context).searchController.text,
+                      phoneNumber: phone,
+                    );
+                  },
+                  child: const Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
             ],
           ),
           appBar: AppBar(
@@ -305,7 +312,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           )
                         : state is ProductSearchFail
-      
                             ? Column(
                                 children: [
                                   Text(EktfaaConstants.noProductsResults),

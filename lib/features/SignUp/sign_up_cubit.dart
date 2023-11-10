@@ -63,6 +63,7 @@ class SignUpCubit extends Cubit<InitialSignUpState> {
           "PhoneNumber": countryCode + phoneNumber!,
         },
       );
+      print(phoneNumber);
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       sharedPreferences.setString("PhoneNumber", countryCode + phoneNumber);

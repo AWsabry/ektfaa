@@ -3,9 +3,10 @@ import 'package:ektfaa/Components/Navigation/custom_navigate.dart';
 import 'package:ektfaa/Screens/userUploaded.dart';
 import 'package:ektfaa/features/SignIn/sign_in_cubit.dart';
 import 'package:ektfaa/features/SignIn/sign_in_states.dart';
-import 'package:ektfaa/features/SignUp/sign_up_cubit.dart';
+import 'package:ektfaa/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -16,6 +17,8 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   List data = [];
+  String phone = "";
+
   @override
   void initState() {
     super.initState();
@@ -23,17 +26,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> fetchData() async {
-    await SignUpCubit.get(context).getPhoneFromSharedPreference();
-    await SignInCubit.get(context)
-        .checkUserByPhone(SignUpCubit.get(context).phoneFromSharedPreference);
-
-    data = SignInCubit.get(context).userInformation;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      phone = prefs.getString('PhoneNumber') ?? '';
+    });
   }
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
+    SignInCubit.get(context).checkUserByPhone(phone);
     return BlocBuilder<SignInCubit, InitialSignInState>(
         builder: (context, state) {
+      if (state is LoadingInformation) {
+        isLoading = true;
+      } else if (state is GetUserInformationSuccessfully) {
+        isLoading = false;
+      } else if (state is GetUserInformationFailed) {
+        // Handle error state
+        isLoading = true;
+      }
+
       data = SignInCubit.get(context).userInformation;
       return Scaffold(
         appBar: AppBar(
@@ -65,62 +78,64 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 150,
                   ),
                 ),
-                RichText(
-                  text: TextSpan(
-                    text: 'Hello ',
-                    style: DefaultTextStyle.of(context)
-                        .style, // Default text style
-                    children: <TextSpan>[
-                      const TextSpan(
-                        text: 'World',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.redAccent,
+                if (isLoading) const Loading(),
+                if (!isLoading)
+                  RichText(
+                    text: TextSpan(
+                      text: 'Hello ',
+                      style: DefaultTextStyle.of(context)
+                          .style, // Default text style
+                      children: <TextSpan>[
+                        const TextSpan(
+                          text: 'World',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.redAccent,
+                          ),
                         ),
-                      ),
-                      const TextSpan(
-                        text: '!\n\n\n',
-                        style: TextStyle(
-                          fontStyle: FontStyle.italic,
-                          color: Colors.deepPurpleAccent,
+                        const TextSpan(
+                          text: '!\n\n\n',
+                          style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            color: Colors.deepPurpleAccent,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text:
-                            "I'm ${data[0]['first_name']} ${data[0]['last_name']}, I'm currently located in ${data[0]['Country']}, specifically in ${data[0]['city']}, there are only two genders & I'm proudly ${data[0]['gender']}, you can reach me on ${data[0]['PhoneNumber']}.\n\n",
-                        style: const TextStyle(
-                          color: Colors.black,
+                        TextSpan(
+                          text:
+                              "I'm ${data[0]['first_name']} ${data[0]['last_name']}, I'm currently located in ${data[0]['Country']}, specifically in ${data[0]['city']}, there are only two genders & I'm proudly ${data[0]['gender']}, you can reach me on ${data[0]['PhoneNumber']}.\n\n",
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                      const TextSpan(
-                        text: 'Let\'s have our ',
-                        style: TextStyle(
-                          color: Colors.black,
+                        const TextSpan(
+                          text: 'Let\'s have our ',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                      const TextSpan(
-                        text: 'Ektfaa.\n\n',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.redAccent,
+                        const TextSpan(
+                          text: 'Ektfaa.\n\n',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.redAccent,
+                          ),
                         ),
-                      ),
-                      const TextSpan(
-                        text: 'Regards, \n',
-                        style: TextStyle(
-                          color: Colors.black,
+                        const TextSpan(
+                          text: 'Regards, \n',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: data[0]['first_name'],
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                        TextSpan(
+                          text: data[0]['first_name'],
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
                 const SizedBox(
                   height: 25,
                 ),
@@ -161,7 +176,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 // ),
                 InkWell(
                   onTap: () {
-                    push(context, const UserUploadedProducts());
+                    pushAndRemoved(context, const UserUploadedProducts());
                   },
                   child: Container(
                     width: double.infinity, // Full width of the screen

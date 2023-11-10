@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/features/Product/ProductsStates.dart';
-import 'package:ektfaa/loading.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -96,7 +95,10 @@ class ProductsCubit extends Cubit<ProductsStates> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Center(
-              child: Loading(),
+              child: Text(
+                "Uploading Your Product",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         );
@@ -122,8 +124,12 @@ class ProductsCubit extends Cubit<ProductsStates> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
+            backgroundColor: Colors.black,
             content: Center(
-              child: Loading(),
+              child: Text(
+                "Uploading Your Product",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         );
