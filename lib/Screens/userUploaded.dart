@@ -29,15 +29,24 @@ class _UserUploadedProductsState extends State<UserUploadedProducts> {
     });
   }
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     ProductsCubit.get(context)
         .userUploadedProducts(context, phoneNumber: phone);
-
-    print(phone);
     return BlocBuilder<ProductsCubit, ProductsStates>(
         builder: (context, state) {
-      return Scaffold(
+      if (state is UserUploadsLoading) {
+        isLoading = true;
+      } else if (state is UserUploadSuccess) {
+        isLoading = false;
+      } else if (state is UserUploadFailed) {
+        // Handle error state
+        isLoading = true;
+      }
+
+      return SafeArea(
+        child: Scaffold(
           appBar: AppBar(
             title: Padding(
               padding: const EdgeInsets.only(top: 10),
@@ -51,82 +60,121 @@ class _UserUploadedProductsState extends State<UserUploadedProducts> {
             iconTheme: const IconThemeData(color: Colors.black),
             elevation: 0,
           ),
-          body: state is newProductsStateLoading
-              ? const Center(
-                  child: Loading(),
-                )
-              : SafeArea(
-                  child: SingleChildScrollView(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount:
-                          ProductsCubit.get(context).userUploadedList.length,
-                      itemBuilder: (context, index) {
-                        String dateString = ProductsCubit.get(context)
-                            .userUploadedList[index]['created'];
-                        DateTime dateTime = DateTime.parse(dateString);
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  if (isLoading) const Loading(),
+                  if (!isLoading)
+                    if (ProductsCubit.get(context).userUploadedList.isEmpty)
+                      Column(
+                        children: [
+                          const Text("You Didn't Upload any Products yet"),
+                          Center(
+                            child: Text(
+                              EktfaaConstants.searchNote,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 12),
+                            ),
+                          )
+                        ],
+                      )
+                    else
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount:
+                            ProductsCubit.get(context).userUploadedList.length,
+                        itemBuilder: (context, index) {
+                          String dateString = ProductsCubit.get(context)
+                              .userUploadedList[index]['created'];
+                          DateTime dateTime = DateTime.parse(dateString);
 
-                        String formattedDate =
-                            DateFormat.yMd().add_Hms().format(dateTime);
-                        return Column(
-                          children: [
-                            ListTile(
-                              title: Text(
-                                ProductsCubit.get(context)
-                                        .userUploadedList[index][
-                                    'product_arabic_name'], // Your name in Arabic
-                                textAlign: TextAlign.left,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                          String formattedDate =
+                              DateFormat.yMd().add_Hms().format(dateTime);
+                          return Column(
+                            children: [
+                              ListTile(
+                                title: Text(
+                                  ProductsCubit.get(context)
+                                          .userUploadedList[index][
+                                      'product_english_name'], // Your name in Arabic
+                                  textAlign: TextAlign.left,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  ProductsCubit.get(context)
+                                          .userUploadedList[index]
+                                      ['product_arabic_name'],
+                                  // Your description in Arabic
+                                  maxLines: 2,
+                                  textAlign: TextAlign.left,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                trailing: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    if (ProductsCubit.get(context)
+                                                .userUploadedList[index]
+                                            ['pending'] ==
+                                        true)
+                                      const Text(
+                                        'Pending',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.redAccent),
+                                      ),
+                                    if (ProductsCubit.get(context)
+                                                    .userUploadedList[index]
+                                                ['publish'] ==
+                                            true &&
+                                        ProductsCubit.get(context)
+                                                    .userUploadedList[index]
+                                                ['pending'] ==
+                                            false)
+                                      const Text(
+                                        'Published',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green),
+                                      ),
+                                    Text(
+                                      formattedDate.toString(),
+                                      style: const TextStyle(
+                                          fontSize: 10, color: Colors.grey),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              subtitle: Text(
-                                ProductsCubit.get(context)
-                                        .userUploadedList[index][
-                                    'product_english_name'], // Your description in Arabic
-                                maxLines: 2,
-                                textAlign: TextAlign.left,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 14,
+                              const Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Divider(
                                   color: Colors.grey,
                                 ),
-                              ),
-                              trailing: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  if (ProductsCubit.get(context)
-                                          .userUploadedList[index]['pending'] ==
-                                      true)
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                  const Text(
-                                    'Pending',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.redAccent),
-                                  ),
-                                  Text(formattedDate.toString()),
-                                ],
-                              ),
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: Divider(
-                                color: Colors.grey,
-                              ),
-                            )
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                ));
+                              )
+                            ],
+                          );
+                        },
+                      ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
     });
   }
 }

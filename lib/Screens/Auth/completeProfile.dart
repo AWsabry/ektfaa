@@ -525,6 +525,14 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                 .completeFormKey
                                 .currentState!
                                 .validate()) {
+                              String phoneNumber =
+                                  SignUpCubit.get(context).phoneController.text;
+                              if (phoneNumber.startsWith('0')) {
+                                phoneNumber = phoneNumber.substring(1);
+                              }
+                              SignUpCubit.get(context).phoneController.text =
+                                  phoneNumber;
+
                               SignInCubit.get(context)
                                   .checkUserByPhone(
                                       SignUpCubit.get(context).countryCode +
@@ -535,16 +543,6 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                 if (SignInCubit.get(context)
                                     .userInformation
                                     .isEmpty) {
-                                  String phoneNumber = SignUpCubit.get(context)
-                                      .phoneController
-                                      .text;
-                                  if (phoneNumber.startsWith('0')) {
-                                    phoneNumber = phoneNumber.substring(1);
-                                  }
-                                  SignUpCubit.get(context)
-                                      .phoneController
-                                      .text = phoneNumber;
-
                                   VerificationCubit.get(context).verification(
                                     context,
                                     firstName:
@@ -562,9 +560,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                         SignUpCubit.get(context).gender.text,
                                     countryCode:
                                         SignUpCubit.get(context).countryCode,
-                                    phoneNumber: SignUpCubit.get(context)
-                                        .phoneController
-                                        .text,
+                                    phoneNumber: phoneNumber,
                                   );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(

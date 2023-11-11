@@ -152,7 +152,6 @@ class _SignInState extends State<SignIn> {
                                                 .getInstance();
                                         sharedPreferences.setString(
                                             "PhoneNumber",
-                                            // ignore: use_build_context_synchronously
                                             SignUpCubit.get(context)
                                                     .countryCode +
                                                 SignUpCubit.get(context)
@@ -163,7 +162,6 @@ class _SignInState extends State<SignIn> {
                                             SignUpCubit.get(context)
                                                 .phoneController
                                                 .text);
-                                        // ignore: use_build_context_synchronously
                                         pushAndRemoved(
                                             context,
                                             DashBoard(

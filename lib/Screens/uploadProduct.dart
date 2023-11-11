@@ -11,8 +11,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class AddProducts extends StatefulWidget {
-  const AddProducts({Key? key}) : super(key: key);
-
+  const AddProducts({
+    Key? key,
+  }) : super(key: key);
   @override
   State<AddProducts> createState() => _AddProductsState();
 }
@@ -20,6 +21,8 @@ class AddProducts extends StatefulWidget {
 class _AddProductsState extends State<AddProducts> {
   File? _image;
   String phone = "";
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -79,7 +82,7 @@ class _AddProductsState extends State<AddProducts> {
             elevation: 0,
           ),
           body: Form(
-            key: ProductsCubit.get(context).uploadProductFormKey,
+            key: formKey,
             child: Center(
               child: SingleChildScrollView(
                 child: Padding(
@@ -192,6 +195,7 @@ class _AddProductsState extends State<AddProducts> {
                         height: 20,
                       ),
                       TextFormField(
+                        cursorColor: Colors.black,
                         controller: ProductsCubit.get(context)
                             .productEnglishNameController,
                         decoration: InputDecoration(
@@ -241,6 +245,7 @@ class _AddProductsState extends State<AddProducts> {
                         height: 20,
                       ),
                       TextFormField(
+                        cursorColor: Colors.black,
                         controller: ProductsCubit.get(context)
                             .productArabicNameController,
                         decoration: InputDecoration(
@@ -290,6 +295,7 @@ class _AddProductsState extends State<AddProducts> {
                         height: 20,
                       ),
                       TextFormField(
+                        cursorColor: Colors.black,
                         controller:
                             ProductsCubit.get(context).serialNumberController,
                         keyboardType: TextInputType.number,
@@ -340,6 +346,7 @@ class _AddProductsState extends State<AddProducts> {
                         height: 20,
                       ),
                       TextFormField(
+                        cursorColor: Colors.black,
                         controller: ProductsCubit.get(context).tagsController,
                         decoration: InputDecoration(
                           labelText: EktfaaConstants.tags,
@@ -415,6 +422,7 @@ class _AddProductsState extends State<AddProducts> {
                         height: 40,
                       ),
                       TextFormField(
+                        cursorColor: Colors.black,
                         maxLines: 5,
                         controller:
                             ProductsCubit.get(context).descriptionController,
@@ -461,10 +469,7 @@ class _AddProductsState extends State<AddProducts> {
                               ? const Loading()
                               : ElevatedButton(
                                   onPressed: () {
-                                    if (ProductsCubit.get(context)
-                                        .uploadProductFormKey
-                                        .currentState!
-                                        .validate()) {
+                                    if (formKey.currentState!.validate()) {
                                       ProductsCubit.get(context).uploadImage(
                                           context,
                                           imageFile: _image,

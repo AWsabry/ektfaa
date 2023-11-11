@@ -1,6 +1,6 @@
 import 'package:ektfaa/Screens/HomeScreen.dart';
 import 'package:ektfaa/Screens/ProfileScreen.dart';
-import 'package:ektfaa/Screens/addProduct.dart';
+import 'package:ektfaa/Screens/uploadProduct.dart';
 import 'package:ektfaa/Theme.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -30,6 +30,7 @@ class _DashBoardState extends State<DashBoard> {
     return const HomeScreen();
   }
 
+  bool get wantKeepAlive => true;
   @override
   void initState() {
     setStatusBarColor(Colors.transparent);
@@ -42,16 +43,15 @@ class _DashBoardState extends State<DashBoard> {
       child: Scaffold(
         body: getFragment(),
         bottomNavigationBar: Container(
-          padding: const EdgeInsets.all(15),
+          height: 63,
+          // padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withAlpha(50), //New
-                blurRadius: 25.0,
+                color: Colors.black.withAlpha(100), //New
+                blurRadius: 40.0,
               )
             ],
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(25), topRight: Radius.circular(25)),
             color: AppColors.white,
           ),
           child: BottomNavigationBar(
@@ -62,15 +62,15 @@ class _DashBoardState extends State<DashBoard> {
             items: [
               BottomNavigationBarItem(
                 icon: Image.asset('assets/Icons/Ic_Home.png',
-                        height: 24.66,
-                        width: 24.66,
+                        height: 20,
+                        width: 20,
                         fit: BoxFit.cover,
                         color: AppColors.grey)
                     .paddingTop(12),
                 label: '',
                 activeIcon: Image.asset('assets/Icons/Ic_Home.png',
-                        height: 24.66,
-                        width: 24.66,
+                        height: 20,
+                        width: 20,
                         fit: BoxFit.cover,
                         color: AppColors.redAccent)
                     .paddingTop(12),
@@ -79,15 +79,15 @@ class _DashBoardState extends State<DashBoard> {
               //
               BottomNavigationBarItem(
                 icon: Image.asset('assets/Icons/ic_share.png',
-                        height: 24.66,
-                        width: 24.66,
+                        height: 20,
+                        width: 20,
                         fit: BoxFit.cover,
                         color: AppColors.grey)
                     .paddingTop(12),
                 label: '',
                 activeIcon: Image.asset('assets/Icons/ic_share.png',
-                        height: 24.66,
-                        width: 24.66,
+                        height: 20,
+                        width: 20,
                         fit: BoxFit.cover,
                         color: AppColors.redAccent)
                     .paddingTop(12),
@@ -95,15 +95,15 @@ class _DashBoardState extends State<DashBoard> {
               //
               BottomNavigationBarItem(
                 icon: Image.asset('assets/Icons/ic_profile.png',
-                        height: 24.66,
-                        width: 24.66,
+                        height: 20,
+                        width: 20,
                         fit: BoxFit.cover,
                         color: AppColors.grey)
                     .paddingTop(12),
                 label: '',
                 activeIcon: Image.asset('assets/Icons/ic_profile.png',
-                        height: 24.66,
-                        width: 24.66,
+                        height: 20,
+                        width: 20,
                         fit: BoxFit.cover,
                         color: AppColors.redAccent)
                     .paddingTop(12),

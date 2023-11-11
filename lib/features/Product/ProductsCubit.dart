@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:ektfaa/Components/Constants/constatnts.dart';
 import 'package:ektfaa/features/Product/ProductsStates.dart';
-import 'package:ektfaa/loading.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +19,7 @@ class ProductsCubit extends Cubit<ProductsStates> {
   final productArabicNameController = TextEditingController();
   final descriptionController = TextEditingController();
   final serialNumberController = TextEditingController();
-  final uploadProductFormKey = GlobalKey<FormState>();
+
   final searchKey = GlobalKey<FormState>();
 
   List<dynamic> searchedProducts = [];
@@ -96,7 +95,10 @@ class ProductsCubit extends Cubit<ProductsStates> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Center(
-              child: Loading(),
+              child: Text(
+                "Uploading Your Product",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         );
@@ -122,8 +124,12 @@ class ProductsCubit extends Cubit<ProductsStates> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
+            backgroundColor: Colors.black,
             content: Center(
-              child: Loading(),
+              child: Text(
+                "Uploading Your Product",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         );
@@ -174,21 +180,22 @@ class ProductsCubit extends Cubit<ProductsStates> {
     required String phoneNumber,
   }) async {
     userUploadedList.clear();
-    emit(newProductsStateLoading());
+    emit(UserUploadsLoading());
     Dio()
         .get("${EktfaaConstants.BaseUrl}/user_searched_products/$phoneNumber/")
         .then((value) {
       if (value.statusCode == 200) {
         userUploadedList.clear();
         userUploadedList = value.data["Names"];
-      } else if (value.statusCode == 302) {
+        print(userUploadedList);
+      } else {
         message = value.data["message"];
       }
 
-      emit(ProductSearchSuccess());
+      emit(UserUploadSuccess());
     }).catchError((error) {
       userUploadedList.clear();
-      emit(ProductSearchFail(error.toString()));
+      emit(UserUploadFailed(error.toString()));
     });
     // return data;
   }

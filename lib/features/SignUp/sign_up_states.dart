@@ -7,9 +7,9 @@ class SignUpSuccessfull extends SuperSignUpState {
 }
 
 class SignUpFailed extends SuperSignUpState {
-  final String errpr;
+  final String error;
 
-  SignUpFailed({required this.errpr});
+  SignUpFailed({required this.error});
 }
 
 class ChangeCountryCodeSuccessfully extends SuperSignUpState {}
