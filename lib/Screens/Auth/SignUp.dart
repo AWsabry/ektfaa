@@ -246,7 +246,7 @@ class _SignUpState extends State<SignUp> {
                                 .formkey
                                 .currentState!
                                 .validate()) {
-                              push(
+                              pushScreen(
                                   context,
                                   CompleteProfile(
                                     email: SignUpCubit.get(context)

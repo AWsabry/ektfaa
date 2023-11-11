@@ -60,7 +60,7 @@ class _OTP_VerificationState extends State<OTP_Verification> {
                 child: Column(
                   children: [
                     const Image(
-                      image: AssetImage("assets/Images/arab.png"),
+                      image: AssetImage("assets/Images/1.png"),
                     ),
                     Text(
                       EktfaaConstants.enterCode,

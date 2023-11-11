@@ -68,7 +68,8 @@ class _UserUploadedProductsState extends State<UserUploadedProducts> {
                 children: [
                   if (isLoading) const Loading(),
                   if (!isLoading)
-                    if (ProductsCubit.get(context).userUploadedList.isEmpty)
+                    if (ProductsCubit.get(context).userUploadedList.isEmpty ||
+                        ProductsCubit.get(context).userUploadedList == [])
                       Column(
                         children: [
                           const Text("You Didn't Upload any Products yet"),

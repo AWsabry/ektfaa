@@ -333,14 +333,6 @@ class _AddProductsState extends State<AddProducts> {
                           ),
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return EktfaaConstants.serialNumberHint;
-                          }
-
-                          // Return null if the entered email is valid
-                          return null;
-                        },
                       ),
                       const SizedBox(
                         height: 20,

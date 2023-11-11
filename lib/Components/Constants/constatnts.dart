@@ -111,7 +111,7 @@ abstract class EktfaaConstants {
   static String productEnglishNameHint = "* Please Enter Product English Name";
   static String productArabicName = "Product Arabic Name *";
   static String productArabicNameHint = "* Please Enter Product Arabic Name";
-  static String serialNumber = "Serial Number *";
+  static String serialNumber = "Serial Number (Optional)";
   static String serialNumberHint = "* Please Enter Product Serial Number";
   static String link = "Link (Optional)";
   static String vendor = "Vendor (Optional)";

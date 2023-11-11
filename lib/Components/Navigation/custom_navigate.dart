@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 void pushAndRemoved(context, widget) => Navigator.pushAndRemoveUntil(
     context, MaterialPageRoute(builder: (context) => widget), (route) => false);
 
-void push(context, widget,
+void pushScreen(context, widget,
     {Duration duration = const Duration(seconds: 0),
     Curve curves = Curves.ease,
     bool isSlideTransition = false}) {
