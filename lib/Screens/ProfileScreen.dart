@@ -177,7 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   // ),
                   InkWell(
                     onTap: () {
-                      pushe(context, const UserUploadedProducts());
+                      pushScreen(context, const UserUploadedProducts());
                     },
                     child: Container(
                       width: double.infinity, // Full width of the screen
